@@ -1,5 +1,17 @@
+// GLOBAL VARIABLES
+:root{
+  //DEFAULT THEME
+  --bg-dark: #141414;
+  --bg-surface: #dddddd;
+  --primary-color: #00ff82;
+  --secondary-color: #8a2be2; //COMPLEMENTARY COLOR
+  --text-dark: #141414;
+  --icons-white: #ffffff;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', Arial, sans-serif;
 }

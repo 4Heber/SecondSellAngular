@@ -1,8 +1,9 @@
 header {
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: gray;
+  background-color: var(--bg-dark);
   justify-items: center;
   height: 100%;
   padding-bottom: 1rem;
@@ -23,6 +24,7 @@ header {
       gap: 5px;
       height: 100%;
       width: 20%;
+      z-index: 999;
 
       .linear {
         height: 3px;
@@ -30,81 +32,82 @@ header {
         border: none;
         transition: all;
         transition-duration: 500ms;
-        background-color: black;
+        background-color: var(--icons-white);
       }
 
-    }
-
-    .h-logo {
-      background-color: white;
-      border: 1px solid black;
-      padding: 1.5%;
-      padding-inline: 8%;
-      font-size: 1.1rem;
-      border-radius: 5px;
     }
 
     .h-svg {
       display: flex;
-      gap: 20px
-    }
-  }
-
-  .h-input {
-    background-color: white;
-    align-self: center;
-    border: 1px solid black;
-    padding: 0.5rem;
-    max-height: 2.2rem;
-    width: 90%;
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: 10px 30px 1fr;
-    border-radius: 5px;
-    opacity: 100%;
-
-    input {
-      align-self: center;
-      grid-column-start: 1;
-      grid-column-end: -1;
-      grid-row-start: 1;
-      border: none;
-      width: 100%;
-      outline: none;
-      z-index: 50;
-      background-color: transparent;
-
-      &:focus {
-        border: none;
-      }
-
-      &:active {
-        border: none;
+      gap: 20px;
+      
+      svg path{
+        fill: var(--icons-white);
       }
     }
 
-    svg {
-      grid-column-start: 2;
-      justify-self: start;
-      grid-row-start: 1;
-      width: 20px;
-      height: 20px;
-      align-self: center;
-      opacity: 100%;
-    }
+    #searchbar-container{
+      position: absolute;
+      z-index: 100;
+      width: 90%;
+      top: 85%;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: start;
+      background-color: #fff;
 
-    span {
-      align-self: center;
-      justify-self: start;
-      grid-column-start: 3;
-      grid-column-end: -1;
-      grid-row-start: 1;
-      width: 100%;
-      opacity: 60%;
+      input{
+        width: 82%;
+        height: 2rem;
+        padding-left: 3rem;
+        border: none;
+        border-radius: 4px;
+        outline: 2px solid var(--bg-dark);
+        transition: all ease-in 150ms;
+        
+        &:focus,
+        &:active{
+          outline: 2px solid var(--primary-color);
+        }
+      }
+      svg{
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 24px;
+        height: 24px;
+      }
+      
+      #dropdown-content{
+        display: none;
+        flex-flow: column nowrap;
+        width: 100%;
+        max-height: 380px;
+        margin-top: 8px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        box-shadow: 6px 6px 8px rgba($color: #000000, $alpha: 0.2);
+        a{
+          width: 100%;
+          text-decoration: none;
+          padding: 0.5rem 0 0.5rem 1rem;
+          border-bottom: 1px solid #cccccc;
+          color: var(--text-dark);
+          transition: all ease-in 150ms;
+          letter-spacing: 1px;
+          font-weight: bold;
+          cursor: pointer;
+          
+          &:hover{
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--secondary-color);
+          }
+        }
+      }
     }
   }
-
-
 }
 
 nav {

@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
       this.nav = false
       document.getElementById("nav")!.style.height = "0"
+      document.getElementById("searchbar-container")!.style.display = "flex";
       // ESTILOS X
       document.getElementById("line1")!.style.transform = "rotate(0deg)"
       document.getElementById("line2")!.style.display = "block"
@@ -36,6 +37,7 @@ export class HeaderComponent implements OnInit {
 
       // NAV
       document.getElementById("nav")!.style.height = "max-content"
+      document.getElementById("searchbar-container")!.style.display = "none";
     }
 
   }
