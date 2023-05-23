@@ -97,6 +97,7 @@ header {
           color: var(--text-dark);
           transition: all ease-in 150ms;
           letter-spacing: 1px;
+          font-size: 14px;
           font-weight: bold;
           cursor: pointer;
           
@@ -116,7 +117,7 @@ nav {
   overflow: hidden;
   transition: all;
   transition-duration: 100ms;
-  background-color: white;
+  background-color: var(--bg-light);
   width: 100%;
   opacity: 100%;
   z-index: 100;
@@ -126,33 +127,51 @@ nav {
   }
 
   .n-button-v {
-    font-size: 1.2rem;
-    background-color: gray;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    background-color: var(--primary-color);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.6rem;
     border-radius: 5px;
-    color: white;
+    color: var(--text-dark);
     margin-bottom: 1rem;
+    cursor: pointer;
+    border: 2px solid var(--primary-color);
+    transition: all ease-in 150ms;
+    
+    &:hover{
+      border: 2px solid var(--text-dark);
+      background-color: transparent;
+    }
   }
 
   .n-button-r {
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.6rem;
     border-radius: 5px;
-    border: 1px solid gray;
-    color: gray;
+    border: 2px solid var(--text-dark);
+    color: var(--text-dark);
     margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all ease-in 150ms;
+    
+    &:hover{
+      border: 2px solid var(--primary-color);
+      background-color: var(--primary-color);
+    }
   }
 
   .n-section {
     margin-top: 1rem;
-    opacity: 70%;
 
     .n-section-introducer-cont {
       display: flex;
@@ -160,62 +179,82 @@ nav {
       gap: 10px;
 
       .n-section-introducer {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        font-weight: bold;
+        text-transform: uppercase;
         min-width: max-content;
+        color: var(--text-dark);
       }
-
-
     }
 
     .lang {
       display: flex;
       justify-content: center;
       flex-direction: column;
+      padding-top: 1rem;
 
       .h-lang-cont {
         display: flex;
         justify-content: center;
         gap: 10px;
+        margin-bottom: 8rem;
       }
 
       .h-lang {
-        background-color: hsl(0, 0%, 50%, 0.4);
-        padding-block: 0.2rem;
-        padding-inline: 0.5rem;
+        position: relative;
         height: max-content;
+        cursor: pointer;
+
+        &:hover{
+          transform: scale(1.2);
+        }
       }
 
     }
 
     .n-section-content {
-      margin-inline: 5%;
       margin-bottom: 0.2rem;
-
+      
       .n-url-name {
         min-width: fit-content;
+        margin-left: 8px;
         font-size: 1rem;
+        letter-spacing: 1px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-      }
+        color: var(--secondary-color);
+        cursor: pointer;
+        border-bottom: 1px solid var(--bg-light);
+        transition: all ease-in 150ms;
+        
+        &:hover{
+          border-bottom: 1px solid var(--secondary-color);
+        }
 
-      .line {
-        margin-top: -10px;
-        opacity: 20%
+        svg{
+          transition: all ease-in-out 150ms;
+        }
+
+        &:hover svg{
+          transform: translateX(-1rem);
+        }
+      }
+      
+      &:first-child{
+        border-top: 1px solid var(--text-dark);
       }
 
       .h-copy {
         align-self: center;
+        font-size: 14px;
       }
     }
   }
-}
 
-
-// GENERAL STYLES
-
-.line {
-  background-color: black;
-  width: 100%;
-  height: 1px;
+  // PERFIL - HIDDEN IF NO SESSION ACTIVE
+  #perfil-section{
+    display: none;
+  }
 }
