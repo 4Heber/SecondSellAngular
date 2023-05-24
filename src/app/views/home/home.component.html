@@ -1,10 +1,7 @@
 <!--PRIMERA SECCIÓN-->
 <section class="f-h">
   <div>
-    <span>
-      Lorem ipsum dolor sit amet,consectetur adiscing elit.
-    </span>
-    <div></div>
+    <h1>Descubre cómo la informática de segunda mano abre un mundo de posibilidades al darle una segunda vida a tus dispositivos electrónicos</h1>
   </div>
   <input routerLink="/upload" type="button" value="Vender Artículo" />
   <a href="">¿Cómo funciona?</a>
@@ -12,18 +9,21 @@
 <!--FIN PRIMERA SECCIÓN-->
 <!--DESCUBRE POR CATEGORIA-->
 <section>
-  <span>Descubre por categoría</span>
+  <h2>Descubre por categoría</h2>
   <section id="categories">
-    <div *ngFor="let category of categories | category: pagination.categorySize">
-      <div></div>
+    <a *ngFor="let category of categories | category: pagination.categorySize" href="http://localhost:3000/categories?name={{category.name}}">
+      <div>
+        <img src={{category.img_url}} alt="{{category.name}}">
+      </div>
       <p>{{category.name}}</p>
-    </div>
+    </a>
     <div *ngFor="let blank of pagination.categroyBlank">
       <div></div>
       <p></p>
     </div>
   </section>
-  <div id="show"><input type="button" (click)="showCategories()" value="Ver Todas">
+  <div id="show">
+    <input type="button" (click)="showCategories()" value="Ver Todas">
   </div>
 
 </section>

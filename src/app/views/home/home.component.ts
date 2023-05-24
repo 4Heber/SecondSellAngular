@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   public categories: Category[] = []
   public pagination: Pagination = {} as Pagination
 
-  private readonly categorySize = 8
+  private readonly categorySize = 6
   private categoryBlank: number[] = []
 
   constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService) {

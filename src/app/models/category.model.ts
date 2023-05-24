@@ -3,4 +3,5 @@ export interface Category {
   upadted_at: Date;
   name: string;
   description: string;
+  img_url: string;
 }

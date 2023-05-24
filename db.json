@@ -15,5 +15,67 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Ordenadores",
+      "img_url": "../../../assets/icons/categories/computer-case.png"
+    },
+    {
+      "id": 2,
+      "name": "Portátiles",
+      "img_url": "../../../assets/icons/categories/laptop.png"
+    },
+    {
+      "id": 3,
+      "name": "Smartphones",
+      "img_url": "../../../assets/icons/categories/mobile-phone.png"
+    },
+    {
+      "id": 4,
+      "name": "Tables/Ebooks",
+      "img_url": "../../../assets/icons/categories/tablet.png"
+    },
+    {
+      "id": 5,
+      "name": "Componentes",
+      "img_url": "../../../assets/icons/categories/components-cubes.png"
+    },
+    {
+      "id": 6,
+      "name": "Gaming",
+      "img_url": "../../../assets/icons/categories/gaming.png"
+    },
+    {
+      "id": 7,
+      "name": "Oficina",
+      "img_url": "../../../assets/icons/categories/office.png"
+    },
+    {
+      "id": 8,
+      "name": "Redes/Cables",
+      "img_url": "../../../assets/icons/categories/internet.png"
+    },
+    {
+      "id": 9,
+      "name": "Almacenamiento",
+      "img_url": "../../../assets/icons/categories/hard-drive.png"
+    },
+    {
+      "id": 10,
+      "name": "Periféricos",
+      "img_url": "../../../assets/icons/categories/keyboard-and-mouse.png"
+    },
+    {
+      "id": 11,
+      "name": "Televisores",
+      "img_url": "../../../assets/icons/categories/television.png"
+    },
+    {
+      "id": 12,
+      "name": "Audio/Video",
+      "img_url": "../../../assets/icons/categories/multimedia-file.png"
+    }
+  ]
 }
