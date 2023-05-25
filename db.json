@@ -1,4 +1,26 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "name": "Thomas",
+      "lastname": "Anderson",
+      "username": "Neo",
+      "email": "followthewhiterabbit@matrix.com",
+      "password": "wakeup",
+      "photo": "",
+      "token": ""
+    },
+    {
+      "id": 2,
+      "name": "",
+      "lastname": "Anderson",
+      "username": "Neo",
+      "email": "followthewhiterabbit@matrix.com",
+      "password": "wakeup",
+      "photo": "",
+      "token": ""
+    }
+  ],
   "posts": [
     {
       "id": 1,
@@ -76,6 +98,136 @@
       "id": 12,
       "name": "Audio/Video",
       "img_url": "../../../assets/icons/categories/multimedia-file.png"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 2
+    },
+    {
+      "id": 3,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 1
+    },
+    {
+      "id": 4,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 2
+    },
+    {
+      "id": 5,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 1
+    },
+    {
+      "id": 6,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 2
+    },
+    {
+      "id": 7,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 1
+    },
+    {
+      "id": 8,
+      "created_at": "",
+      "updated_at": "",
+      "name": "Samsung Galaxy S23 Ultra",
+      "description": "",
+      "state": "",
+      "photo": [
+        "../../../assets/images/products_test/samsung-galaxy-s23-ultra-1gb.png",
+        ""
+      ],
+      "price": "1,300",
+      "categoryId": 3,
+      "active": true,
+      "userId": 2
     }
   ]
 }
