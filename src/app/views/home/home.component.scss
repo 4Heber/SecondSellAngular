@@ -44,7 +44,7 @@ $shadow-1: 6px 6px 12px rgba(0,0,0,0.2);
   background-size: 180%;
   background-position-x: left;
   background-position-y: top;
-  animation: bg-img-zoom 60s 1s infinite;
+  animation: bg-img-zoom 120s 1s infinite;
 
   div{
     padding: 3rem 1rem 3rem 1rem;
@@ -388,14 +388,14 @@ $shadow-1: 6px 6px 12px rgba(0,0,0,0.2);
 
     div {
       // align-self: center;
-      justify-content: center;
+      justify-content: space-around;
       display: flex;
       align-items: center;
       margin-bottom: 1rem;
 
       span {
         font-weight: normal;
-        font-size: var(--sm-mobile);
+        font-size: var(--md-mobile);
         color: var(--text-dark);
       }
 
