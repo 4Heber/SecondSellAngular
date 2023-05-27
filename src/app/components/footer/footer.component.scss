@@ -84,3 +84,78 @@ footer {
     }
   }
 }
+
+/* ----MEDIA QUERIRES SECTION----
+
+BREAKPOINTS:
+  min-height: 768px
+
+
+*/
+@media screen and (min-width: 767px){
+
+  footer{
+    .logo-social{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 2rem 8rem;
+
+      .socialmedia{
+        margin-top: 1rem;
+
+        a{
+          width: 32px;
+          transition: all ease-in 150ms;
+
+          &:hover svg{
+            fill: var(--secondary-color);
+          }
+
+          svg{
+            width: 42px;
+            fill: var(--text-light);
+          }
+        }
+      }
+    }
+
+    .links{
+      flex-flow: row nowrap;
+      align-items: start;
+      justify-content: space-around;
+      padding: 0 2rem;
+  
+      article{
+        h3{
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .flags{
+      margin: 1rem 1rem 0 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--text-light);
+      text-align: center;
+      
+      .flags-container{
+        padding: 0 8rem 0;
+
+        div{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+          cursor: pointer;
+        }
+      }
+      p{
+        color: var(--text-light);
+        font-size: var(--sm-mobile);
+        margin: 0;
+        padding-bottom: 1rem;
+      }
+    }
+  }
+}
