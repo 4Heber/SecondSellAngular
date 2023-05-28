@@ -9,7 +9,7 @@
     <!-- LOGOTYPE -->
     <span routerLink="/"><img src="../../../assets/images/logotype_white_green.png" alt="Second-sell-logotype" width="80"></span>
     <!-- USER ICON & SHOPPING BAG -->
-    <div class="h-svg">
+    <div class="h-svg"><!-- Display none if no session active -->
       <svg routerLink="/profile" width="20" height="22" viewBox="0 0 20 22" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -23,6 +23,16 @@
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M8 1H16V7H22V23H2V7H8V1ZM8 9V12H10V9H14V12H16V9H20V21H4V9H8ZM14 7H10V3H14V7Z" fill="#141414" />
       </svg>
+    </div>
+
+    <!-- LOGIN/REGISTER BUTTONS / Display none if session active -->
+    <div class="registerLoginBttns">
+      <div routerLink="/register" id="registerBttn">
+        <p>Registrarse</p>
+      </div>
+      <div routerLink="/login" id="loginBttn">
+        <p>Iniciar sesion</p>
+      </div>
     </div>
 
     <!-- SEARCH BAR INPUT -->

@@ -463,7 +463,8 @@ $shadow-1: 6px 6px 12px rgba(0,0,0,0.1);
 
 BREAKPOINTS:
   min-height: 768px
-
+  min-height: 1024px
+  min-height: 1440px
 
 */
 @media screen and (min-width: 767px){
@@ -533,7 +534,7 @@ BREAKPOINTS:
     }
   }
 
-  //THIRD PART SECTION
+  //THIRD PART SECTION / ARTICULOS POPULARES SLIDER
   .f-h+section+section {
   margin-top: 2rem;
   padding: 0 1rem;
@@ -588,4 +589,63 @@ BREAKPOINTS:
       div{ height: 2rem; }
       a{ font-size: 1.2rem;}
   }
+}
+@media screen and (min-width: 1024px){
+
+    // FIRST SECTION / BANNER
+    .f-h{
+      height: 340px;
+      background-size: 140%;
+      animation: bg-img-zoom 120s 1s infinite;
+      margin-bottom: 6rem;
+  
+      div{
+        div{
+          h1{
+            font-size: 2.6rem;
+            line-height: 3.2rem;
+            user-select: none;
+          }
+        }
+      }
+      input{
+        font-size: 1.2rem;
+        width: 54%;
+      }
+      input+a{ font-size: 1.2rem; }
+    }
+
+    //SECOND PART / DESCUBRE POR CATEGORIA
+    .f-h+section {
+      h2{
+        font-size: 1.6rem;
+      }
+      section+div{
+        margin-top: -8rem;
+      }
+    }
+
+    //THIRD PART SECTION / ARTICULOS POPULARES SLIDER
+    .f-h+section+section {
+        h2{
+          font-size: 1.6rem;
+        }
+    }
+
+    //FOURTH SECTION / PUBLICADOS RECIENTEMENTE
+    .f-h+section+section+section {
+      h2{
+        font-size: 1.6rem;
+      }
+    }
+
+    //FIVETH SECTION / PASOS PARA PUBLICAR
+    .f-h+section+section+section+section {
+      .steps{
+        font-size: 1.6rem;
+      }
+    }
+}
+@media screen and (min-width: 1440px){
+  
 }

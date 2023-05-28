@@ -79,3 +79,14 @@ section {
     }
   }
 }
+
+@media screen and (min-width: 1024px){
+  section{
+    flex-wrap: wrap;
+    justify-content: center;
+
+    div{
+      grid-template-columns: 1fr;
+    }
+  }
+}

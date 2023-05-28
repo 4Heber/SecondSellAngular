@@ -16,6 +16,8 @@ header {
     width: 90%;
     justify-content: space-between;
 
+    .registerLoginBttns{ display: none; }
+
     .h-menu {
       align-self: center;
       display: flex;
@@ -263,5 +265,108 @@ nav {
   // PERFIL - HIDDEN IF NO SESSION ACTIVE
   #perfil-section{
     display: none;
+  }
+}
+
+/* ----MEDIA QUERIRES SECTION----
+
+BREAKPOINTS:
+  min-height: 768px
+  min-height: 1024px
+
+
+*/
+@media screen and (min-width: 767px){
+  header{
+    .h-p1{
+      .h-svg{
+        display: none;
+      }
+
+      // Logotype
+      span{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .registerLoginBttns{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+        #registerBttn,
+        #loginBttn{
+          background-color: transparent;
+          padding: 0 1rem;
+          border-radius: 4px;
+          border: 2px solid var(--text-light);
+
+          p{
+            color: var(--text-light);
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all ease-in 150ms;
+          }
+        }
+        #registerBttn{ 
+          border-right: none;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          padding-right: 0.5rem;
+          transition: all ease-in 150ms;
+          cursor: pointer;
+          &:hover{ border-color: var(--primary-color); }
+          // &:hover p{ color: var(--primary-color) }
+        }
+        #loginBttn{
+          border-left: none;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          padding-left: 0.5rem;
+          transition: all ease-in 150ms;
+          cursor: pointer;
+          &:hover{ border-color: var(--secondary-color); }
+          // &:hover p{ color: var(--secondary-color) }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px){
+  header{
+    .h-p1{
+      .h-menu{
+        display: none;
+      }
+
+      .h-svg{
+        display: none;
+      }
+
+      // Logotype
+      span{
+        position: relative;
+        left: 2rem;
+      }
+
+      #searchbar-container{
+        .searchbar-box{
+          width: 75%;
+
+          input{
+            font-size: 1rem;
+          }
+          svg{
+            left: 20%;
+          }
+        }
+
+        #dropdown-content{
+          width: 54%;
+        }
+      }
+    }
   }
 }
