@@ -1,0 +1,370 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  background-color: rgba(128, 128, 128, 0.21);
+  padding: 4%;
+  min-height: 100vh;
+
+  .p-user {
+    margin-top: 2rem;
+    background: #304352;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #d7d2cc, #304352);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #d7d2cc, #304352);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+    height: 15rem;
+
+    .p-user-like-share {
+      display: flex;
+      gap: 10px;
+      align-self: flex-end;
+
+      svg {
+        width: 24px;
+      }
+    }
+
+    .p-user-card {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+
+      .p-user-img-profile {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 100%;
+        background-color: black;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .p-user-name-rate {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+
+        .p-user-username {
+          font-size: 1.2rem;
+        }
+
+      }
+
+      .p-user-rate {
+        display: flex;
+        gap: 2px;
+
+        svg {
+          width: 15px;
+
+        }
+      }
+
+      .valoration {
+        font-size: 0.9rem;
+        opacity: 50%;
+      }
+
+
+    }
+
+    .p-user-stats-eng {
+      margin-top: 1rem;
+      align-self: center;
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .p-user-trusted-info {
+
+      height: 100%;
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 20px;
+
+      .p-user-info-col-1 {
+        grid-column-start: 1;
+        grid-column-end: -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 30px
+      }
+
+
+    }
+
+    .p-user-stats-section {
+      gap: 5px;
+      display: flex;
+      align-items: center;
+
+      svg {
+        width: 24px;
+      }
+    }
+  }
+
+  .p-user-location {
+    margin-top: 1rem;
+    display: flex;
+    gap: 10px
+  }
+
+  .p-user-joined {
+    display: flex;
+    gap: 5px;
+    margin-top: 1rem;
+    align-items: center;
+
+
+    svg {
+      opacity: 60%;
+      width: 24px;
+    }
+  }
+
+}
+
+.select-user-component {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+
+  .user-cm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+
+  }
+
+}
+
+.selected {
+  p {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+
+  .user-sel {
+    margin-top: 5px;
+    height: 5px;
+    border-radius: 10px;
+    width: 100%;
+    background-color: gray;
+  }
+}
+
+.p-user-content {
+  margin-top: 1rem;
+
+  .p-product-card {
+    margin-top: 1rem;
+    height: 25rem;
+    overflow: hidden;
+    border: 1px solid black;
+
+    .p-product-card-img {
+      width: 100%;
+      height: 18rem;
+      overflow: hidden;
+
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    .p-product-card-name-like {
+      margin-inline: 5%;
+      margin-top: 3%;
+      display: flex;
+      height: 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+
+      SVG {
+        width: 24px;
+      }
+    }
+
+    .p-product-card-description {
+      opacity: 60%;
+      margin-inline: 5%;
+    }
+
+    .p-product-card-date {
+      width: 95%;
+      text-align: end;
+      font-size: 0.7rem;
+      opacity: 50%;
+    }
+
+  }
+}
+
+.p-info-card {
+  margin: 5%;
+
+  .p-info-cnt {
+    margin-top: 2rem;
+  }
+
+  .p-info-location {
+    margin-top: 1rem;
+    width: 100%;
+    height: 10rem;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+}
+
+.p-rating-card {
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 8rem;
+  width: 100%;
+  overflow-x: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 5%;
+
+  .image-cont {
+    height: 4rem;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: end;
+
+    .p-rating-user-rater {
+      height: 2rem;
+      width: 2rem;
+      align-self: end;
+
+      div {
+        position: absolute;
+        border: 1px solid black;
+        background-color: black;
+        height: 2rem;
+        width: 2rem;
+        border-radius: 100%;
+        margin-left: 1%;
+        margin-top: 1%;
+      }
+    }
+  }
+
+  .p-grid {
+    grid-column-start: 2;
+    grid-column-end: 5;
+  }
+
+  .p-rating-product-description {
+
+    grid-column-start: 2;
+    grid-column-end: -1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+    justify-items: center;
+    gap: 5px;
+
+    span {
+      opacity: 60%;
+      font-size: 0.9rem;
+    }
+
+    div {
+      display: flex;
+      gap: 2px;
+
+      svg {
+        width: 15px;
+      }
+    }
+  }
+
+  .p-rating-product-date {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    margin-left: 5%;
+    align-items: center;
+    margin-top: 1rem;
+
+    span {
+      opacity: 60%;
+      font-size: 0.8rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.bold-title {
+  font-weight: bold;
+}
+
+.soft-subtitle {
+  opacity: 70%;
+  font-size: 0.9rem;
+}
+
+
+.p-user-trusted-col-2 {
+  position: absolute;
+  margin-top: -1rem;
+  height: 6rem;
+  width: 6rem;
+  display: flex;
+
+
+  background-color: transparent;
+  margin-left: -5%;
+  margin-top: -5%;
+  font-size: 0.8rem;
+  padding-inline: 2rem;
+  overflow: hidden;
+
+  div {
+    transform: rotate(-45deg);
+    background-color: white;
+    width: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -60%;
+    margin-top: 15%;
+    height: 2rem;
+    position: absolute;
+  }
+}

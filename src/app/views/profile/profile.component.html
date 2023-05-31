@@ -1,0 +1,374 @@
+<section class="c-eng">
+  <section class="user-pf" (click)="toggleEditProfileModal('show_profile_modal')">
+    <div class="u-rate">
+      <div class="user-def">
+        <div class="profile-img-container">
+          <!-- DEFAULT ICON -->
+            <!-- <svg routerLink="/profile" width="55" height="55" viewBox="0 0 20 22" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M5 5C5 2.23858 7.23858 0 10 0C12.7614 0 15 2.23858 15 5C15 7.76142 12.7614 10 10 10C7.23858 10 5 7.76142 5 5ZM10 2C8.34315 2 7 3.34315 7 5C7 6.65685 8.34315 8 10 8C11.6569 8 13 6.65685 13 5C13 3.34315 11.6569 2 10 2Z"
+              fill="#141414" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M0 21C0 15.4772 4.47715 11 10 11C15.5228 11 20 15.4772 20 21V22H0V21ZM2.06189 20H17.9381C17.446 16.0537 14.0796 13 10 13C5.92038 13 2.55399 16.0537 2.06189 20Z"
+              fill="#141414" />
+          </svg> -->
+
+          <!-- USER PROFILE IMAGE -->
+          <img src="../../../assets/images/grafic_card_vertical.jpg" alt="Subir foto">
+        </div>
+        <div class="user-inf">
+          <p>Username</p>
+
+
+          <div class="prate">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+              </path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+              </path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+              </path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+              </path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+              </path>
+            </svg>
+          </div>
+        </div>
+
+
+      </div>
+      <svg class="edit-pf" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M19 0.58577L23.4143 5.00002L5.41426 22.9991H1.00085V18.5858L19 0.58577ZM15.5002 6.91431L3.00085 19.4142L3.00086 20.9991L4.58586 20.9991L17.0857 8.49989L15.5002 6.91431ZM18.5 7.08571L16.9143 5.50006L19.0001 3.41423L20.5858 4.99998L18.5 7.08571Z"
+          fill="#3E3E3E" />
+        <path d="M22.9998 23L10.9998 23V21L22.9998 21V23Z" fill="#3E3E3E" />
+      </svg>
+    </div>
+
+  </section>
+  
+  <section class="profile-options">
+    <!-- Buzón de mensajes -->
+    <div class="ss-card-opt" routerLink="#">
+      <div class="ss-card-opt-f">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M0.999878 3H22.9999L22.9994 13.0001L20.9994 12.9999L20.9997 8.92077L11.9999 15.2207L2.99988 8.92066V19H12.9999V21H0.999878V3ZM2.99988 6.47934L11.9999 12.7793L20.9999 6.47934V5H2.99988V6.47934Z"
+            fill="#3E3E3E" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M21.5809 20.1619C21.8482 19.6675 21.9999 19.1015 21.9999 18.5C21.9999 16.567 20.4329 15 18.4999 15C16.5669 15 14.9999 16.567 14.9999 18.5C14.9999 20.433 16.5669 22 18.4999 22C19.1039 22 19.6722 21.847 20.1682 21.5776L21.9961 23.4143L23.4137 22.0034L21.5809 20.1619ZM18.4999 17C17.6715 17 16.9999 17.6716 16.9999 18.5C16.9999 19.3284 17.6715 20 18.4999 20C18.9022 20 19.2675 19.8416 19.5369 19.5838L19.5786 19.5422C19.8394 19.2724 19.9999 18.9049 19.9999 18.5C19.9999 17.6716 19.3283 17 18.4999 17Z"
+            fill="#3E3E3E" />
+        </svg>
+        <p>Buzón de mensajes</p>
+
+      </div>
+      <svg class="ss-card-opt-e" width="10" height="16" viewBox="0 0 10 16" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.00003 0.585785L9.41424 8L2.00003 15.4142L0.585815 14L6.58582 8L0.585815 2L2.00003 0.585785Z"
+          fill="#3E3E3E" />
+      </svg>
+    </div>
+    <!-- Artículos publicados -->
+    <div class="ss-card-opt" routerLink="#">
+      <div class="ss-card-opt-f">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 0.999908H12.4142L23.4142 11.9999L22 13.4141L11.5858 2.99991H6V0.999908Z" fill="#3E3E3E" />
+          <path d="M4.5 7.49991H7.5V10.4999H4.5V7.49991Z" fill="#3E3E3E" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M1 3.99991H10.4142L20.9142 14.4999L11.5 23.9141L1 13.4141V3.99991ZM3 5.99991V12.5857L11.5 21.0857L18.0858 14.4999L9.58579 5.99991H3Z"
+            fill="#3E3E3E" />
+        </svg>
+
+        <p>Artículos publicados</p>
+
+      </div>
+      <svg class="ss-card-opt-e" width="10" height="16" viewBox="0 0 10 16" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.00003 0.585785L9.41424 8L2.00003 15.4142L0.585815 14L6.58582 8L0.585815 2L2.00003 0.585785Z"
+          fill="#3E3E3E" />
+      </svg>
+    </div>
+    <!-- Histórico Compras -->
+    <div class="ss-card-opt" routerLink="#">
+      <div class="ss-card-opt-f">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M8 1H16V7H22V23H2V7H8V1ZM8 9V12H10V9H14V12H16V9H20V21H4V9H8ZM14 7H10V3H14V7Z" fill="#3E3E3E" />
+        </svg>
+        <p>Histórico Compras</p>
+      </div>
+      <svg class="ss-card-opt-e" width="10" height="16" viewBox="0 0 10 16" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.00003 0.585785L9.41424 8L2.00003 15.4142L0.585815 14L6.58582 8L0.585815 2L2.00003 0.585785Z"
+          fill="#3E3E3E" />
+      </svg>
+    </div>
+    <!-- Histórico Ventas -->
+    <div class="ss-card-opt" routerLink="#">
+      <div class="ss-card-opt-f">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 15H17V13H7V15Z" fill="#3E3E3E" />
+          <path d="M7 11H17V9H7V11Z" fill="#3E3E3E" />
+          <path d="M7 7H12V5H7V7Z" fill="#3E3E3E" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M3 22.8925L6.94629 20.2616L9.5 22.3046L12 20.3046L14.5 22.3046L17.0537 20.2616L21 22.8925V1H3V22.8925ZM5 19.1554V3H19V19.1554L16.9463 17.7863L14.5 19.7433L12 17.7433L9.5 19.7433L7.05371 17.7863L5 19.1554Z"
+            fill="#3E3E3E" />
+        </svg>
+
+        <p>Histórico Ventas</p>
+      </div>
+      <svg class="ss-card-opt-e" width="10" height="16" viewBox="0 0 10 16" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.00003 0.585785L9.41424 8L2.00003 15.4142L0.585815 14L6.58582 8L0.585815 2L2.00003 0.585785Z"
+          fill="#3E3E3E" />
+      </svg>
+    </div>
+    <!-- Lista de favoritos -->
+    <div class="ss-card-opt" routerLink="#">
+      <div class="ss-card-opt-f">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M11.9928 3.71698C9.65285 1.6721 6.19239 1.25364 3.50509 3.54973C0.598301 6.03336 0.175971 10.2162 2.47459 13.174C3.51781 14.5164 5.76484 16.6829 7.68686 18.4631C8.66072 19.3651 9.57213 20.187 10.2399 20.7832C10.5739 21.0814 10.8472 21.3234 11.0372 21.4911C11.1322 21.5749 11.2065 21.6402 11.2571 21.6846L11.3337 21.7518L11.3348 21.7527C11.3348 21.7527 11.3352 21.753 11.9931 21L11.3348 21.7527L11.9931 22.328L12.6511 21.753L11.9931 21C12.6511 21.753 12.651 21.7531 12.6511 21.753L12.7292 21.6846C12.7798 21.6402 12.8541 21.5749 12.9491 21.4911C13.1391 21.3234 13.4124 21.0814 13.7464 20.7832C14.4142 20.187 15.3256 19.3651 16.2994 18.4631C18.2215 16.6829 20.4685 14.5164 21.5117 13.174C23.8015 10.2275 23.4444 6.01246 20.4708 3.54096C17.7536 1.28253 14.33 1.67132 11.9928 3.71698ZM11.9931 19.6664C11.8674 19.5548 11.7262 19.4291 11.5719 19.2914C10.9103 18.7007 10.0084 17.8873 9.0459 16.9958C7.09525 15.1891 4.97781 13.1358 4.05379 11.9468C2.41795 9.84178 2.70097 6.8674 4.80429 5.07029C6.81788 3.34983 9.52816 3.79246 11.2332 5.78582L11.9931 6.67424L12.7531 5.78582C14.4506 3.80127 17.1255 3.36112 19.1924 5.07906C21.315 6.84327 21.5772 9.83042 19.9325 11.9468C19.0085 13.1358 16.891 15.1891 14.9404 16.9958C13.9779 17.8873 13.0759 18.7007 12.4144 19.2914C12.2601 19.4291 12.1189 19.5548 11.9931 19.6664Z"
+            fill="#3E3E3E" />
+        </svg>
+        <p>Lista de favoritos</p>
+      </div>
+      <svg class="ss-card-opt-e" width="10" height="16" viewBox="0 0 10 16" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.00003 0.585785L9.41424 8L2.00003 15.4142L0.585815 14L6.58582 8L0.585815 2L2.00003 0.585785Z"
+          fill="#3E3E3E" />
+      </svg>
+    </div>
+    <!-- Monedero -->
+    <div class="ss-card-opt" routerLink="#">
+      <div class="ss-card-opt-f">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M1 2H18V6H23V22H1V2ZM3 8V20H21V17H17V11H21V8H3ZM21 13H19V15H21V13ZM3 6V4H16V6H3Z" fill="#3E3E3E" />
+        </svg>
+
+        <p>Monedero</p>
+      </div>
+      <svg class="ss-card-opt-e" width="10" height="16" viewBox="0 0 10 16" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.00003 0.585785L9.41424 8L2.00003 15.4142L0.585815 14L6.58582 8L0.585815 2L2.00003 0.585785Z"
+          fill="#3E3E3E" />
+      </svg>
+    </div>
+  </section>
+
+  <section class="dir-cards">
+    <!-- Dirección de facturación -->
+    <div class="ss-dir-card" (click)="toggleEditProfileModal('show_bill_modal')">
+      <div class="ss-dir-card-n1">
+        <div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 10V11H15V13H11V13.5H15V18H13V19H11V18H9V16H13V15.5H9V11H11V10H13Z" fill="#3E3E3E" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M3 1H14.4142L21 7.58579V23H3V1ZM5 3V21H19V9H13V3H5ZM15 4.41421L17.5858 7H15V4.41421Z" fill="#3E3E3E" />
+          </svg>
+          <p>Dirección de facturación</p>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M19 0.585785L23.4143 5.00003L5.41426 22.9991H1.00085V18.5858L19 0.585785ZM15.5002 6.91433L3.00085 19.4142L3.00086 20.9991L4.58586 20.9991L17.0857 8.4999L15.5002 6.91433ZM18.5 7.08573L16.9143 5.50008L19.0001 3.41425L20.5858 5L18.5 7.08573Z"
+            fill="#3E3E3E" />
+          <path d="M22.9998 23L10.9998 23V21L22.9998 21V23Z" fill="#3E3E3E" />
+        </svg>
+
+      </div>
+      <div class="ss-dir-card-n2">
+        <p>Heber Martin Rodríguez Cabrera</p>
+        <p>Carrer de Satoshi Nakamoto 40,4</p>
+        <p>07010 Palma</p>
+        <p>Palma</p>
+      </div>
+    </div>
+    <!-- Dirección de envío -->
+    <div class="ss-dir-card" (click)="toggleEditProfileModal('show_ship_modal')">
+      <div class="ss-dir-card-n1">
+        <div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8 10C8 7.79086 9.79086 6 12 6C14.2091 6 16 7.79086 16 10C16 12.2091 14.2091 14 12 14C9.79086 14 8 12.2091 8 10ZM12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8Z"
+              fill="#3E3E3E" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M3 10C3 5.02944 7.02944 1 12 1C16.9706 1 21 5.02944 21 10C21 12.5262 19.8532 14.7402 18.2923 16.767C16.988 18.4607 15.3185 20.1156 13.6508 21.7689C13.3354 22.0816 13.02 22.3943 12.7071 22.7071L12 23.4142L11.2929 22.7071C10.98 22.3942 10.6646 22.0816 10.3492 21.7689C8.68147 20.1156 7.01205 18.4607 5.70772 16.767C4.14683 14.7402 3 12.5262 3 10ZM12 3C8.13401 3 5 6.13401 5 10C5 11.8921 5.85317 13.678 7.29228 15.5467C8.50741 17.1245 10.0627 18.6673 11.7323 20.3233C11.8212 20.4115 11.9105 20.5 12 20.5889C12.0895 20.5 12.1788 20.4115 12.2677 20.3233C13.9373 18.6673 15.4926 17.1245 16.7077 15.5467C18.1468 13.678 19 11.8921 19 10C19 6.13401 15.866 3 12 3Z"
+              fill="#3E3E3E" />
+          </svg>
+          <p>Dirección de envío</p>
+        </div>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M19 0.585785L23.4143 5.00003L5.41426 22.9991H1.00085V18.5858L19 0.585785ZM15.5002 6.91433L3.00085 19.4142L3.00086 20.9991L4.58586 20.9991L17.0857 8.4999L15.5002 6.91433ZM18.5 7.08573L16.9143 5.50008L19.0001 3.41425L20.5858 5L18.5 7.08573Z"
+            fill="#3E3E3E" />
+          <path d="M22.9998 23L10.9998 23V21L22.9998 21V23Z" fill="#3E3E3E" />
+        </svg>
+
+      </div>
+      <div class="ss-dir-card-n2">
+        <p>Heber Martin Rodríguez Cabrera</p>
+        <p>Carrer de Satoshi Nakamoto 40,4</p>
+        <p>07010 Palma</p>
+        <p>España</p>
+        <p>+34 640 77 44 30</p>
+      </div>
+    </div>
+    <!-- Newsletter a tu gusto -->
+    <div class="ss-dir-card last">
+      <div class="ss-dir-card-n1">
+        <div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M0.999878 3H22.9999V14.6515H20.9999V8.92066L11.9999 15.2207L2.99988 8.92066V19H11.8791V21H0.999878V3ZM2.99988 6.47934L11.9999 12.7793L20.9999 6.47934V5H2.99988V6.47934Z"
+              fill="#3E3E3E" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M17.9999 13.2311L20.0344 16.1997L23.4864 17.2173L21.2918 20.0696L21.3908 23.6671L17.9999 22.4613L14.609 23.6671L14.7079 20.0696L12.5133 17.2173L15.9654 16.1997L17.9999 13.2311ZM17.9999 16.7689L17.213 17.917L15.878 18.3106L16.7267 19.4137L16.6885 20.805L17.9999 20.3387L19.3113 20.805L19.273 19.4137L20.1218 18.3106L18.7867 17.917L17.9999 16.7689Z"
+              fill="#3E3E3E" />
+          </svg>
+          <p>Newsletter a tu gusto</p>
+        </div>
+
+      </div>
+      <div class="ss-dir-card-n2">
+        <div>
+          <p>Quiero recibir las mejores ofertas de Second Sell.</p>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div>
+          <p>Quiero emails del equipo de Second Sell.</p>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDIT PROFILE FORM MODAL / HIDDEN BY DEFAULT -->
+  <section id="edit-profile-modal">
+    <div class="form-header">
+      <h2>Datos personales</h2>
+      <span id="x-mark" (click)="toggleEditProfileModal('hidde')">
+        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+    </div>
+
+    <div class="preview-profile-img">
+      <div>
+        <img src="../../../assets/images/grafic_card_vertical.jpg" alt="p-img">
+      </div>
+
+      <!-- INPUT TYPE FILE / UPLOAD PROFILE IMAGE -->
+      <label for="profile-img">
+        <!-- CAMERA ICON -->
+        <svg width="36" height="36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </label>
+      <input type="file" name="profile-img" id="profile-img">
+    </div>
+
+    <div class="form-fields">
+      <label for="name">Nombre</label>
+      <input type="text" name="name" id="name" value="user_name">
+      <label for="lastname">Apellidos</label>
+      <input type="text" name="lastname" id="lastname" value="user_lastname">
+      <label for="username">Usuario</label>
+      <input type="text" name="username" id="username" value="username">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" value="user_email">
+      <label for="tel">Número de teléfono</label>
+      <input type="tel" name="tel" id="tel" value="user_tel">
+    </div>
+
+    <input type="button" value="Guardar cambios">
+  </section>
+
+  <!-- EDIT BILL ADDRESS FORM MODAL / HIDDEN BY DEFAULT -->
+  <section id="edit-bill-address-modal">
+    <div class="form-header">
+      <h2>Dirección de facturación</h2>
+      <span id="x-mark" (click)="toggleEditProfileModal('hidde')">
+        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+    </div>
+
+    
+
+    <div class="form-fields">
+      <label for="name">Nombre</label>
+      <input type="text" name="name" id="name" value="user_name">
+      <label for="lastname">Apellidos</label>
+      <input type="text" name="lastname" id="lastname" value="user_lastname">
+      <label for="country">País</label>
+      <input type="text" name="country" id="country" value="user_country">
+      <label for="address">Dirección</label>
+      <input type="text" name="address" id="address" value="user_address">
+      <label for="city">Ciudad</label>
+      <input type="text" name="city" id="city" value="user_city">
+      <label for="zipcode">Código Postal</label>
+      <input type="number" name="zipcode" id="zipcode" value="00000" maxlength="5" max="5">
+    </div>
+
+    <input type="button" value="Guardar cambios">
+  </section>
+
+  <!-- EDIT SHIP ADDRESS FORM MODAL / HIDDEN BY DEFAULT -->
+  <section id="edit-ship-address-modal">
+    <div class="form-header">
+      <h2>Dirección de envío</h2>
+      <span id="x-mark" (click)="toggleEditProfileModal('hidde')">
+        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+    </div>
+
+    
+
+    <div class="form-fields">
+      <label for="name">Nombre</label>
+      <input type="text" name="name" id="name" value="user_name">
+      <label for="lastname">Apellidos</label>
+      <input type="text" name="lastname" id="lastname" value="user_lastname">
+      <label for="country">País</label>
+      <input type="text" name="country" id="country" value="user_country">
+      <label for="address">Dirección</label>
+      <input type="text" name="address" id="address" value="user_address">
+      <label for="city">Ciudad</label>
+      <input type="text" name="city" id="city" value="user_city">
+      <label for="zipcode">Código Postal</label>
+      <input type="number" name="zipcode" id="zipcode" value="00000" maxlength="5" max="5">
+      <label for="tel">Número teléfono</label>
+      <input type="tel" name="tel" id="tel">
+      <small>Sólo queremos tu teléfono por si fuera necesario durante la entrega.</small>
+    </div>
+
+    <input type="button" value="Guardar cambios">
+  </section>
+</section>

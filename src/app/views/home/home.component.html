@@ -1,0 +1,150 @@
+<!--PRIMERA SECCIÓN-->
+<section class="f-h">
+  <div class="">
+    <div>
+      <h1>Descubre cómo la informática de segunda mano abre un mundo de posibilidades al darle una segunda vida a tus
+        dispositivos electrónicos</h1>
+    </div>
+  </div>
+  <input routerLink="/upload" type="button" value="Vender Artículo" />
+  <a href="">¿Cómo funciona?</a>
+</section>
+<!--FIN PRIMERA SECCIÓN-->
+<!--DESCUBRE POR CATEGORIA-->
+<section>
+  <h2>Descubre por categoría</h2>
+  <section id="categories">
+    <div id="lkl" *ngFor="let category of categories | category: pagination.categorySize">
+      <div [routerLink]="category.name" id="cont-cat">
+        <div>
+          <img src={{category.img_url}} alt="{{category.name}}">
+        </div>
+        <p>{{category.name}}</p>
+      </div>
+      <div *ngFor="let blank of pagination.categroyBlank">
+        <div></div>
+        <p></p>
+      </div>
+    </div>
+  </section>
+  <div id="show">
+    <input id="inpt-show" type="button" (click)="showCategories()" value="Ver todas">
+  </div>
+</section>
+<!--FIN DESCUBRE CATEGORÍA-->
+<!--ARTIULOS POPULARES-->
+<section>
+  <h2>Articulos populares</h2>
+  <!-- <div class="dotted"></div> -->
+  <app-slider [products]="products"></app-slider>
+
+</section>
+<!--FIN ARTIULOS POPULARES-->
+<!--PUBLICADOS RECIENTEMENTE-->
+<section>
+  <h2>Publicados recientemente</h2>
+  <section>
+    <div style="cursor: pointer;"
+      *ngFor=" let product of products | pagination : pagination.pageSize; let index = index;">
+      <div (click)="productRedirect(product!.id!)">
+        <div [ngStyle]="{ 'background-image': 'url(' + product.photo![0] + ')' }">
+        </div>
+        <span>{{product.name}}</span>
+        <span>{{product.description | desclen}}</span>
+        <span>Hace {{product.created_at |timedif}}</span>
+        <span>{{product.price}} €</span>
+        <span>🤍 0</span>
+      </div>
+    </div>
+
+  </section>
+</section>
+<!--FIN PUBLICADOS RECIENTEMENTE-->
+<!--PASOS PARA PUBLICAR-->
+<section>
+  <h2 class="steps">Publica tu artículo en sencillos pasos</h2>
+  <section>
+    <div>
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+          stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>Título y Descripción de tu artículo</span>
+    </div>
+
+    <div>
+      <span>Selecciona la Marca y Categoría</span>
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
+          stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M6 6h.008v.008H6V6z" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <div>
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.25 7.756a4.5 4.5 0 100 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>Indica el Estado y su Precio</span>
+    </div>
+
+    <div>
+      <span>Sube diferentes fotos del artículo</span>
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
+          stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <div>
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+          stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>Especifica el método de entrega</span>
+    </div>
+
+    <div>
+      <span>Marca la localización o zona</span>
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- BANNER -->
+  <article>
+    <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+    <p>Listo!</p>
+    <p>Tu artículo estaría a la espera de una segunda vida.</p>
+    <div></div>
+    <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"
+        stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <p>¿Dudas?</p>
+    <a href="#FAQ" title="FAQ">Consulta las preguntas frecuentes.</a>
+  </article>
+</section>
+<app-footer></app-footer>

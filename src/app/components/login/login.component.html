@@ -1,0 +1,39 @@
+<div class="boxSizer">
+  <div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <form action="#">
+        <h1>Create Account</h1>
+        <input type="text" id="nameR" placeholder="name" />
+        <input type="text" id="lastnameR" placeholder="lastname" />
+        <input type="email" id="emailR" placeholder="email" />
+        <input type="text" id="usernameR" placeholder="username" />
+        <input type="password" id="passwordR" placeholder="password" />
+        <input type="button" (click)="register()" value="Sign Up">
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form action="#">
+        <h1>Sign in</h1>
+        <input type="text" id="username" placeholder="username" />
+        <input type="password" id="password" placeholder="password" />
+        <a href="#">Forgot your password?</a>
+        <input type="button" (click)="Login()" value="Login">
+        <br>
+      </form>
+    </div>
+    <div class=" overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Welcome Back!</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <input type="button" class="ghost" id="signIn" (click)="signIn()" value="Sign in">
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <input type="button" class="ghost" id="signUp" (click)="signUp()" value="Sign Up">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

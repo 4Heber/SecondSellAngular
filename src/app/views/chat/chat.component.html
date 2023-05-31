@@ -1,0 +1,67 @@
+<section class="chat-phone" *ngIf="loaded">
+  <div></div>
+  <div class="chats-sel">
+    <p (click)="getuserChats()" class="chat-cat">Chats</p>
+    <p (click)="getUserBuyersChats()" class="chat-cat">Compradores</p>
+    <p (click)="getUserClosedChats()" class="chat-cat">Cerrados</p>
+  </div>
+
+  <p class="entrance-chat">Bandeja de Entrada</p>
+  <div class="linear"></div>
+  <section *ngIf="loaded">
+    <ng-container *ngFor="let chat of ownChats;let index = index">
+      <div (click)="messageRedirect(chat!.id!)" class="chat-card">
+        <ng-container *ngIf="chat.recept | getuser:user.id!:chat.emit:users as Seller">
+          <ng-container *ngIf="chat.productID | getproduct:products as Product">
+            <div class="chat-img-eng">
+              <img class="p-img-chat" *ngIf="Product!.photo![0]!= 'none'" [src]="Product.photo![0]!">
+              <img class="p-img-chat" *ngIf="Product!.photo![0]! == 'none'"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHaOuVzOscd3MyzXqu_XZGl2T0GuiG989kTWgniDye5Q&s">
+
+              <div>
+                <img *ngIf="Seller.photo != 'default'" [src]="Seller.photo">
+              </div>
+            </div>
+            <div class="chat-inf">
+              <div class="eng-us-chat">
+                <p>{{Seller.username}}</p>
+                <p class="chat-time">hace {{messages[0][messages[0].length - 1].created_at | timedif}}</p>
+
+              </div>
+              <span>{{Product.name | desclen}}</span>
+              <div class="last-mssg-chat"><svg
+                  *ngIf="(messages[index][messages[index].length - 1] | seen : Seller.id!) === 1 && !chat.closed"
+                  style="opacity:1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M1.5 12.5L5.57574 16.5757C5.81005 16.8101 6.18995 16.8101 6.42426 16.5757L9 14"
+                      stroke="#87CEEB" stroke-width="1.5" stroke-linecap="round"></path>
+                    <path d="M16 7L12 11" stroke="#87CEEB" stroke-width="1.5" stroke-linecap="round"></path>
+                    <path d="M7 12L11.5757 16.5757C11.8101 16.8101 12.1899 16.8101 12.4243 16.5757L22 7"
+                      stroke="#87CEEB" stroke-width="1.5" stroke-linecap="round"></path>
+                  </g>
+                </svg>
+                <svg *ngIf="(messages[index][messages[index].length - 1]  | seen : Seller.id!) === 2 && !chat.closed"
+                  style="opacity:1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M1.5 12.5L5.57574 16.5757C5.81005 16.8101 6.18995 16.8101 6.42426 16.5757L9 14"
+                      stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+                    <path d="M16 7L12 11" stroke="black" stroke-width="1.5" stroke-linecap="round"></path>
+                    <path d="M7 12L11.5757 16.5757C11.8101 16.8101 12.1899 16.8101 12.4243 16.5757L22 7" stroke="black"
+                      stroke-width="1.5" stroke-linecap="round"></path>
+                  </g>
+                </svg>
+                <p *ngIf="!chat.closed">{{messages[index][messages[index].length - 1].message}}</p>
+                <p *ngIf="chat.closed" style="color:red">Closed</p>
+
+              </div>
+            </div>
+          </ng-container></ng-container>
+      </div>
+    </ng-container>
+  </section>
+</section>
+<app-footer></app-footer>

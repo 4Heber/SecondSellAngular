@@ -1,0 +1,8 @@
+<mat-form-field style="width: 100%;">
+  <input id="form-auto" type="text" matInput [formControl]="categoryControl" [matAutocomplete]="auto">
+  <mat-autocomplete class="m-auto" #auto="matAutocomplete">
+    <mat-option *ngFor="let category of categories" [value]="category.name" class="option-l">
+      {{ category.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

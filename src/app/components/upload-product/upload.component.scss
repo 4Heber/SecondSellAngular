@@ -1,0 +1,142 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  background-color: hsl(0, 0%, 50%, 0.2);
+}
+
+form {
+  width: 90%;
+  padding-bottom: 2rem;
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    span {
+      font-size: 1.3rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      height: 5rem;
+    }
+
+    input,
+    select {
+      height: 3rem;
+      padding-inline: 1rem;
+      border-radius: 5px;
+    }
+  }
+
+  .title-form {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  .product-info,
+  .product-photos {
+    margin-top: 2rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    opacity: 0.7;
+    gap: 20px;
+    margin-bottom: 1rem;
+
+    .photo-introducer {
+      background-color: rgba(128, 128, 128, 0.3);
+      padding: 1rem;
+      border: 0.5px solid black;
+      border-radius: 10px;
+    }
+
+    .form-field-coin {
+      display: flex;
+      justify-content: space-around;
+
+      p {
+        width: 40%;
+      }
+
+      input,
+      select {
+        width: 40%;
+        height: 3rem;
+      }
+    }
+
+    .photos {
+      display: flex;
+      justify-content: space-around;
+
+      div {
+        cursor: pointer;
+        padding: 0.5rem;
+        border: dotted 1px black;
+        width: 80px;
+        height: 80px;
+        display: grid;
+        grid-template-columns: 1fr;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      input {
+        z-index: 1000;
+        opacity: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      img {
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+      }
+
+      svg {
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+      }
+
+      svg,
+      p,
+      input {
+        grid-row-start: 1;
+        grid-column-start: 1;
+        justify-self: center;
+        align-self: center;
+      }
+
+      p {
+        opacity: 1;
+        font-weight: bold;
+        z-index: 10;
+        font-size: 1rem;
+        background-color: hsla(0, 0%, 100%, 0.85);
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
+    }
+  }
+
+  .submit {
+    width: 100%;
+    height: 3rem;
+    border-radius: 10px;
+  }
+}

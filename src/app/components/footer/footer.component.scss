@@ -1,0 +1,136 @@
+footer {
+  background-color: var(--bg-dark);
+
+  .logo-social {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    padding: 2rem 1rem;
+
+    div img {
+      width: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .socialmedia {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+
+      a {
+        width: 32px;
+        transition: all ease-in 150ms;
+
+        &:hover svg {
+          fill: var(--secondary-color);
+        }
+
+        svg {
+          fill: var(--text-light);
+        }
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+    padding: 0 1rem;
+
+    article {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: start;
+      color: var(--text-light);
+
+      h3 {
+        letter-spacing: 1px;
+        user-select: none;
+      }
+
+      a {
+        font-size: var(--md-mobile);
+        color: var(--text-light);
+        text-decoration: none;
+        margin: 0 0 1rem 1rem;
+        transition: all ease 150ms;
+
+        &:hover {
+          color: var(--secondary-color);
+        }
+      }
+    }
+  }
+
+  .flags {
+    margin: 1rem 1rem 0 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--text-light);
+    text-align: center;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    p {
+      color: var(--text-light);
+      font-size: var(--sm-mobile);
+      margin: 0;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+/* ----MEDIA QUERIRES SECTION----
+
+BREAKPOINTS:
+  min-height: 768px
+  min-height: 1024px
+  min-height: 1440px
+
+*/
+@media screen and (min-width: 1440px) {
+  footer {
+    // 1300px section width
+    padding: 2rem 19rem;
+
+    .logo-social {
+      div img {
+        width: 6rem;
+      }
+
+      .socialmedia {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+
+        a {
+          width: 48px;
+        }
+      }
+    }
+
+    .links {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    .flags {
+      div {
+        img {
+          width: 38px;
+          height: 38px;
+        }
+      }
+    }
+  }
+}

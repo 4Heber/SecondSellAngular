@@ -1,0 +1,494 @@
+<header>
+  <div class="h-p1">
+    <!-- BARS MENU -->
+    <div id="h-linear-cont" (click)="showMenu()" class="h-menu">
+      <div id="line1" class="linear"></div>
+      <div id="line2" class="linear"></div>
+      <div id="line3" class="linear"></div>
+    </div>
+    <!-- LOGOTYPE -->
+    <span (click)="showMenu(true)" routerLink="/"><img src="../../../assets/images/logotype_white_green.png"
+        alt="Second-sell-logotype" width="80"></span>
+    <!-- USER ICON & SHOPPING BAG -->
+    <div class="h-svg"><!-- Display none if no session active -->
+      <svg (click)="showMenu(true)" routerLink="/profile" width="20" height="22" viewBox="0 0 20 22" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M5 5C5 2.23858 7.23858 0 10 0C12.7614 0 15 2.23858 15 5C15 7.76142 12.7614 10 10 10C7.23858 10 5 7.76142 5 5ZM10 2C8.34315 2 7 3.34315 7 5C7 6.65685 8.34315 8 10 8C11.6569 8 13 6.65685 13 5C13 3.34315 11.6569 2 10 2Z"
+          fill="#141414" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M0 21C0 15.4772 4.47715 11 10 11C15.5228 11 20 15.4772 20 21V22H0V21ZM2.06189 20H17.9381C17.446 16.0537 14.0796 13 10 13C5.92038 13 2.55399 16.0537 2.06189 20Z"
+          fill="#141414" />
+      </svg>
+      <svg (click)="showMenu(true)" routerLink="/cart" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M8 1H16V7H22V23H2V7H8V1ZM8 9V12H10V9H14V12H16V9H20V21H4V9H8ZM14 7H10V3H14V7Z" fill="#141414" />
+      </svg>
+    </div>
+
+    <!-- LOGIN/REGISTER BUTTONS / Display none if session active -->
+    <div class="registerLoginBttns">
+      <div (click)="showMenu(true)" routerLink="/register" id="registerBttn">
+        <p>Registrarse</p>
+      </div>
+      <div (click)="showMenu(true)" routerLink="/login" id="loginBttn">
+        <p>Iniciar sesion</p>
+      </div>
+    </div>
+
+    <!-- SEARCH BAR INPUT -->
+    <div id="searchbar-container" onclick="toggleSearchbarContent()">
+      <div class="searchbar-box">
+        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+        <input type="text" placeholder="Buscar en todas las categorias" id="searchbar" onkeyup="filterFunction()">
+      </div>
+      <div id="dropdown-content">
+        <a href="#Ordenadores">Ordenadores</a>
+        <a href="#Portátiles">Portátiles</a>
+        <a href="#Smartphones">Smartphones</a>
+        <a href="#Tablets">Tablets</a>
+        <a href="#Ebooks">Ebooks</a>
+        <a href="#Componentes">Componentes</a>
+        <a href="#Gaming">Gaming</a>
+        <a href="#Oficina">Oficina</a>
+        <a href="#Redes">Redes</a>
+        <a href="#cables">Cables</a>
+        <a href="#Almacenamiento">Almacenamiento</a>
+        <a href="#Periféricos">Periféricos</a>
+        <a href="#Televisores">Televisores</a>
+        <a href="#Audio">Audio</a>
+        <a href="#Foto">Foto</a>
+        <a href="#Video">Video</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABSOLUTE NAVBAR / HIDDEN BELOW 1440px -->
+  <div id="desktop-nav">
+    <ul>
+      <li routerLink="/" class="l-1">Home</li>
+      <li class="l-1" (mouseover)="showCategoriesDropdown()">Categorias
+        <div class="triangle-icon">&#10094;</div>
+        <ul id="nav-dropdown-content">
+          <li routerLink="/home/Ordenadores">Ordenadores</li>
+          <li routerLink="/home/Portátiles">Portátiles</li>
+          <li routerLink="/home/Smartphones">Smartphones</li>
+          <li routerLink="/home/Tablets">Tablets</li>
+          <li routerLink="/home/Ebooks">Ebooks</li>
+          <li routerLink="/home/Componentes">Componentes</li>
+          <li routerLink="/home/Gaming">Gaming</li>
+          <li routerLink="/home/Oficina">Oficina</li>
+          <li routerLink="/home/Redes">Redes</li>
+          <li routerLink="/home/Cables">Cables</li>
+          <li routerLink="/home/Almacenamiento">Almacenamiento</li>
+          <li routerLink="/home/Periféricos">Periféricos</li>
+          <li routerLink="/home/Televisores">Televisores</li>
+          <li routerLink="/home/Audio">Audio</li>
+          <li routerLink="/home/Foto">Foto</li>
+          <li routerLink="/home/Video">Video</li>
+        </ul>
+      </li>
+      <li routerLink="#" class="l-1">Preguntas Frequentes</li>
+      <li routerLink="#" class="l-1">Contacto</li>
+    </ul>
+  </div>
+</header>
+
+<!-- MENU NAVIGATION -->
+<nav id="nav">
+  <section class="nav-eng">
+    <section>
+      <div (click)="showMenu(true)" routerLink="/upload" class="n-button-v"> Vender artículo</div>
+      <div (click)="showMenu(true)" routerLink="/login" class="n-button-r"> Registrarse | Iniciar sesion</div>
+    </section>
+
+    <!-- PERFIL - HIDDEN IF NO SESSION ACTIVE -->
+    <section class="n-section" id="perfil-section">
+      <div class="n-section-introducer-cont">
+        <p class="n-section-introducer">Perfil</p>
+        <div class="line"></div>
+      </div>
+      <div class="n-section-content">
+
+        <div class="n-url-name">
+          <p>Historial de Compras</p>
+          <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+              fill="#141414" />
+          </svg>
+        </div>
+
+        <div class="n-url-name">
+          <p>Historial de Ventas</p>
+          <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+              fill="#141414" />
+          </svg>
+        </div>
+
+        <div class="n-url-name">
+          <p>Artículos publicados</p>
+          <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+              fill="#141414" />
+          </svg>
+        </div>
+
+        <div class="n-url-name">
+          <p>Buzón de mensajes</p>
+          <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+              fill="#141414" />
+          </svg>
+        </div>
+
+        <div class="n-url-name">
+          <p>Monedero</p>
+          <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+              fill="#141414" />
+          </svg>
+        </div>
+
+        <div class="n-url-name">
+          <p>Ajustes</p>
+          <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+              fill="#141414" />
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="n-section">
+      <div class="n-section-introducer-cont">
+        <p class="n-section-introducer">Categorías</p>
+        <div class="line"></div>
+      </div>
+      <div class="n-section-content">
+        <!-- ORDENADORES -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Ordenadores</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- PORTÁTILES -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Portátiles</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- SMARTPHONES -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Smartphones</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- TABLETS Y EBOOKS -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Tablets y Ebooks</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- COMPONENTES -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Componentes</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- GAMING -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Gaming</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- OFICINA -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Oficina</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- REDES Y CABLES -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Redes y Cables</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- ALMACENAMIENTO -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Almacenamiento</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- PERIFÉRICOS -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Periféricos</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- TELEVISORES -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Televisores</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <!-- AUDIO FOTO Y VIDEO -->
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Audio - Foto - Video</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="n-section">
+      <div class="n-section-introducer-cont">
+        <p class="n-section-introducer">Ayuda</p>
+        <div class="line"></div>
+      </div>
+      <div class="n-section-content">
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>¿Cómo vender un artículo?</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>¿Cómo comprar un artículo?</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Pago</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Atención al cliente</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Preguntas frequentes</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="n-section">
+      <div class="n-section-introducer-cont">
+        <p class="n-section-introducer">Second Sell</p>
+        <div class="line"></div>
+      </div>
+      <div class="n-section-content">
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>¿Quíenes somos?</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Filosofía de empresa</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Sostenibilidad</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+        <div class="n-url">
+          <div class="n-url-name">
+            <p>Publicidad</p>
+            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7.93182 4.90909L0.613636 8.63636V7.18182L6.22727 4.47727L6.18182 4.56818V4.34091L6.22727 4.43182L0.613636 1.72727V0.272727L7.93182 4V4.90909Z"
+                fill="#141414" />
+            </svg>
+          </div>
+          <div class="line">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="n-section">
+      <div class="n-section-introducer-cont">
+        <p class="n-section-introducer">Idiomas</p>
+      </div>
+      <div class="n-section-content lang">
+        <div class="h-lang-cont">
+          <div class="h-lang" title="ESPAÑOL"><img src="../../../assets/icons/spain.png" alt="spain-flag" width="24"
+              height="24"></div>
+          <div class="h-lang" title="ENGLISH"><img src="../../../assets/icons/united-states.png"
+              alt="united-states-flag" width="24" height="24"></div>
+          <div class="h-lang" title="DEUTCH"><img src="../../../assets/icons/germany.png" alt="germany-flag" width="24"
+              height="24"></div>
+          <div class="h-lang" title="FRANÇAIS"><img src="../../../assets/icons/france.png" alt="france-flag" width="24"
+              height="24"></div>
+          <div class="h-lang" title="ITALIANO"><img src="../../../assets/icons/italy.png" alt="italy-flag" width="24"
+              height="24"></div>
+          <div class="h-lang" title="ジャパニーズ"><img src="../../../assets/icons/japan.png" alt="japan-flag" width="24"
+              height="24"></div>
+        </div>
+        <p class="h-copy">
+          ©️ 2023 Second Sell
+        </p>
+      </div>
+    </section>
+  </section>
+
+</nav>

@@ -1,0 +1,87 @@
+<main *ngIf="loaded" class="content-engolber">
+  <section class="direct-info">
+    <div [routerLink]="'/user/'+direct!.id!" class="direct-profile">
+      <div>
+        <div *ngIf="direct.photo == 'default'" style="width:100%;height:100%;background-color: black;"></div>
+        <img *ngIf="direct.photo != 'default'" [src]="direct.photo">
+      </div>
+      <p>{{direct.name}} {{direct.lastname}}</p>
+    </div>
+    <div>
+      <svg routerLink="/chat" viewBox="0 0 24 24">
+        <path
+          d="M12 13.416l5.293 5.294a1 1 0 101.414-1.414L13.415 12l5.292-5.294a1 1 0 10-1.414-1.414L12 10.586 6.707 5.293a1 1 0 00-1.414 1.414l5.292 5.294-5.292 5.295a1 1 0 001.414 1.414L12 13.416z">
+        </path>
+      </svg>
+    </div>
+  </section>
+  <div class="linear"></div>
+  <section [routerLink]="'/product/'+product.id" class="item-inf">
+    <div class="item-img">
+      <img *ngIf="product.photo![0]! != 'none'" [src]="product.photo![0]!">
+      <img *ngIf="product.photo![0]! == 'none'"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHaOuVzOscd3MyzXqu_XZGl2T0GuiG989kTWgniDye5Q&s">
+    </div>
+    <div class="item-desc">
+      <p class="item-name">{{product.name}}</p>
+      <p class="item-price">{{product.price}} €</p>
+    </div>
+  </section>
+  <div class="linear"></div>
+  <section class="live-chat">
+    <ng-container *ngFor="let message of offers| getByDatePipe: messages">
+      <div (click)="showOffer(message?.price, message)" *ngIf="message.price" class="offer-msg">
+        <div [class]="getClassNames(message)" class="offer-eng">
+          <p>Offer</p>
+          <div></div>
+          <span>{{ message.price }} €</span>
+        </div>
+      </div>
+
+      <div *ngIf="message.emit === user.id && !message.price" class="message-e">{{message.message}}</div>
+      <div *ngIf="message.emit !== user.id && !message.price" class="message-r">{{message.message}}</div>
+    </ng-container>
+  </section>
+  <p *ngIf="chat.closed" id="state-advisor" style="color:red">Chat Closed</p>
+  <section *ngIf="!chat.closed" class=" chat-espec">
+    <div class="subcont">
+      <div *ngIf="product.userId === user.id" class="offer-button" (click)="showOfferPannel()">Haz una oferta</div>
+      <div class="sub-men">
+        <svg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'
+          xmlns:xlink='http://www.w3.org/1999/xlink'>
+          <rect width='24' height='24' stroke='none' fill='#000000' opacity='0' />
+          <g transform="matrix(0.43 0 0 0.43 12 12)">
+            <path
+              style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"
+              transform=" translate(-25, -25)"
+              d="M 7 2 L 7 48 L 43 48 L 43 15.414063 L 29.410156 2 Z M 9 4 L 28 4 L 28 17 L 41 17 L 41 46 L 9 46 Z M 30 5.390625 L 39.734375 15 L 30 15 Z M 33.5 21.332031 C 32.457031 21.335938 31.609375 22.15625 31.609375 23.167969 C 31.613281 24.179688 32.457031 25 33.5 25 C 34.542969 25 35.386719 24.179688 35.390625 23.167969 C 35.390625 22.15625 34.542969 21.335938 33.5 21.332031 Z M 21.167969 24 C 20.835938 23.988281 20.519531 24.136719 20.324219 24.40625 L 12.863281 34.488281 C 12.640625 34.792969 12.605469 35.195313 12.773438 35.53125 C 12.945313 35.871094 13.289063 36.082031 13.667969 36.082031 L 28.425781 36.082031 C 28.449219 36.082031 28.472656 36.082031 28.496094 36.082031 C 28.5 36.082031 28.5 36.082031 28.503906 36.082031 L 35.015625 36 C 35.398438 35.996094 35.742188 35.769531 35.90625 35.421875 C 36.066406 35.074219 36.015625 34.667969 35.777344 34.371094 L 29.269531 26.386719 C 29.078125 26.148438 28.785156 26.011719 28.480469 26.015625 C 28.164063 26.023438 27.871094 26.175781 27.6875 26.429688 L 25.554688 29.363281 L 21.9375 24.410156 C 21.753906 24.164063 21.472656 24.011719 21.167969 24 Z M 21.125 26.6875 L 24.753906 31.660156 C 24.757813 31.667969 24.761719 31.671875 24.765625 31.675781 L 26.523438 34.082031 L 15.652344 34.082031 Z M 28.539063 28.65625 L 32.917969 34.027344 L 29 34.078125 L 26.796875 31.0625 Z"
+              stroke-linecap="round" />
+          </g>
+        </svg>
+        <input (keyup.enter)="sendMessage()" type="text" id="chat-msg" placeholder="Escribe un mensaje...">
+        <p (click)="sendMessage()">Enviar</p>
+      </div>
+    </div>
+  </section>
+  <app-offer [chatId]="chat.id" [emit]="user.id" [productId]="product.id" id="showPannel" class="displayed"></app-offer>
+  <div id="offer-sl" class="offer-select displayed">
+    <div class="content-gl">
+      <div class="off-cross">
+        <p>INCOMING OFFER</p>
+
+        <div (click)="hideOffer()" class="cross">
+          <div class="x"></div>
+          <div class="y"></div>
+        </div>
+      </div>
+      <span>
+        <p id="offer-price-display">5</p>€
+      </span>
+      <div class="options">
+        <div (click)="addToCart()">Accept</div>
+        <div (click)="rejectOffer()">Reject</div>
+        <p class="displayed" id="oId"></p>
+      </div>
+    </div>
+  </div>
+</main>

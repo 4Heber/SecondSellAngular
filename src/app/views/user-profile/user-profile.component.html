@@ -1,0 +1,173 @@
+<main>
+  <section class="p-user">
+    <div class="p-user-like-share">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M12.8 6.4c-.4.6-1.2.6-1.6 0-.9-1.3-2-1.9-3.5-1.9-2.3 0-4.2 2-4.2 4.5 0 .9.3 1.8.8 2.7.6.9 1.4 1.9 2.7 3.3l1.9 1.9c.3.2 1.1 1 1.2 1.2.4.4.7.6.8.8l.6.6c.2.2.6.2.9 0l.6-.6.8-.8c.2-.1 1-.9 1.2-1.2 1-1 1.7-1.6 1.9-1.9 1.3-1.3 2.2-2.3 2.7-3.3.6-1 .8-1.8.8-2.7 0-2.6-1.8-4.5-4.2-4.5-1.3-.1-2.5.6-3.4 1.9zm3.5-3.9c3.5 0 6.2 2.9 6.2 6.5 0 1.3-.4 2.5-1.1 3.7-.7 1.1-1.6 2.2-3 3.7l-1.9 1.9c-.3.2-1.1 1-1.2 1.2-.4.4-.7.6-.8.7l-.6.6c-1 1-2.7 1-3.7 0l-.6-.6-.8-.8c-.2-.1-1-.9-1.2-1.2-1-1-1.7-1.6-2-1.9-1.4-1.5-2.4-2.6-3-3.7-.7-1.1-1.1-2.3-1.1-3.6 0-3.6 2.7-6.5 6.2-6.5 1.7 0 3.2.6 4.3 1.8 1.2-1.2 2.6-1.8 4.3-1.8z">
+        </path>
+      </svg>
+      <svg (click)="copiarUrl()" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17.707 8.297a1.005 1.005 0 0 1-1.422-.007l-3.287-3.287v9.995a1 1 0 1 1-2 0V5.003L7.711 8.29a1.006 1.006 0 0 1-1.422.007 1.006 1.006 0 0 1 .008-1.422l4.287-4.287a2 2 0 0 1 2.828 0L17.7 6.875c.395.395.398 1.032.007 1.422Z">
+        </path>
+        <path
+          d="M1.998 17.998a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4V12A1 1 0 0 0 20 12l-.002 6a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2v-6a1 1 0 1 0-2 0v5.998Z">
+        </path>
+      </svg>
+    </div>
+    <div class="p-user-card">
+      <div class="p-user-img-profile">
+        <img *ngIf="selectedUser.photo != 'default'" [src]="selectedUser.photo">
+        <img *ngIf="selectedUser.photo == 'default'"
+          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8PDw8PDw8VFRUVDxUPFRUPFRUPFRUVFRUWFhUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDisZFRkrKys3Ny0rKysrNysrNysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAMIBAwMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQcC/8QAFhABAQEAAAAAAAAAAAAAAAAAAAER/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDERFAQAAAAAAACigioIqooAioqCoAoCKogCiKACAACACgqKg5FRQAABQQAAAABBQBQgKACCCoIogCgCgAACgAiACgoIICKAAKmCgigKigCGKgKAgAACKAACCoIogqqAgACACgCooIoIAqIKIIAooCKiooCKgAAKIoAACoAqACCoIAAAAKigAAKgAAKAAgqKgAKAIAAAqAAAoigAAAAVKoCAKEFEQABFBQBUVA0AAAAUQBAVAAAFQAAAABBUBVAAEUAAAAAAAAAFBAADAAAARcFEFRAAAAAAAAEAAFQFUAAIAIoACAqoAAoIAqACKAAAAgoCACAAoAIAAAKACCiAqgAAAAAAAoiggCgAAqQQAFUwBEQVAABAAABQAQAAAFFEVFAAAAAAAAAVQRUQFQBagUABQRUQAFQAAAQAAABQAQVAVUUAAAAAVFBFEUUEQAAAAAAQBUAAAAAAAEAAUFRQARFEUUAAVFBFAEAUAAAAAEQQFAAAAABAAUAEBUUUAAAAAAABQAFQAAUQAAAQqRQEhQAUARYAJQAWEAABAAFIAotQEBYAJVACigEAUf/2Q=="
+          style="object-fit:none !important;width:1000px !important;background-color: black;">
+      </div>
+      <div class="p-user-name-rate">
+        <p class="p-user-username">{{selectedUser.username}}</p>
+        <div class="p-user-rate">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="gray" stroke="black"
+              d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+            </path>
+          </svg>
+          <p class="valoration">Sin valoraciones aún</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-user-stats-eng">
+      <div class="p-user-stats-section">
+        <svg width="18px" height="18px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+          display="flex">
+          <path class="p-user-sell"
+            d="M39.964 2.4v40.8h-6.428V21.586c0-1.326-1.08-2.4-2.411-2.4a2.405 2.405 0 00-2.41 2.4V43.2h-6.43V5.592c0-1.326-1.079-2.4-2.41-2.4a2.405 2.405 0 00-2.41 2.4V43.2h-6.43V27.98c0-1.326-1.079-2.4-2.41-2.4a2.405 2.405 0 00-2.41 2.4V43.2h-1.23C3.89 43.2 3 44.275 3 45.6S3.889 48 4.985 48h41.03C47.11 48 48 46.925 48 45.6s-.889-2.4-1.985-2.4h-1.23V2.4c0-1.325-1.079-2.4-2.41-2.4a2.405 2.405 0 00-2.41 2.4z"
+            fill="#253238"></path>
+        </svg>
+        <p class="p-user-sell">{{counter[0]}}</p>
+      </div>
+      <div class="p-user-stats-section">
+        <svg _ngcontent-kbm-c60="" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path _ngcontent-kbm-c60="" fill-rule="evenodd" clip-rule="evenodd"
+            d="M8 1H16V7H22V23H2V7H8V1ZM8 9V12H10V9H14V12H16V9H20V21H4V9H8ZM14 7H10V3H14V7Z" fill="#3E3E3E"></path>
+        </svg>
+        <p class="p-user-buys">0</p>
+      </div>
+    </div>
+    <div class="p-user-trusted-info">
+      <div class="p-user-info-col-1">
+        <div class="p-user-location">
+          <svg width="18px" height="18px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+            display="flex">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M45.95 21.207C45.95 9.49 36.043 0 23.832 0 11.622 0 1.714 9.49 1.714 21.207c0 .723.038 1.446.114 2.167.506 9.414 9.452 18.956 20.408 23.644.584.215 1.1.31 1.637.31.592 0 1.07-.094 1.622-.318l.214-.092.057-.025.108-.047C36.748 42 45.349 32.59 45.844 23.25a19.43 19.43 0 00.105-2.043zM23.92 43.164l-.067.029h-.003C14.528 39.198 6.504 30.747 6.088 23.055c-.068-.678-.1-1.261-.1-1.85 0-9.424 7.985-17.073 17.844-17.073 9.859 0 17.844 7.649 17.844 17.074 0 .575-.03 1.151-.09 1.729-.41 7.665-8.115 15.973-17.5 20.155l-.165.073zm-.09-15.106c4.067 0 7.356-3.15 7.356-7.027 0-3.876-3.289-7.026-7.355-7.026-4.067 0-7.355 3.15-7.355 7.026 0 3.877 3.288 7.027 7.355 7.027zm-11.628-7.027c0 6.169 5.21 11.16 11.629 11.16 6.418 0 11.629-4.991 11.629-11.16 0-6.167-5.21-11.16-11.629-11.16-6.418 0-11.63 4.993-11.63 11.16z"
+              fill="#253238"></path>
+          </svg>
+          28025, Madrid
+        </div>
+        <div class="p-user-joined">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+              d="M18 4V3a1 1 0 0 0-2 0v1H8V3a1 1 0 1 0-2 0v1H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1zm1 16H5V10h14v10m0-12H5V6h14v2z">
+            </path>
+          </svg>
+          Se unió hace {{selectedUser.created_at |timedif}}
+        </div>
+      </div>
+
+    </div>
+    <div class="p-user-trusted-col-2">
+      <div>Trusted</div>
+    </div>
+  </section>
+
+  <section class="select-user-component">
+    <div id="p-1" (click)=" showSection(1)" class="user-cm selected">
+      <p>{{counter[0]}}</p>
+      <span>En venta</span>
+      <div class="user-sel"></div>
+    </div>
+    <div id="p-2" (click)="showSection(2)" class="user-cm">
+      <p>{{counter[1]}}</p>
+      <span>Vendidos</span>
+      <div class="user-sel"></div>
+    </div>
+    <div id="p-3" (click)="showSection(3)" class="user-cm">
+      <p>+</p>
+      <span>Info</span>
+      <div class="user-sel"></div>
+    </div>
+  </section>
+  <section class="p-user-content">
+    <section *ngIf="selection == 1">
+      <ng-container *ngFor="let product of products; let index = index">
+        <div [routerLink]="'/product/'+product.id" class="p-product-card" *ngIf="product.active ">
+          <div class=" p-product-card-img">
+            <img *ngIf="product.photo![0] == 'none'"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHaOuVzOscd3MyzXqu_XZGl2T0GuiG989kTWgniDye5Q&s">
+            <img *ngIf="product.photo![0] != 'none'" [src]="product.photo![0]">
+          </div>
+          <div class="p-product-card-name-like">
+            <p>{{product.name}} </p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M12.8 6.4c-.4.6-1.2.6-1.6 0-.9-1.3-2-1.9-3.5-1.9-2.3 0-4.2 2-4.2 4.5 0 .9.3 1.8.8 2.7.6.9 1.4 1.9 2.7 3.3l1.9 1.9c.3.2 1.1 1 1.2 1.2.4.4.7.6.8.8l.6.6c.2.2.6.2.9 0l.6-.6.8-.8c.2-.1 1-.9 1.2-1.2 1-1 1.7-1.6 1.9-1.9 1.3-1.3 2.2-2.3 2.7-3.3.6-1 .8-1.8.8-2.7 0-2.6-1.8-4.5-4.2-4.5-1.3-.1-2.5.6-3.4 1.9zm3.5-3.9c3.5 0 6.2 2.9 6.2 6.5 0 1.3-.4 2.5-1.1 3.7-.7 1.1-1.6 2.2-3 3.7l-1.9 1.9c-.3.2-1.1 1-1.2 1.2-.4.4-.7.6-.8.7l-.6.6c-1 1-2.7 1-3.7 0l-.6-.6-.8-.8c-.2-.1-1-.9-1.2-1.2-1-1-1.7-1.6-2-1.9-1.4-1.5-2.4-2.6-3-3.7-.7-1.1-1.1-2.3-1.1-3.6 0-3.6 2.7-6.5 6.2-6.5 1.7 0 3.2.6 4.3 1.8 1.2-1.2 2.6-1.8 4.3-1.8z">
+              </path>
+            </svg>
+          </div>
+          <p class="p-product-card-description">{{product.description}}</p>
+          <p class="p-product-card-date">Hace {{product.created_at |timedif}} </p>
+        </div>
+      </ng-container>
+
+
+    </section>
+    <section *ngIf="selection == 2">
+      <ng-container *ngFor="let product of products; let index = index">
+        <div [routerLink]="'/product/'+product.id" class="p-product-card" *ngIf="product.active==false">
+          <div class=" p-product-card-img">
+            <img *ngIf="product.photo![0] == 'none'"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHaOuVzOscd3MyzXqu_XZGl2T0GuiG989kTWgniDye5Q&s">
+            <img *ngIf="product.photo![0] != 'none'" [src]="product.photo![0]">
+          </div>
+          <div class="p-product-card-name-like">
+            <p>{{product.name}} </p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path
+                d="M12.8 6.4c-.4.6-1.2.6-1.6 0-.9-1.3-2-1.9-3.5-1.9-2.3 0-4.2 2-4.2 4.5 0 .9.3 1.8.8 2.7.6.9 1.4 1.9 2.7 3.3l1.9 1.9c.3.2 1.1 1 1.2 1.2.4.4.7.6.8.8l.6.6c.2.2.6.2.9 0l.6-.6.8-.8c.2-.1 1-.9 1.2-1.2 1-1 1.7-1.6 1.9-1.9 1.3-1.3 2.2-2.3 2.7-3.3.6-1 .8-1.8.8-2.7 0-2.6-1.8-4.5-4.2-4.5-1.3-.1-2.5.6-3.4 1.9zm3.5-3.9c3.5 0 6.2 2.9 6.2 6.5 0 1.3-.4 2.5-1.1 3.7-.7 1.1-1.6 2.2-3 3.7l-1.9 1.9c-.3.2-1.1 1-1.2 1.2-.4.4-.7.6-.8.7l-.6.6c-1 1-2.7 1-3.7 0l-.6-.6-.8-.8c-.2-.1-1-.9-1.2-1.2-1-1-1.7-1.6-2-1.9-1.4-1.5-2.4-2.6-3-3.7-.7-1.1-1.1-2.3-1.1-3.6 0-3.6 2.7-6.5 6.2-6.5 1.7 0 3.2.6 4.3 1.8 1.2-1.2 2.6-1.8 4.3-1.8z">
+              </path>
+            </svg>
+          </div>
+          <p class="p-product-card-description">{{product.description}}</p>
+          <p class="p-product-card-date">Hace {{product.created_at |timedif}} </p>
+        </div>
+      </ng-container>
+
+    </section>
+    <section *ngIf="selection == 3">
+      <div class="p-info-card">
+        <div class="p-info-cnt">
+          <p class="bold-title">Información verificada</p>
+          <div>
+            None
+          </div>
+        </div>
+        <div class="p-info-cnt">
+          <p class="bold-title"> Nombre completo</p>
+          <span class="soft-subtitle">{{selectedUser.name}} {{selectedUser.lastname}}</span>
+        </div>
+        <div class="p-info-cnt">
+          <p class="bold-title">Miembro desde</p>
+          <span class="soft-subtitle"> {{selectedUser.created_at }}</span>
+        </div>
+        <div class="p-info-cnt">
+          <p class="bold-title">Ubicación</p>
+          <div class="p-info-location">
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </section>
+</main>

@@ -1,0 +1,14 @@
+<section>
+  <div *ngFor=" let product of products | pagination : 10  let index = index;">
+    <div (click)="productRedirect(product!.id!)">
+      <div>
+        <img [src]="product.photo![0]">
+      </div>
+      <span>{{product.name}}</span>
+      <span>{{product.description | desclen}}</span>
+      <span>Hace {{product.created_at |timedif}}</span>
+      <span>{{product.price}} €</span>
+      <span>🤍 0</span>
+    </div>
+  </div>
+</section>
