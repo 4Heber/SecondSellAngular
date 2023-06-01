@@ -58,7 +58,7 @@ export class SingleChatComponent implements OnInit {
 
     this.productService.getProducts().subscribe(() => {
       this.products = this.productService.productList
-      this.chatService.getChats().subscribe(() => {
+      this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
         this.chatId = this.route.snapshot.paramMap.get('id')!;
         this.chatList = this.chatService.chatList
         this.chat = this.chatList!.find((chat: Chat) => chat.id === parseInt(this.chatId) && (chat.emit === this.user.id || chat.recept === this.user.id))!;
@@ -101,7 +101,7 @@ export class SingleChatComponent implements OnInit {
         this.chat = chat
         message.chatId = this.chat.id!
         this.shouldget = false
-        this.chatService.postMsg(message).subscribe(() => {
+        this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
           this.shouldget = true
           messageInput!.value = ""
         })

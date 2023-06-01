@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 @Injectable({
@@ -13,8 +13,11 @@ export class ProductService {
 
   constructor(public http: HttpClient) { }
 
-  public postProduct(user: Product): Observable<Product> {
-    return this.http.post<Product>(`${this.CONFIG_URL}/products`, user)
+  public postProduct(product: Product,token:string): Observable<Product> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post<Product>(`${this.CONFIG_URL}/products`, product,{headers})
   }
 
   public getProducts(): Observable<void> {
@@ -29,6 +32,10 @@ export class ProductService {
 
   public getProductsByUserId(userId: number): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.CONFIG_URL}/user/${userId}/products`)
+  }
+
+  public getProductById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.CONFIG_URL}/products/${id}`)
   }
 
   public patchProductCart(productId: number) {

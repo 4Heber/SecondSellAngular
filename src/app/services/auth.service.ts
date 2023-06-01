@@ -24,7 +24,14 @@ export class AuthService {
     return this.users
   }
 
-  public getUserCookie(): String {
+  public getUserByToken(token:string) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<User>(`${this.CONFIG_URL}/token/${token}`,{headers})
+  }
+
+  public getUserCookie(): string {
     const token = document.cookie
     const requ = "auth="
     let res = false
@@ -87,7 +94,7 @@ export class AuthService {
 
   public loginUser(username: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.CONFIG_URL}/auth/login`, {
-      usenrame: username,
+      username: username,
       password: password
     })
   }

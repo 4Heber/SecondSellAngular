@@ -15,7 +15,7 @@
   </p>
   <ng-container *ngFor="let item of products">
     <div *ngIf="item!.active" (click)="changeSelected(item)" class="product-container">
-      <ng-container *ngIf="item.userId | getuser:0:0:users as Seller">
+      <ng-container *ngIf="item.seller_id | getuser:0:0:users as Seller">
         <div class="product-img">
           <img [src]="item.photo![0]">
         </div>

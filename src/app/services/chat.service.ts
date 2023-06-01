@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, switchMap } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
 import { Chat, Message, Offer } from 'src/app/models/chat.model';
@@ -8,7 +8,7 @@ import { Chat, Message, Offer } from 'src/app/models/chat.model';
 })
 export class ChatService {
 
-  private readonly CONFIG_URL = 'http://localhost:3000';
+  private readonly CONFIG_URL = 'http://secondsell.randion.es/api';
 
   public chatList: Chat[] = []
 
@@ -16,8 +16,11 @@ export class ChatService {
 
   }
 
-  public postChat(chat: Chat): Observable<Category> {
-    return this.http.post<Category>(`${this.CONFIG_URL}/chats`, chat)
+  public postChat(chat: Chat,userId:number,token:string): Observable<Category> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post<Category>(`${this.CONFIG_URL}/user/${userId}/chats`, chat,{headers})
   }
 
   public postOffer(offer: Offer): Observable<Offer> {
@@ -35,8 +38,11 @@ export class ChatService {
 
   }
 
-  public postMsg(message: Message): Observable<Category> {
-    return this.http.post<Category>(`${this.CONFIG_URL}/messages`, message)
+  public postMsg(message: Message,userId:number,token:string): Observable<Category> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post<Category>(`${this.CONFIG_URL}/user/${userId}/messages`, message,{headers})
   }
 
   // FUNCIÓN PARA OBTENER LOS MENSAJES Y ALMACENARLOS EN LA VAR PRIVADA
@@ -73,15 +79,26 @@ export class ChatService {
   }
 
   // FUNCIÓN PARA OBTENER LOS CHATS Y ALMACENARLOS EN LA VAR PRIVADA
-  public getChats(): Observable<void> {
-    return this.http.get<Chat[]>(`${this.CONFIG_URL}/chats`)
+  public getChats(userId:number,token:string): Observable<void> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Chat[]>(`${this.CONFIG_URL}/user/${userId}/chats`)
+      .pipe(map(((chats: Chat[]) => {
+        this.chatList = chats
+      })))
+  }
+
+  public getUserChats(userId:number,token:string): Observable<void> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Chat[]>(`${this.CONFIG_URL}/user/${userId}/chats`,{headers})
       .pipe(map(((chats: Chat[]) => {
         this.chatList = chats
       })))
   }
   public getChat(id: number): Observable<Chat> {
     return this.http.get<Chat>(`${this.CONFIG_URL}/chats/${id}`)
-
-
   }
 }

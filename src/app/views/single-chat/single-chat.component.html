@@ -45,7 +45,7 @@
   <p *ngIf="chat.closed" id="state-advisor" style="color:red">Chat Closed</p>
   <section *ngIf="!chat.closed" class=" chat-espec">
     <div class="subcont">
-      <div *ngIf="product.userId === user.id" class="offer-button" (click)="showOfferPannel()">Haz una oferta</div>
+      <div *ngIf="product.seller_id === user.id" class="offer-button" (click)="showOfferPannel()">Haz una oferta</div>
       <div class="sub-men">
         <svg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'
           xmlns:xlink='http://www.w3.org/1999/xlink'>

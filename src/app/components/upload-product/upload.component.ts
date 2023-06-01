@@ -33,35 +33,20 @@ export class UploadComponent {
   // AL CREAR EL COMPONENTE NOS SUSCRIBIMOS AL OBSERVABLE QUE RETORNA LA FUNCION GETUSERS
   ngOnInit(): void {
 
-    this.authService.getUsers().subscribe(() => {
-
-      if (this.authService.getUserByCookie()) {
-        this.authService.user.subscribe((us: User) => {
-          this.user = us
-          this.categoryService.getCategories().subscribe(() => {
-            this.categories = this.categoryService.categoryList
-            this.loaded = true
-          })
-        })
-      }
-      else {
-        this.authService.user.subscribe((us: User) => {
-          if (!(us.username)) {
-            this.router.navigate(['/login']);
-          }
-          else {
-            this.user = us
-            this.categoryService.getCategories().subscribe(() => {
-              this.categories = this.categoryService.categoryList
-              this.loaded = true
-
-            })
-
-          }
-        })
-
-      }
-    })
+  this.authService.getUserByToken(this.authService.getUserCookie()).subscribe((us:User)=> {
+    if(us) {
+      this.user = us
+      this.authService.user.next(us)
+      this.categoryService.getCategories().subscribe(()=> {
+        this.categories =  this.categoryService.categoryList
+        this.loaded = true
+        this.cansend = true
+      })
+    }
+    else {
+      this.router.navigate(['login'])
+    }
+  })
   }
   public sendProduct(): void {
     if (this.loaded == true && this.cansend) {
@@ -69,6 +54,7 @@ export class UploadComponent {
       const productDescription = <HTMLInputElement>document.getElementById("productDescription");
       const productPrice = <HTMLInputElement>document.getElementById("productPrice");
       const categorySelected = <HTMLInputElement>document.getElementById('form-auto')!
+      alert(productPrice.value)
       const categoryId = this.categories.find((categoria) => categoria.name.toLowerCase() === categorySelected.value.toLowerCase());
       if (categoryId && productName.value != "" && this.selectedState != "" && productDescription.value != "" && productPrice.value != "") {
         this.cansend = false
@@ -79,15 +65,16 @@ export class UploadComponent {
           name: productName.value,
           description: productDescription.value,
           state: this.selectedState,
-          photo: this.imageString,
-          price: parseFloat(productPrice.value).toFixed(2),
+          photo:JSON.stringify(this.imageString),
+          price: parseFloat(productPrice.value),
           category_id: categoryId.id,
-          userId: this.user.id!,
+          seller_id: this.user.id!,
+          buyer_id:null,
           active: true
 
         };
         console.log(product)
-        this.productService.postProduct(product).subscribe(() => {
+        this.productService.postProduct(product,this.authService.getUserCookie()).subscribe(() => {
           this.cansend = true
           this.router.navigate([`/products/${product.id!}`])
         })

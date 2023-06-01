@@ -11,7 +11,7 @@ import { Order } from 'src/app/models/order.model';
 })
 export class TransactionService {
 
-  private readonly CONFIG_URL = 'http://localhost:3000';
+  private readonly CONFIG_URL = 'http://secondsell.randion.es/api';
 
   public cartList: Cart[] = []
   public cart: Cart = {} as Cart

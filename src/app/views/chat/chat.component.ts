@@ -52,7 +52,7 @@ export class ChatComponent implements OnInit {
 
       this.productService.getProducts().subscribe(() => {
         this.products = this.productService.productList
-        this.chatService.getChats().subscribe(() => {
+        this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
           this.chatList = this.chatService.chatList
           this.ownChats = this.chatList.filter((chat: Chat) => chat.emit === this.user.id || chat.recept === this.user.id);
           for (let x = 0; x < this.chatList.length; x++) {
@@ -71,19 +71,16 @@ export class ChatComponent implements OnInit {
   }
 
   public getuserChats() {
-    this.chatService.getChats().subscribe(() => {
-      this.chatList = this.chatService.chatList
-      this.ownChats = this.chatList.filter((chat: Chat) => chat.emit === this.user.id || chat.recept === this.user.id);
-    })
+
   }
   public getUserBuyersChats() {
-    this.chatService.getChats().subscribe(() => {
+    this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
       this.chatList = this.chatService.chatList
       this.ownChats = this.chatList.filter((chat: Chat) => chat.emit != this.user.id && chat.recept === this.user.id);
     })
   }
   getUserClosedChats() {
-    this.chatService.getChats().subscribe(() => {
+    this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
       this.chatList = this.chatService.chatList
       this.ownChats = this.chatList.filter((chat: Chat) => chat.closed);
     })
@@ -107,7 +104,7 @@ export class ChatComponent implements OnInit {
       chatId: -1
     }
     if (created) {
-      this.chatService.postMsg(message).subscribe(() => { })
+      this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => { })
     }
 
   }

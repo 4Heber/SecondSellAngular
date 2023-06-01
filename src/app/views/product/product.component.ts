@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { create } from 'domain';
+import { map } from 'rxjs';
 import { Chat, Message } from 'src/app/models/chat.model';
 
 import { Product } from 'src/app/models/product.model';
@@ -29,50 +30,83 @@ export class ProductComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.authService.getUsers().subscribe(() => {
+    // this.authService.getUsers().subscribe(() => {
 
-      if (this.authService.getUserByCookie()) {
-        this.authService.user.subscribe((us: User) => {
-          this.user = us
-        })
-      }
-      else {
-        this.authService.user.subscribe((us: User) => {
-          if (!(us.username)) {
-            this.router.navigate(['/login']);
-          }
-          else {
-            this.user = us
-          }
-        })
-      }
-    })
+    //   if (this.authService.getUserByCookie()) {
+    //     this.authService.user.subscribe((us: User) => {
+    //       this.user = us
+    //     })
+    //   }
+    //   else {
+    //     this.authService.user.subscribe((us: User) => {
+    //       if (!(us.username)) {
+    //         this.router.navigate(['/login']);
+    //       }
+    //       else {
+    //         this.user = us
+    //       }
+    //     })
+    //   }
+    // })
 
-    this.productService.getProducts().subscribe(() => {
-      this.route.params.subscribe(params => {
-        this.prodid = params['id'];
-        this.pagination = 0
-        if (this.prodid != undefined && parseInt(this.prodid) && this.prodid != null) {
-          let tempID: number = parseInt(this.prodid)
-          let temp = this.productService.productList.find(product => product.id === tempID);
-          if (temp != undefined) {
-            this.product = temp
-            this.authService.getUser(this.product.userId).subscribe((us: User) => {
-              this.seller = us
-              this.products = this.productService.productList
-              this.chatService.getChats().subscribe(() => {
-                this.chatList = this.chatService.chatList
-                this.loaded = true
+    this.authService.getUserByToken(this.authService.getUserCookie()).subscribe((res: User) => {
+      if (res) {
+        this.user = res;
+        this.authService.user.next(res);
+        this.route.params.subscribe(params => {
+          this.productService.getProductById(params['id']).pipe(
+            map((product: Product) => {
+              if (product.seller_id) {
+                product.photo = JSON.parse(product.photo!);
+                this.product = product as Product;
                 const imageP = <HTMLImageElement>document.getElementById("product-img")!
                 imageP.src = this.product.photo![this.pagination]
-
-              })
+                this.chatList = this.chatService.chatList
+                this.authService.getUser(product.seller_id).subscribe((us: User) => {
+                  this.seller = us;
+                  this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe(() => {
+                    this.loaded = true
+                    this.chatList = this.chatService.chatList
+                    console.log(this.chatList)
+                  
+                  });
+                });
+              } else {
+                 this.router.navigate(['404'])
+              }
+              return { product: this.product };
             })
-          }
-        }
-      })
+          ).subscribe(() => {
+            // Código adicional aquí si es necesario
+          });
+        });
+      }
     });
-  }
+    
+
+    // this.productService.getProducts().subscribe(() => {
+    //   this.route.params.subscribe(params => {
+    //     this.prodid = params['id'];
+    //     this.pagination = 0
+    //     if (this.prodid != undefined && parseInt(this.prodid) && this.prodid != null) {
+    //       let tempID: number = parseInt(this.prodid)
+    //       let temp = this.productService.productList.find(product => product.id === tempID);
+    //       if (temp != undefined) {
+    //         this.product = temp
+    //         this.authService.getUser(this.product.sellerId).subscribe((us: User) => {
+    //           this.seller = us
+    //           this.products = this.productService.productList
+    //           this.chatService.getChats().subscribe(() => {
+    //             this.chatList = this.chatService.chatList
+    //            
+
+    //           })
+    //         })
+    //       }
+    //     }
+    //   })
+    // });
+  } 
   public ensureUser() {
     if (this.user.id
       == this.seller.id) {
@@ -133,10 +167,10 @@ export class ProductComponent implements OnInit {
         }
         if (this.ensureUser()) {
           this.canSend = false
-          this.chatService.postMsg(message).subscribe(() => {
+          this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
             this.hideMessageDirect()
             this.showpannel()
-            this.chatService.getChats().subscribe(() => {
+            this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
               this.chatList = this.chatService.chatList
               this.canSend = true
             })
@@ -155,8 +189,8 @@ export class ProductComponent implements OnInit {
           recept: this.seller!.id!,
           productID: parseInt(this.prodid),
         }
-        this.chatService.postChat(chat).subscribe(() => {
-          this.chatService.getChats().subscribe(() => {
+        this.chatService.postChat(chat,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+          this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
             this.chatList = this.chatService.chatList
             this.canSend = true
             const chat = this.chatList.find(
@@ -169,7 +203,7 @@ export class ProductComponent implements OnInit {
               created_at: new Date(),
               chatId: chat!.id!,
             }
-            this.chatService.postMsg(message).subscribe(() => {
+            this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
               this.canSend = true
             })
           })

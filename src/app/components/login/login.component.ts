@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
 
     if (username.value != "" && password.value != "") {
       this.authService.loginUser(username.value, password.value).subscribe((res: any) => {
+        console.log(res)
         this.authService.user.next(res.user)
         this.authservice.setCookie(res.token)
       })

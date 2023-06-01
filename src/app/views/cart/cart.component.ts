@@ -95,7 +95,7 @@ export class CartComponent implements OnInit {
                     });
                     const order = {
                       buyer: this.user.id!,
-                      seller: this.selectedProduct.userId!,
+                      seller: this.selectedProduct.seller_id!,
                       created_at: new Date,
                       price: this.selectedPrice[1],
                       productId: this.selectedProduct.id!

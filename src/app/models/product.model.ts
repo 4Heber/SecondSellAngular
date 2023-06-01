@@ -6,9 +6,10 @@ export interface Product {
   name: string;
   description: string;
   state: string;
-  photo?: string[];
-  price: string;
+  photo?: any;
+  price: number;
   category_id: number;
   active: boolean;
-  userId: number;
+  buyer_id:any;
+  seller_id: number;
 }
