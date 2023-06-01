@@ -17,7 +17,7 @@ export class HomeCategoryComponent implements OnInit {
   public pagination: Pagination = {} as Pagination
   public catId = ''
   public catSelected = {} as Category
-
+  public loaded = false
   private readonly categorySize = 9
   private categoryBlank: number[] = []
 
@@ -26,20 +26,25 @@ export class HomeCategoryComponent implements OnInit {
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.loaded = false
+      this.products = []
       this.catId = params['id'];
-
-
       this.categoryService.getCategories().subscribe(() => {
         this.categories = this.categoryService.categoryList
         this.productService.getProducts().subscribe(() => {
-          this.products = this.productService.productList
 
           let temp = this.categories.find(categoria => categoria.name.toLocaleLowerCase() === this.catId.toLocaleLowerCase());
           if (temp == undefined) {
             this.router.navigate(['/404'])
           }
           this.catSelected = temp!
-          this.products = this.products.filter(producto => producto.categoryId === this.catSelected.id!);
+
+          this.productService.productList.forEach((producto) => {
+            if (producto.category_id == this.catSelected.id) {
+              this.products.push(producto);
+            }
+
+          });
           for (let i = 0; i < this.categories.length - this.pagination.categorySize; i++) {
             if (i == this.categorySize / 2) {
               i = this.categories.length
@@ -47,12 +52,16 @@ export class HomeCategoryComponent implements OnInit {
             this.categoryBlank.push(i)
           }
           this.pagination.categroyBlank = this.categoryBlank
-        })
-      })
-      this.pagination.pageSize = 8
-      this.pagination.categorySize = 9
 
-      this.pagination.categoryDisplay = false
+        })
+        this.pagination.pageSize = 8
+        this.pagination.categorySize = 9
+
+        this.pagination.categoryDisplay = false
+        console.log(this.products)
+        this.loaded = true
+      })
+
     })
   }
   public showCategories(): void {

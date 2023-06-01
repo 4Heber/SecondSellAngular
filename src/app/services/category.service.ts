@@ -6,27 +6,29 @@ import { Category } from 'src/app/models/category.model';
   providedIn: 'root'
 })
 export class CategoryService {
-  // URL API
-  private readonly CONFIG_URL = 'http://localhost:3000';
 
-  // ARRAY DE CategoryOS
+  private readonly CONFIG_URL = 'http://secondsell.randion.es/api';
+
   public categoryList: Category[] = []
 
   constructor(public http: HttpClient) {
 
   }
 
-  // FUNCIÓN PARA HACER POST DE UN CategoryO
   public postCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(`${this.CONFIG_URL}/categories`, category)
   }
 
-  // FUNCIÓN PARA OBTENER LOS CategoryOS Y ALMACENARLOS EN LA VAR PRIVADA
   public getCategories(): Observable<void> {
-    return this.http.get<Category[]>(`${this.CONFIG_URL}/categories`)
-      .pipe(map(((Categorys: Category[]) => {
-        this.categoryList = Categorys
-      })))
+    return this.http.get<any>(`${this.CONFIG_URL}/categories`)
+      .pipe(
+        map(response => {
+          const categoryArray = response.categories;
+          console.log(categoryArray);
+          this.categoryList = categoryArray;
+        })
+      );
   }
+
 
 }

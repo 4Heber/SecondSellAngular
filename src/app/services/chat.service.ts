@@ -7,28 +7,24 @@ import { Chat, Message, Offer } from 'src/app/models/chat.model';
   providedIn: 'root'
 })
 export class ChatService {
-  // URL API
+
   private readonly CONFIG_URL = 'http://localhost:3000';
 
-  // ARRAY DE CHATS
   public chatList: Chat[] = []
 
   constructor(public http: HttpClient) {
 
   }
 
-  // FUNCIÓN PARA HACER POST DE UN CHAT
   public postChat(chat: Chat): Observable<Category> {
     return this.http.post<Category>(`${this.CONFIG_URL}/chats`, chat)
   }
 
-  // FUNCIÓN PARA HACER POST DE UN OFFER
   public postOffer(offer: Offer): Observable<Offer> {
     return this.http.post<Offer>(`${this.CONFIG_URL}/offers`, offer)
   }
 
   public patchOffer(state: number, offerId: number): Observable<Message> {
-
     const patchData: { state: number } = { state: state };
     return this.http.patch<Message>(`${this.CONFIG_URL}/offers/${offerId}`, patchData);
 
@@ -39,7 +35,6 @@ export class ChatService {
 
   }
 
-  // FUNCIÓN PARA HACER POST DE UN MENSAJE
   public postMsg(message: Message): Observable<Category> {
     return this.http.post<Category>(`${this.CONFIG_URL}/messages`, message)
   }

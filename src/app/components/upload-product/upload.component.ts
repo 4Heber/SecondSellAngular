@@ -81,7 +81,7 @@ export class UploadComponent {
           state: this.selectedState,
           photo: this.imageString,
           price: parseFloat(productPrice.value).toFixed(2),
-          categoryId: categoryId.id,
+          category_id: categoryId.id,
           userId: this.user.id!,
           active: true
 

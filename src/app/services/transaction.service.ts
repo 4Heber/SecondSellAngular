@@ -10,19 +10,18 @@ import { Order } from 'src/app/models/order.model';
   providedIn: 'root'
 })
 export class TransactionService {
-  // URL API
+
   private readonly CONFIG_URL = 'http://localhost:3000';
 
-  // ARRAY DE OFERTAS
   public cartList: Cart[] = []
   public cart: Cart = {} as Cart
   public productCartList: ProductCart[] = []
   public productCart: ProductCart = {} as ProductCart
+
   constructor(public http: HttpClient) {
 
   }
 
-  // FUNCIÓN PARA HACER POST DE UNA OFERTA
   public postProductCart(offer: Offer, cartId: number, prodcutID: number): Observable<ProductCart> {
     return this.http.post<ProductCart>(`${this.CONFIG_URL}/productCart`, {
       productId: prodcutID,
@@ -31,7 +30,6 @@ export class TransactionService {
     })
   }
 
-  // FUNCIÓN PARA OBTENER LAS OFERTAS Y ALMACENARLOS EN LA VAR PRIVADA
   public getCarts(): Observable<void> {
     return this.http.get<Cart[]>(`${this.CONFIG_URL}/carts`)
       .pipe(map(((cart: Cart[]) => {
@@ -39,7 +37,6 @@ export class TransactionService {
       })))
   }
 
-  // FUNCIÓN PARA OBTENER LAS OFERTAS Y ALMACENARLOS EN LA VAR PRIVADA
   public getCart(userId: number): Observable<void> {
     return this.http.get<Cart>(`${this.CONFIG_URL}/cart/?userId=${userId}&_sort=id&_order=desc&_limit=1`).pipe(map(((cart: any) => {
       if (cart[0])
@@ -53,12 +50,15 @@ export class TransactionService {
         this.productCart = productCart[0]
       })))
   }
+
   public postCart(cart: Cart): Observable<Cart> {
     return this.http.post<Cart>(`${this.CONFIG_URL}/cart`, cart)
   }
+
   public postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(`${this.CONFIG_URL}/order`, order)
   }
+
   public getProductsCart(cartId: number): Observable<void> {
     return this.http.get<ProductCart[]>(`${this.CONFIG_URL}/productCart/?cartId=${cartId}`)
       .pipe(map(((productCart: ProductCart[]) => {
@@ -68,7 +68,6 @@ export class TransactionService {
 
   public patchProductCart(cartId: number, offer: Offer, productId: number): Observable<ProductCart> {
     const url = `${this.CONFIG_URL}/productCart/?cartId=${cartId}&productId=${productId}`;
-
     const requestBody = {
       productId: productId,
       price: offer.price
@@ -78,7 +77,6 @@ export class TransactionService {
       switchMap((product: ProductCart[]) => {
 
         if (Array.isArray(product) && product.length > 0) {
-          // Modificar el primer valor del array
           product[0].price = offer.price;
 
           return this.http.patch<ProductCart>(`${this.CONFIG_URL}/productCart/${product[0].id}`, requestBody);
@@ -108,6 +106,7 @@ export class TransactionService {
       })
     );
   }
+
   public patchUserCoins(ammount: number, userId: number): Observable<User> {
     const url = `${this.CONFIG_URL}/users/${userId}`;
     const requestBody = {

@@ -8,7 +8,7 @@ import { BehaviorSubject, map, Observable, retry } from 'rxjs';
 export class AuthService {
 
   // URL API
-  private readonly CONFIG_URL = 'http://localhost:3000';
+  private readonly CONFIG_URL = 'http://secondsell.randion.es/api';
 
   // ARRAY DE USUARIOS
   private users: User[] = []
@@ -20,24 +20,10 @@ export class AuthService {
 
   }
 
-  // GETTER DE ARRAY DE USUARIOS
   get usuarios(): User[] {
     return this.users
   }
 
-  // FUNCION PARA GENERAR UNA COOKIE NUEVA
-  public getCookie(): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    const length = 10
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
-
-  }
-
-  // FUNCION PARA EXTRAER EL VALOR DE UNA COOKIE
   public getUserCookie(): String {
     const token = document.cookie
     const requ = "auth="
@@ -68,7 +54,6 @@ export class AuthService {
     return temp
   }
 
-  // FUNCION PARA EXTRAER UN USUARIO POR SU COOKIE
   public getUserByCookie(): boolean {
 
     let tempUser = this.users.find((us: User) => {
@@ -81,7 +66,6 @@ export class AuthService {
     return false
   }
 
-  // FUNCIÓN PARA OBTENER LOS USUARIOS Y ALMACENARLOS EN LA VAR PRIVADA
   public getUsers(): Observable<void> {
     return this.http.get<User[]>(`${this.CONFIG_URL}/users`)
       .pipe(map(((users: User[]) => {
@@ -93,17 +77,27 @@ export class AuthService {
     return this.http.get<User>(`${this.CONFIG_URL}/users/${id}`)
   }
 
-  // FUNCIÓN PARA SETTEAR UNA COOKIE A UN USER
   public setCookie(token: string): void {
     document.cookie = `auth = ${token}; path = /`
   }
 
-  // FUNCIÓN PARA HACER POST DE UN USUARIO
   public postUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.CONFIG_URL}/users`, user)
+    return this.http.post<User>(`${this.CONFIG_URL}/auth/signup`, user)
   }
 
-  // FUNCIÓN PARA HACER UN PUT DE UN USUARIO
+  public loginUser(username: string, password: string): Observable<User> {
+    return this.http.post<User>(`${this.CONFIG_URL}/auth/login`, {
+      usenrame: username,
+      password: password
+    })
+  }
+
+  public loginUserByToken(token: string): Observable<User> {
+    return this.http.post<User>(`${this.CONFIG_URL}/auth/login`, {
+      token: token
+    })
+  }
+
   public putUser(user: User, index: number): void {
     this.http.put<User>(`${this.CONFIG_URL}/users/${index}`, user).subscribe(() => {
 

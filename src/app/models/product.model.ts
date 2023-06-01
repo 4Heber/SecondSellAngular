@@ -8,7 +8,7 @@ export interface Product {
   state: string;
   photo?: string[];
   price: string;
-  categoryId: number;
+  category_id: number;
   active: boolean;
   userId: number;
 }

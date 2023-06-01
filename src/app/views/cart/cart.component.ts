@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductCart } from 'src/app/models/cart.model';
 import { Category } from 'src/app/models/category.model';
+import { Order } from 'src/app/models/order.model';
 import { Pagination } from 'src/app/models/pagination.model';
 import { Product } from 'src/app/models/product.model';
 import { User } from 'src/app/models/user.model';
@@ -96,9 +97,9 @@ export class CartComponent implements OnInit {
                       buyer: this.user.id!,
                       seller: this.selectedProduct.userId!,
                       created_at: new Date,
-                      price: this.selectedPrice,
+                      price: this.selectedPrice[1],
                       productId: this.selectedProduct.id!
-                    }
+                    } as Order
                     this.transactionService.postOrder(order).subscribe(() => {
                       this.deleteSelected()
 

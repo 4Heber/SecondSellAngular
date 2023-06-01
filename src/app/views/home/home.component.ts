@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.productService.getProducts().subscribe(() => {
       this.products = this.productService.productList
+      console.log(this.products)
     })
     this.categoryService.getCategories().subscribe(() => {
       this.categories = this.categoryService.categoryList
@@ -50,11 +51,11 @@ export class HomeComponent implements OnInit {
       this.pagination.categorySize = this.categories.length
       this.pagination.categroyBlank = []
       this.pagination.categoryDisplay = true
-      document.getElementById('show')!.style.zIndex = '-1000'
       showCats.value = "Ver menos"
 
     }
     else {
+
       document.getElementById("show")!.classList.remove("nonMarginTop")
       this.pagination.categorySize = this.categorySize
       this.pagination.categroyBlank = this.categoryBlank
