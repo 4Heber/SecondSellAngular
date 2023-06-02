@@ -12,7 +12,7 @@
     <ng-container *ngFor="let chat of ownChats;let index = index">
       <div (click)="messageRedirect(chat!.id!)" class="chat-card">
         <ng-container *ngIf="chat.recept | getuser:user.id!:chat.emit:users as Seller">
-          <ng-container *ngIf="chat.productID | getproduct:products as Product">
+          <ng-container *ngIf="chat.product_id | getproduct:products as Product">
             <div class="chat-img-eng">
               <img class="p-img-chat" *ngIf="Product!.photo![0]!= 'none'" [src]="Product.photo![0]!">
               <img class="p-img-chat" *ngIf="Product!.photo![0]! == 'none'"

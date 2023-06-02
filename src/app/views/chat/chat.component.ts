@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { create } from 'domain';
+import { catchError, throwError } from 'rxjs';
 import { Chat, Message } from 'src/app/models/chat.model';
 
 import { Product } from 'src/app/models/product.model';
@@ -29,60 +30,55 @@ export class ChatComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.authService.getUsers().subscribe(() => {
-      this.users = this.authService.usuarios
-      if (this.authService.getUserByCookie()) {
-        this.authService.user.subscribe((us: User) => {
-          this.user = us
-        })
-      }
-      else {
-        this.authService.user.subscribe((us: User) => {
-          if (!(us.username)) {
-            this.router.navigate(['/login']);
-          }
-          else {
-            this.user = us
+    this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
+      catchError((error: { status: number; }) => {
+        if (error.status === 401) {
+          this.router.navigate(['login'])
+        }
+        return throwError(error);
+      })
+    ).subscribe((res: User) => {
 
-          }
-        })
+      this.authService.getUsers().subscribe(() => {
+        this.users = this.authService.usuarios
 
-      }
-
-
-      this.productService.getProducts().subscribe(() => {
-        this.products = this.productService.productList
-        this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-          this.chatList = this.chatService.chatList
-          this.ownChats = this.chatList.filter((chat: Chat) => chat.emit === this.user.id || chat.recept === this.user.id);
-          for (let x = 0; x < this.chatList.length; x++) {
-
-            this.chatService.getMsg(this.chatList[x].id!).subscribe((message: Message[]) => {
-              this.messages.push(message);
-              if (x === this.chatList.length - 1) {
-                this.loaded = true
-              }
-            })
-          }
-
+        this.user = res
+        this.productService.getProducts().subscribe(() => {
+          this.products = this.productService.productList
+          this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: Chat[]) => {
+            this.chatList = res
+            this.ownChats = res
+            for (let x = 0; x < this.chatList.length; x++) {
+              this.chatService.getMsg(this.chatList[x].id!, this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
+                this.messages.push(res);
+                if (x === this.chatList.length - 1) {
+                  this.loaded = true
+                  console.log(res)
+                }
+              })
+            }
+          })
         })
       })
     })
   }
 
   public getuserChats() {
-
+    this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: Chat[]) => {
+      this.chatList = res
+      this.ownChats = res
+    })
   }
   public getUserBuyersChats() {
-    this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-      this.chatList = this.chatService.chatList
-      this.ownChats = this.chatList.filter((chat: Chat) => chat.emit != this.user.id && chat.recept === this.user.id);
+    this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: Chat[]) => {
+      this.chatList = res
+      this.ownChats = res.filter((chat: Chat) => chat.emit != this.user.id && chat.recept === this.user.id);
     })
   }
   getUserClosedChats() {
-    this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-      this.chatList = this.chatService.chatList
-      this.ownChats = this.chatList.filter((chat: Chat) => chat.closed);
+    this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: Chat[]) => {
+      this.chatList = res
+      this.ownChats = res.filter((chat: Chat) => chat.closed);
     })
   }
   public messageRedirect(msgId: number) {
@@ -101,10 +97,10 @@ export class ChatComponent implements OnInit {
       message: messageInput!.value,
       seen: false,
       created_at: new Date(),
-      chatId: -1
+      chat_id: -1
     }
     if (created) {
-      this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => { })
+      this.chatService.postMsg(message, this.user.id!, this.authService.getUserCookie()).subscribe(() => { })
     }
 
   }

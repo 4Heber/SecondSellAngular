@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { create } from 'domain';
 import { Chat, Message, Offer } from 'src/app/models/chat.model';
-import { interval, Subscription } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import { interval, Subscription, throwError } from 'rxjs';
+import { catchError, takeWhile } from 'rxjs/operators';
 import { Product } from 'src/app/models/product.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -37,46 +37,45 @@ export class SingleChatComponent implements OnInit {
   constructor(private readonly transactionService: TransactionService, private chatService: ChatService, private router: Router, private route: ActivatedRoute, private productService: ProductService, private authService: AuthService, private categoryService: CategoryService) {
   }
   ngOnInit() {
-    this.authService.getUsers().subscribe(() => {
-      this.users = this.authService.usuarios
-      if (this.authService.getUserByCookie()) {
-        this.authService.user.subscribe((us: User) => {
-          this.user = us
-        })
-      }
-      else {
-        this.authService.user.subscribe((us: User) => {
-          if (!(us.username)) {
-            this.router.navigate(['/login']);
+    this.route.params.subscribe(params => {
+      this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
+        catchError((error: { status: number; }) => {
+          if (error.status === 401) {
+            this.router.navigate(['login'])
           }
-          else {
-            this.user = us
-          }
+          return throwError(error);
         })
-      }
-    })
+      ).subscribe((res: User) => {
+        this.user = res
+        this.productService.getProducts().subscribe(() => {
+          this.products = this.productService.productList
+          this.chatService.getChat(params['id'], this.authService.getUserCookie(), this.user.id!).subscribe((res: Chat) => {
+            this.chat = res
+            if (res.emit !== this.user.id || res.emit !== this.user.id) {
+              this.router.navigate(['/chat'])
+            }
+            if (res.emit == this.user.id) {
+              this.authService.getUser(res.recept).subscribe((res: User) => {
+                this.direct = res
+                this.product = this.products.find((prodcut: Product) => prodcut.id == this.chat.product_id)!
+                this.loaded = true
+                this.suscribirPeticion()
+              })
+            }
+            else {
+              this.authService.getUser(res.emit).subscribe((res: User) => {
+                this.direct = res
+                this.product = this.products.find((prodcut: Product) => prodcut.id == this.chat.product_id)!
+                this.loaded = true
+                this.suscribirPeticion()
+              })
+            }
 
-    this.productService.getProducts().subscribe(() => {
-      this.products = this.productService.productList
-      this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-        this.chatId = this.route.snapshot.paramMap.get('id')!;
-        this.chatList = this.chatService.chatList
-        this.chat = this.chatList!.find((chat: Chat) => chat.id === parseInt(this.chatId) && (chat.emit === this.user.id || chat.recept === this.user.id))!;
-
-        if ((this.chat == undefined)) {
-          this.router.navigate(['/chat'])
-        }
-        this.product = this.products.find((prodcut: Product) => prodcut.id == this.chat.productID)!
-        if (this.user.id === this.chat.recept) {
-          this.direct = this.users.find((user: User) => user.id == this.chat.emit)!
-        }
-        else {
-          this.direct = this.users.find((user: User) => user.id == this.chat.recept)!
-        }
-        this.loaded = true
-        this.suscribirPeticion()
+          })
+        })
       })
     })
+
   }
   public messageRedirect(msgId: number) {
     const proute = `/chat/${msgId}`
@@ -94,14 +93,14 @@ export class SingleChatComponent implements OnInit {
       message: messageInput!.value,
       seen: false,
       created_at: new Date(),
-      chatId: -1
+      chat_id: -1
     }
     if (created) {
-      this.chatService.getChat(this.chat.id!).subscribe((chat: Chat) => {
+      this.chatService.getChat(this.chat.id!, this.authService.getUserCookie(), this.user.id!).subscribe((chat: Chat) => {
         this.chat = chat
-        message.chatId = this.chat.id!
+        message.chat_id = this.chat.id!
         this.shouldget = false
-        this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+        this.chatService.postMsg(message, this.user.id!, this.authService.getUserCookie()).subscribe(() => {
           this.shouldget = true
           messageInput!.value = ""
         })
@@ -110,12 +109,12 @@ export class SingleChatComponent implements OnInit {
   }
   suscribirPeticion(): void {
     this.subscription = interval(600).subscribe(() => {
-      this.chatService.getChat(this.chat.id!).subscribe((chat: Chat) => {
+      this.chatService.getChat(this.chat.id!, this.authService.getUserCookie(), this.user.id!).subscribe((chat: Chat) => {
         if (this.shouldget) {
           this.chat = chat;
-          this.chatService.getMsg(this.chat!.id!).subscribe((message: Message[]) => {
+          this.chatService.getMsg(this.chat!.id!, this.user.id!, this.authService.getUserCookie()).subscribe((message: Message[]) => {
             this.messages = message
-            this.chatService.getOfferById(this.chat!.id!).subscribe((offers: Offer[]) => {
+            this.chatService.getOfferById(this.user.id!, this.chat!.id!, this.authService.getUserCookie()).subscribe((offers: any) => {
               this.offers = offers
               if (this.hasUserMessage(this.messages, this.direct.id!)) {
                 this.chatService.patchMsg(this.chat.id!, this.direct.id!).subscribe(() => { })
@@ -172,7 +171,7 @@ export class SingleChatComponent implements OnInit {
               if (this.transactionService.productCart?.id) {
                 this.transactionService.patchProductCart(this.transactionService.productCart.id, offer, this.product.id!).subscribe(() => {
                   this.chatService.patchOffer(1, offer.id!).subscribe(() => {
-                    this.chatService.getOfferById(this.chat.id!).subscribe((offers: Offer[]) => {
+                    this.chatService.getOfferById(this.user.id!, this.chat.id!, this.authService.getUserCookie()).subscribe((offers: Offer[]) => {
                       this.offers = offers;
                       this.canChoose = true
 
@@ -182,7 +181,7 @@ export class SingleChatComponent implements OnInit {
               } else {
                 this.transactionService.postProductCart(offer, this.transactionService.cart.id!, this.product.id!).subscribe(() => {
                   this.chatService.patchOffer(1, offer.id!).subscribe(() => {
-                    this.chatService.getOfferById(this.chat.id!).subscribe((offers: Offer[]) => {
+                    this.chatService.getOfferById(this.user.id!, this.chat.id!, this.authService.getUserCookie()).subscribe((offers: Offer[]) => {
                       this.offers = offers;
                       this.canChoose = true
 
@@ -200,7 +199,7 @@ export class SingleChatComponent implements OnInit {
               this.transactionService.getCart(this.user.id!)
               this.transactionService.postProductCart(offer, createdCart.id!, this.product.id!).subscribe(() => {
                 this.chatService.patchOffer(1, offer.id!).subscribe(() => {
-                  this.chatService.getOfferById(this.chat.id!).subscribe((offers: Offer[]) => {
+                  this.chatService.getOfferById(this.user.id!, this.chat.id!, this.authService.getUserCookie()).subscribe((offers: Offer[]) => {
                     this.offers = offers;
                     this.canChoose = true
 

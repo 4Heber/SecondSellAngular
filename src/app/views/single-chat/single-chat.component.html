@@ -1,6 +1,6 @@
 <main *ngIf="loaded" class="content-engolber">
   <section class="direct-info">
-    <div [routerLink]="'/user/'+direct!.id!" class="direct-profile">
+    <div [routerLink]="'/user/'+direct.id" class="direct-profile">
       <div>
         <div *ngIf="direct.photo == 'default'" style="width:100%;height:100%;background-color: black;"></div>
         <img *ngIf="direct.photo != 'default'" [src]="direct.photo">

@@ -4,7 +4,7 @@ export interface Message {
   image?: string;
   seen: boolean;
   created_at: Date;
-  chatId: number;
+  chat_id: number;
   id?: number;
 
 }
@@ -14,14 +14,14 @@ export interface Offer {
   price: number;
   created_at: Date;
   state: number;
-  chatId: number;
-  productId: number;
+  chat_id: number;
+  product_id: number;
 
 }
 export interface Chat {
   id?: number;
   emit: number;
-  productID: number;
+  product_id: number;
   recept: number;
   closed: boolean;
 }

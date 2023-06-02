@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { create } from 'domain';
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 import { Chat, Message } from 'src/app/models/chat.model';
 
 import { Product } from 'src/app/models/product.model';
@@ -22,7 +22,6 @@ export class ProductComponent implements OnInit {
   public seller: User = {} as User
   public products: Product[] = []
   public chatList: Chat[] = []
-  public prodid!: string
   public canSend = true
   public pagination = 0
   public loaded = false
@@ -30,83 +29,44 @@ export class ProductComponent implements OnInit {
 
   }
   ngOnInit() {
-    // this.authService.getUsers().subscribe(() => {
 
-    //   if (this.authService.getUserByCookie()) {
-    //     this.authService.user.subscribe((us: User) => {
-    //       this.user = us
-    //     })
-    //   }
-    //   else {
-    //     this.authService.user.subscribe((us: User) => {
-    //       if (!(us.username)) {
-    //         this.router.navigate(['/login']);
-    //       }
-    //       else {
-    //         this.user = us
-    //       }
-    //     })
-    //   }
-    // })
+    this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
+      catchError((error: { status: number; }) => {
+        if (error.status === 401) {
+          this.router.navigate(['login'])
+        }
+        return throwError(error);
+      })
+    ).subscribe((res: User) => {
+      this.user = res;
+      this.authService.user.next(res);
+      this.route.params.subscribe(params => {
+        this.productService.getProductById(params['id']).pipe(
+          map((product: Product) => {
+            if (product.seller_id) {
+              product.photo = JSON.parse(product.photo!);
+              this.product = product as Product;
+              const imageP = <HTMLImageElement>document.getElementById("product-img")!
+              imageP.src = this.product.photo![this.pagination]
+              this.chatList = this.chatService.chatList
+              this.authService.getUser(product.seller_id).subscribe((us: User) => {
+                this.seller = us;
+                this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
+                  this.chatList = res
+                  this.loaded = true
 
-    this.authService.getUserByToken(this.authService.getUserCookie()).subscribe((res: User) => {
-      if (res) {
-        this.user = res;
-        this.authService.user.next(res);
-        this.route.params.subscribe(params => {
-          this.productService.getProductById(params['id']).pipe(
-            map((product: Product) => {
-              if (product.seller_id) {
-                product.photo = JSON.parse(product.photo!);
-                this.product = product as Product;
-                const imageP = <HTMLImageElement>document.getElementById("product-img")!
-                imageP.src = this.product.photo![this.pagination]
-                this.chatList = this.chatService.chatList
-                this.authService.getUser(product.seller_id).subscribe((us: User) => {
-                  this.seller = us;
-                  this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe(() => {
-                    this.loaded = true
-                    this.chatList = this.chatService.chatList
-                    console.log(this.chatList)
-                  
-                  });
                 });
-              } else {
-                 this.router.navigate(['404'])
-              }
-              return { product: this.product };
-            })
-          ).subscribe(() => {
-            // Código adicional aquí si es necesario
-          });
+              });
+            } else {
+              this.router.navigate(['404'])
+            }
+            return { product: this.product };
+          })
+        ).subscribe(() => {
         });
-      }
+      });
     });
-    
-
-    // this.productService.getProducts().subscribe(() => {
-    //   this.route.params.subscribe(params => {
-    //     this.prodid = params['id'];
-    //     this.pagination = 0
-    //     if (this.prodid != undefined && parseInt(this.prodid) && this.prodid != null) {
-    //       let tempID: number = parseInt(this.prodid)
-    //       let temp = this.productService.productList.find(product => product.id === tempID);
-    //       if (temp != undefined) {
-    //         this.product = temp
-    //         this.authService.getUser(this.product.sellerId).subscribe((us: User) => {
-    //           this.seller = us
-    //           this.products = this.productService.productList
-    //           this.chatService.getChats().subscribe(() => {
-    //             this.chatList = this.chatService.chatList
-    //            
-
-    //           })
-    //         })
-    //       }
-    //     }
-    //   })
-    // });
-  } 
+  }
   public ensureUser() {
     if (this.user.id
       == this.seller.id) {
@@ -149,10 +109,9 @@ export class ProductComponent implements OnInit {
       return
     }
     const chat = this.chatList.find(
-      (chat) => chat.emit === this.user.id && chat.recept === this.seller.id && chat.productID === this.product.id
+      (chat) => chat.emit === this.user.id && chat.recept === this.seller.id && chat.product_id === this.product.id
     );
     const messageInput = document.getElementById("chat-msg") as HTMLTextAreaElement | null;
-
     const created = Boolean(chat);
 
 
@@ -163,15 +122,15 @@ export class ProductComponent implements OnInit {
           message: messageInput!.value,
           seen: false,
           created_at: new Date(),
-          chatId: chat!.id!,
+          chat_id: chat!.id!,
         }
         if (this.ensureUser()) {
           this.canSend = false
-          this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+          this.chatService.postMsg(message, this.user.id!, this.authService.getUserCookie()).subscribe(() => {
             this.hideMessageDirect()
             this.showpannel()
-            this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-              this.chatList = this.chatService.chatList
+            this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
+              this.chatList = res
               this.canSend = true
             })
           })
@@ -187,23 +146,24 @@ export class ProductComponent implements OnInit {
           closed: false,
           emit: this.user!.id!,
           recept: this.seller!.id!,
-          productID: parseInt(this.prodid),
+          product_id: this.product.id!,
         }
-        this.chatService.postChat(chat,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-          this.chatService.getChats(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-            this.chatList = this.chatService.chatList
+        this.chatService.postChat(chat, this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
+          this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
+
+            this.chatList = res
             this.canSend = true
             const chat = this.chatList.find(
-              (chat) => chat.emit === this.user.id && chat.recept === this.seller.id && chat.productID === this.product.id
+              (chat) => chat.emit === this.user.id && chat.recept === this.seller.id && chat.product_id === this.product.id
             );
             let message: Message = {
               emit: this.user!.id!,
               message: messageInput!.value,
               seen: false,
               created_at: new Date(),
-              chatId: chat!.id!,
+              chat_id: chat!.id!,
             }
-            this.chatService.postMsg(message,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+            this.chatService.postMsg(message, this.user.id!, this.authService.getUserCookie()).subscribe(() => {
               this.canSend = true
             })
           })

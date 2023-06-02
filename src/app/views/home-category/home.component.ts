@@ -27,7 +27,6 @@ export class HomeCategoryComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.loaded = false
-      this.products = []
       this.catId = params['id'];
       this.categoryService.getCategories().subscribe(() => {
         this.categories = this.categoryService.categoryList
@@ -38,6 +37,7 @@ export class HomeCategoryComponent implements OnInit {
             this.router.navigate(['/404'])
           }
           this.catSelected = temp!
+          this.products = []
 
           this.productService.productList.forEach((producto) => {
             if (producto.category_id == this.catSelected.id) {
@@ -45,6 +45,7 @@ export class HomeCategoryComponent implements OnInit {
             }
 
           });
+
           for (let i = 0; i < this.categories.length - this.pagination.categorySize; i++) {
             if (i == this.categorySize / 2) {
               i = this.categories.length
@@ -53,15 +54,14 @@ export class HomeCategoryComponent implements OnInit {
           }
           this.pagination.categroyBlank = this.categoryBlank
 
+
+          this.pagination.pageSize = 8
+          this.pagination.categorySize = 9
+
+          this.pagination.categoryDisplay = false
+          this.loaded = true
         })
-        this.pagination.pageSize = 8
-        this.pagination.categorySize = 9
-
-        this.pagination.categoryDisplay = false
-        console.log(this.products)
-        this.loaded = true
       })
-
     })
   }
   public showCategories(): void {

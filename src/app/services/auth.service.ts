@@ -24,13 +24,25 @@ export class AuthService {
     return this.users
   }
 
-  public getUserByToken(token:string) {
+  public getUserByToken(token: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return this.http.get<User>(`${this.CONFIG_URL}/token/${token}`,{headers})
+    return this.http.get<User>(`${this.CONFIG_URL}/token/${token}`, { headers })
   }
-
+  parseCookie(cookie: string): string {
+    let temp = ""
+    let get = false
+    for (let x = 0; x < cookie.length; x++) {
+      if (get == true) {
+        temp += cookie[x]
+      }
+      if (cookie[x] == '|') {
+        get = true
+      }
+    }
+    return temp
+  }
   public getUserCookie(): string {
     const token = document.cookie
     const requ = "auth="
@@ -40,7 +52,7 @@ export class AuthService {
     for (let i = 0; i < token.length; i++) {
       if (token[i] == ";" && res == true) {
 
-        return temp
+        return this.parseCookie(temp)
       }
       if (token[i] == requ[0]) {
         let count = 0
@@ -58,7 +70,7 @@ export class AuthService {
         temp += token[i]
       }
     }
-    return temp
+    return this.parseCookie(temp)
   }
 
   public getUserByCookie(): boolean {

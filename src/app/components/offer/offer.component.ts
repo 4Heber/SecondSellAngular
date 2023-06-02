@@ -28,8 +28,8 @@ export class OfferComponent {
         price: parseInt(price.value),
         created_at: new Date(),
         state: 0,
-        chatId: this.chatId,
-        productId: this.productId!
+        chat_id: this.chatId,
+        product_id: this.productId!
       }
       this.chatService.postOffer(offerReq).subscribe(() => {
 

@@ -16,11 +16,11 @@ export class ChatService {
 
   }
 
-  public postChat(chat: Chat,userId:number,token:string): Observable<Category> {
+  public postChat(chat: Chat, userId: number, token: string): Observable<Chat> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return this.http.post<Category>(`${this.CONFIG_URL}/user/${userId}/chats`, chat,{headers})
+    return this.http.post<Chat>(`${this.CONFIG_URL}/user/${userId}/chats`, chat, { headers })
   }
 
   public postOffer(offer: Offer): Observable<Offer> {
@@ -33,21 +33,27 @@ export class ChatService {
 
   }
 
-  public getOfferById(offerId: number): Observable<Offer[]> {
-    return this.http.get<Offer[]>(`${this.CONFIG_URL}/offers/?chatId=${offerId}`)
-
-  }
-
-  public postMsg(message: Message,userId:number,token:string): Observable<Category> {
+  public getOfferById(userId: number, offerId: number, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return this.http.post<Category>(`${this.CONFIG_URL}/user/${userId}/messages`, message,{headers})
+    return this.http.get<any>(`${this.CONFIG_URL}/user/${userId}/chats/${offerId}/offers`, { headers })
+
+  }
+
+  public postMsg(message: Message, userId: number, token: string): Observable<Category> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post<Category>(`${this.CONFIG_URL}/user/${userId}/messages`, message, { headers })
   }
 
   // FUNCIÓN PARA OBTENER LOS MENSAJES Y ALMACENARLOS EN LA VAR PRIVADA
-  public getMsg(msg: number): Observable<Message[]> {
-    return this.http.get<Message[]>(`${this.CONFIG_URL}/messages/?chatId=${msg}`)
+  public getMsg(msg: number, userId: number, token: string): Observable<Message[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Message[]>(`${this.CONFIG_URL}/user/${userId}/chat/${msg}/messages`, { headers })
   }
 
 
@@ -79,7 +85,7 @@ export class ChatService {
   }
 
   // FUNCIÓN PARA OBTENER LOS CHATS Y ALMACENARLOS EN LA VAR PRIVADA
-  public getChats(userId:number,token:string): Observable<void> {
+  public getChats(userId: number, token: string): Observable<void> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
@@ -89,16 +95,16 @@ export class ChatService {
       })))
   }
 
-  public getUserChats(userId:number,token:string): Observable<void> {
+  public getUserChats(userId: number, token: string): Observable<Chat[]> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return this.http.get<Chat[]>(`${this.CONFIG_URL}/user/${userId}/chats`,{headers})
-      .pipe(map(((chats: Chat[]) => {
-        this.chatList = chats
-      })))
+    return this.http.get<Chat[]>(`${this.CONFIG_URL}/user/${userId}/chats`, { headers })
   }
-  public getChat(id: number): Observable<Chat> {
-    return this.http.get<Chat>(`${this.CONFIG_URL}/chats/${id}`)
+  public getChat(id: number, token: string, userId: number): Observable<Chat> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Chat>(`${this.CONFIG_URL}/user/${userId}/chats/${id}`, { headers })
   }
 }
