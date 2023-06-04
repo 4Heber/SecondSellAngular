@@ -40,6 +40,9 @@ export class CartComponent implements OnInit {
       })
     ).subscribe((res: User) => {
       this.authService.user.next(res)
+      this.authService.getUsers().subscribe(()=>{
+      this.users =  this.authService.usuarios
+    
       this.user = res
       this.transactionService.getCart(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
         this.transactionService.getProductsCart(this.transactionService.cart.id!,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
@@ -53,7 +56,7 @@ export class CartComponent implements OnInit {
           })
         })
       })
-    })
+    })  })
   }
 
   public changeSelected(product: Product): void {
@@ -69,15 +72,23 @@ export class CartComponent implements OnInit {
     this.selectedPrice = [-1, -1]
   }
   public buy() {
-    this.authService.getUser(this.user.id!).subscribe(() => {
-      if (this.user.coins! < this.selectedPrice[1] || this.user.coins == null) {
-
+    this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
+      catchError((error: { status: number; }) => {
+        if (error.status === 401) {
+          this.router.navigate(['login'])
+        }
+        return throwError(error);
+      })
+    ).subscribe((user: User) => {
+      this.user =user
+      if (this.user.coin! < this.selectedPrice[1] || this.user.coin == null) {
+        alert(this.user.coin!)
         this.deleteSelected()
         return
       }
-      this.productService.patchProductCart(this.selectedProduct.id!).subscribe(() => {
-        this.transactionService.patchChat(true, this.user.id!, this.selectedProduct.id!).subscribe(() => {
-          this.transactionService.patchUserCoins((this.user.coins! - this.selectedPrice[1]), this.user.id!).subscribe(() => {
+      this.productService.patchProductCart(this.selectedProduct,this.authService.getUserCookie()).subscribe(() => {
+        this.transactionService.patchChat(true, this.user.id!, this.selectedProduct.id!,this.authService.getUserCookie()).subscribe(() => {
+          this.transactionService.patchUserCoins((this.user.coin! - this.selectedPrice[1]), this.user.id!).subscribe(() => {
             this.authService.getUser(this.user.id!).subscribe(() => {
               this.transactionService.getCart(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
                 this.transactionService.getProductsCart(this.transactionService.cart.id!,this.user.id!,this.authService.getUserCookie()).subscribe(() => {

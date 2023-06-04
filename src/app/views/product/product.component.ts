@@ -32,9 +32,10 @@ export class ProductComponent implements OnInit {
 
     this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
       catchError((error: { status: number; }) => {
-        if (error.status === 401) {
+
+       
           this.router.navigate(['login'])
-        }
+        
         return throwError(error);
       })
     ).subscribe((res: User) => {

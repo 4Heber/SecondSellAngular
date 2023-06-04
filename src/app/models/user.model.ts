@@ -9,6 +9,6 @@ export interface User {
   password: string;
   photo?: string;
   token?: string;
-  coins?: number;
+  coin?: number;
   created_at: Date;
 }

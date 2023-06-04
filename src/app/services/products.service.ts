@@ -38,11 +38,12 @@ export class ProductService {
     return this.http.get<Product>(`${this.CONFIG_URL}/products/${id}`)
   }
 
-  public patchProductCart(productId: number) {
-    const url = `${this.CONFIG_URL}/products/${productId}`
-    const requestBody = {
-      active: false
-    };
-    return this.http.patch<Product>(url, requestBody)
+  public patchProductCart(product:Product,token:string) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    const url = `${this.CONFIG_URL}/products/${product.id}`
+   product.active = false
+    return this.http.patch<Product>(url, product,{headers})
   }
 }

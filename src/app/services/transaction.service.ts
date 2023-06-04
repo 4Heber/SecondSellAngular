@@ -94,23 +94,17 @@ export class TransactionService {
        
   }
 
-  public patchChat(state: boolean, userId: number, prdouctId: number): Observable<Chat> {
-    const url = `${this.CONFIG_URL}/chats/?emit=${userId}&productID=${prdouctId}`;
+  public patchChat(state: boolean, userId: number, prdouctId: number,token:string): Observable<Chat> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    const url = `${this.CONFIG_URL}/user/${userId}/chat/product/${prdouctId}`;
     const requestBody = {
       closed: state
     };
-    return this.http.get<Chat[]>(url).pipe(
-      switchMap((chat: Chat[]) => {
 
-        if (Array.isArray(chat) && chat.length > 0) {
-          ;
-
-          return this.http.patch<Chat>(`${this.CONFIG_URL}/chats/${chat[0].id}`, requestBody);
-        }
-
-        return throwError('No se encontró ningún chat');
-      })
-    );
+    return this.http.patch<Chat>(`${url}`, requestBody,{headers});
+      
   }
 
   public patchUserCoins(ammount: number, userId: number): Observable<User> {
