@@ -1,7 +1,7 @@
 
 export interface Cart {
   id?: number;
-  userId: number;
+  user_id: number;
 }
 export interface ProductCart {
   id?: number;

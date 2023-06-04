@@ -37,6 +37,7 @@ export class SingleChatComponent implements OnInit {
   constructor(private readonly transactionService: TransactionService, private chatService: ChatService, private router: Router, private route: ActivatedRoute, private productService: ProductService, private authService: AuthService, private categoryService: CategoryService) {
   }
   ngOnInit() {
+   
     this.route.params.subscribe(params => {
       this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
         catchError((error: { status: number; }) => {
@@ -68,6 +69,7 @@ export class SingleChatComponent implements OnInit {
                 this.product = this.products.find((prodcut: Product) => prodcut.id == this.chat.product_id)!
                 this.loaded = true
                 this.suscribirPeticion()
+                
               })
             }
 
@@ -167,9 +169,10 @@ export class SingleChatComponent implements OnInit {
 
       const offerId = parseInt(document.getElementById("oId")!.innerHTML);
       const offer = this.offers.find(oferta => oferta.id === offerId);
-     
+
       if (offer) {
         this.transactionService.getCart(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+          alert(this.transactionService.cart.id)
           if (this.transactionService.cart.id) {
             this.transactionService.getProductCart(this.transactionService.cart.id, offer, this.product.id!,this.user.id!,this.authService.getUserCookie()).subscribe((res:any) => {
               if (res.id != undefined) {
@@ -197,7 +200,7 @@ export class SingleChatComponent implements OnInit {
           }
           else {
             const newCart = {
-              userId: this.user.id
+              user_id: this.user.id
             } as Cart;
             this.transactionService.postCart(this.user.id!,newCart,this.authService.getUserCookie()).subscribe((createdCart: Cart) => {
               this.transactionService.getCart(this.user.id!,this.authService.getUserCookie())

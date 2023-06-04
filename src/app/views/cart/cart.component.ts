@@ -72,6 +72,7 @@ export class CartComponent implements OnInit {
     this.selectedPrice = [-1, -1]
   }
   public buy() {
+
     this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
       catchError((error: { status: number; }) => {
         if (error.status === 401) {
@@ -85,10 +86,12 @@ export class CartComponent implements OnInit {
         alert(this.user.coin!)
         this.deleteSelected()
         return
-      }
-      this.productService.patchProductCart(this.selectedProduct,this.authService.getUserCookie()).subscribe(() => {
-        this.transactionService.patchChat(true, this.user.id!, this.selectedProduct.id!,this.authService.getUserCookie()).subscribe(() => {
-          this.transactionService.patchUserCoins((this.user.coin! - this.selectedPrice[1]), this.user.id!).subscribe(() => {
+      }        
+      this.productService.patchProductCart(this.selectedProduct,this.authService.getUserCookie()).subscribe((res:any) => {
+      
+
+        this.transactionService.patchChat( this.user.id!, this.selectedProduct.id!,this.authService.getUserCookie()).subscribe(() => {
+          this.transactionService.patchUserCoins((this.user.coin! - this.selectedPrice[1]), this.user.id!,this.authService.getUserCookie()).subscribe(() => {
             this.authService.getUser(this.user.id!).subscribe(() => {
               this.transactionService.getCart(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
                 this.transactionService.getProductsCart(this.transactionService.cart.id!,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
@@ -102,12 +105,13 @@ export class CartComponent implements OnInit {
                       seller: this.selectedProduct.seller_id!,
                       created_at: new Date,
                       price: this.selectedPrice[1],
-                      productId: this.selectedProduct.id!
+                      product_id: this.selectedProduct.id!
                     } as Order
-                    this.transactionService.postOrder(order).subscribe(() => {
-                      this.deleteSelected()
+                   // this.transactionService.postOrder(order,this.authService.getUserCookie(),this.user.id!).subscribe(() => {
 
-                    })
+                    //})
+                    this.deleteSelected()
+
                   })
                 })
               })

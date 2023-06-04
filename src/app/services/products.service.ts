@@ -30,8 +30,11 @@ export class ProductService {
       })))
   }
 
-  public getProductsByUserId(userId: number): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.CONFIG_URL}/user/${userId}/products`)
+  public getProductsByUserId(userId: number,token:string): Observable<Product[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Product[]>(`${this.CONFIG_URL}/user/${userId}/products`,{headers})
   }
 
   public getProductById(id: number): Observable<Product> {
@@ -44,6 +47,10 @@ export class ProductService {
     })
     const url = `${this.CONFIG_URL}/products/${product.id}`
    product.active = false
-    return this.http.patch<Product>(url, product,{headers})
+    return this.http.patch<Product>(url, {
+      name:product.name,
+      price:product.price,
+      active:false
+    },{headers})
   }
 }

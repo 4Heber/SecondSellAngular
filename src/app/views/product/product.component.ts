@@ -45,8 +45,14 @@ export class ProductComponent implements OnInit {
         this.productService.getProductById(params['id']).pipe(
           map((product: Product) => {
             if (product.seller_id) {
+          
               product.photo = JSON.parse(product.photo!);
               this.product = product as Product;
+
+              this.productService.getProducts().subscribe(()=> {
+                this.products = this.productService.productList.filter(element => element.category_id === product.category_id);
+
+             
               const imageP = <HTMLImageElement>document.getElementById("product-img")!
               imageP.src = this.product.photo![this.pagination]
               this.chatList = this.chatService.chatList
@@ -58,6 +64,7 @@ export class ProductComponent implements OnInit {
 
                 });
               });
+            })
             } else {
               this.router.navigate(['404'])
             }

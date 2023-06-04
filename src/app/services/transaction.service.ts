@@ -45,8 +45,10 @@ export class TransactionService {
       'Authorization': `Bearer ${token}`
     })
     return this.http.get<Cart[]>(`${this.CONFIG_URL}/user/${userId}/cart`,{headers}).pipe(map(((cart:Cart[]) => {
-     this.cart = cart[0]
- 
+    let temp =  cart.find(item => item.user_id === userId)!;
+    if(temp != undefined) {
+      this.cart = temp
+    }
     })))
 
   }
@@ -66,8 +68,11 @@ export class TransactionService {
     return this.http.post<Cart>(`${this.CONFIG_URL}/user/${userId}/cart`, {userid:userId},{headers})
   }
 
-  public postOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(`${this.CONFIG_URL}/order`, order)
+  public postOrder(order: Order,token:string,userid:number): Observable<Order> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post<Order>(`${this.CONFIG_URL}/user/${userid}/order`, order,{headers})
   }
 
   public getProductsCart(cartId: number,userId:number,token:string): Observable<void> {
@@ -94,24 +99,28 @@ export class TransactionService {
        
   }
 
-  public patchChat(state: boolean, userId: number, prdouctId: number,token:string): Observable<Chat> {
+  public patchChat(userId: number, prdouctId: number,token:string): Observable<Chat> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
     const url = `${this.CONFIG_URL}/user/${userId}/chat/product/${prdouctId}`;
     const requestBody = {
-      closed: state
+      closed: true
     };
+    console.log(requestBody)
 
     return this.http.patch<Chat>(`${url}`, requestBody,{headers});
       
   }
 
-  public patchUserCoins(ammount: number, userId: number): Observable<User> {
-    const url = `${this.CONFIG_URL}/users/${userId}`;
+  public patchUserCoins(ammount: number, userId: number,token:string): Observable<User> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    const url = `${this.CONFIG_URL}/user/${userId}/coin`;
     const requestBody = {
-      coins: ammount
+      coin: ammount
     };
-    return this.http.patch<User>(url, requestBody);
+    return this.http.patch<User>(url, requestBody,{headers});
   }
 }

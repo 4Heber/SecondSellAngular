@@ -28,6 +28,8 @@
     </div>
   </section>
   <div class="linear"></div>
+  <p id="test"></p>
+
   <section class="live-chat">
     <ng-container *ngFor="let message of offers| getByDatePipe: messages">
       <div (click)="showOffer(message?.price, message)" *ngIf="message.price" class="offer-msg">
@@ -48,7 +50,6 @@
         </div>
       </div>
 
-     
 
       <div *ngIf="message.emit === user.id && !message.price" class="message-e">{{message.message}}</div>
       <div *ngIf="message.emit !== user.id && !message.price" class="message-r">{{message.message}}</div>

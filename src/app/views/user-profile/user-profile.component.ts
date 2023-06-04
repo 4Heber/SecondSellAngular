@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { create } from 'domain';
-import { retry } from 'rxjs';
+import { catchError, retry, throwError } from 'rxjs';
 import { Chat, Message } from 'src/app/models/chat.model';
 
 import { Product } from 'src/app/models/product.model';
@@ -29,27 +29,24 @@ export class UserProfileComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.authService.getUsers().subscribe(() => {
-      if (this.authService.getUserByCookie()) {
-        this.authService.user.subscribe((us: User) => {
-          this.user = us
-        })
-      }
-      else {
-        this.authService.user.subscribe((us: User) => {
-          if (!(us.username)) {
-            this.router.navigate(['/login']);
-          }
-          else {
-            this.user = us
-          }
-        })
-      }
+    this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
+      catchError((error: { status: number; }) => {
+
+       
+          this.router.navigate(['login'])
+        
+        return throwError(error);
+      })
+    ).subscribe((user: User) => {
+      this.user = user
       this.route.params.subscribe(params => {
         this.userId = params['id'];
         this.selection = 1
         if (this.userId != undefined && this.userId != null) {
-          this.productService.getProductsByUserId(this.userId).subscribe((productList: Product[]) => {
+          this.productService.getProductsByUserId(this.userId,this.authService.getUserCookie()).subscribe((productList: Product[]) => {
+            productList.forEach((product: any) => {
+              product.photo = JSON.parse(product.photo!);
+            });
             this.products = productList
             this.authService.getUser(this.userId).subscribe((us: User) => {
               this.selectedUser = us

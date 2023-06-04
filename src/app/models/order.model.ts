@@ -4,6 +4,6 @@ export interface Order {
   price: number,
   seller: number;
   created_at: Date;
-  productId: number;
+  product_id: number;
 
 }
