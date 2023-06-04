@@ -6,6 +6,6 @@ export interface Cart {
 export interface ProductCart {
   id?: number;
   cartId: number;
-  productId: number;
+  product_id: number;
   price: number;
 }

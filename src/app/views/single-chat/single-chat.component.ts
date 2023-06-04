@@ -41,17 +41,17 @@ export class SingleChatComponent implements OnInit {
       this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
         catchError((error: { status: number; }) => {
           if (error.status === 401) {
-            this.router.navigate(['login'])
+         this.router.navigate(['login'])
           }
           return throwError(error);
         })
-      ).subscribe((res: User) => {
-        this.user = res
+      ).subscribe((user: User) => {
+        this.user = user
         this.productService.getProducts().subscribe(() => {
           this.products = this.productService.productList
           this.chatService.getChat(params['id'], this.authService.getUserCookie(), this.user.id!).subscribe((res: Chat) => {
             this.chat = res
-            if (res.emit !== this.user.id || res.emit !== this.user.id) {
+            if (res.emit !== this.user.id && res.recept !== this.user.id) {
               this.router.navigate(['/chat'])
             }
             if (res.emit == this.user.id) {
@@ -116,9 +116,13 @@ export class SingleChatComponent implements OnInit {
             this.messages = message
             this.chatService.getOfferById(this.user.id!, this.chat!.id!, this.authService.getUserCookie()).subscribe((offers: any) => {
               this.offers = offers
-              if (this.hasUserMessage(this.messages, this.direct.id!)) {
-                this.chatService.patchMsg(this.chat.id!, this.direct.id!).subscribe(() => { })
-              }
+                const mensajesInvertidos = this.messages.slice().reverse(); 
+                const ultimoMensaje = mensajesInvertidos.find((mensaje) => mensaje.emit === this.direct.id);
+                if(ultimoMensaje && ultimoMensaje.seen == false) {
+                  this.chatService.patchMsg(this.direct.id!,this.authService.getUserCookie(),ultimoMensaje!).subscribe((res) => { })
+
+                }
+              
             })
           });
         }
@@ -150,7 +154,7 @@ export class SingleChatComponent implements OnInit {
     if (this.canChoose == true
     ) {
       this.canChoose = false
-      this.chatService.patchOffer(-1, parseInt(document.getElementById("oId")!.innerHTML)).subscribe(() => {
+      this.chatService.patchOffer(-1, parseInt(document.getElementById("oId")!.innerHTML),this.authService.getUserCookie(),this.user.id!).subscribe(() => {
         this.canChoose = true
       })
     }
@@ -163,14 +167,14 @@ export class SingleChatComponent implements OnInit {
 
       const offerId = parseInt(document.getElementById("oId")!.innerHTML);
       const offer = this.offers.find(oferta => oferta.id === offerId);
-
+     
       if (offer) {
-        this.transactionService.getCart(this.user.id!).subscribe(() => {
+        this.transactionService.getCart(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
           if (this.transactionService.cart.id) {
-            this.transactionService.getProductCart(this.transactionService.cart.id, offer, this.product.id!).subscribe(() => {
-              if (this.transactionService.productCart?.id) {
-                this.transactionService.patchProductCart(this.transactionService.productCart.id, offer, this.product.id!).subscribe(() => {
-                  this.chatService.patchOffer(1, offer.id!).subscribe(() => {
+            this.transactionService.getProductCart(this.transactionService.cart.id, offer, this.product.id!,this.user.id!,this.authService.getUserCookie()).subscribe((res:any) => {
+              if (res.id != undefined) {
+                this.transactionService.patchProductCart(res.id, offer, this.product.id!,this.authService.getUserCookie(),this.user.id!).subscribe(() => {
+                  this.chatService.patchOffer(1, offer.id!,this.authService.getUserCookie(),this.user.id!).subscribe(() => {
                     this.chatService.getOfferById(this.user.id!, this.chat.id!, this.authService.getUserCookie()).subscribe((offers: Offer[]) => {
                       this.offers = offers;
                       this.canChoose = true
@@ -179,8 +183,8 @@ export class SingleChatComponent implements OnInit {
                   });
                 });
               } else {
-                this.transactionService.postProductCart(offer, this.transactionService.cart.id!, this.product.id!).subscribe(() => {
-                  this.chatService.patchOffer(1, offer.id!).subscribe(() => {
+                this.transactionService.postProductCart(offer, this.transactionService.cart.id!, this.product.id!,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+                  this.chatService.patchOffer(1, offer.id!,this.authService.getUserCookie(),this.user.id!).subscribe(() => {
                     this.chatService.getOfferById(this.user.id!, this.chat.id!, this.authService.getUserCookie()).subscribe((offers: Offer[]) => {
                       this.offers = offers;
                       this.canChoose = true
@@ -195,10 +199,10 @@ export class SingleChatComponent implements OnInit {
             const newCart = {
               userId: this.user.id
             } as Cart;
-            this.transactionService.postCart(newCart).subscribe((createdCart: Cart) => {
-              this.transactionService.getCart(this.user.id!)
-              this.transactionService.postProductCart(offer, createdCart.id!, this.product.id!).subscribe(() => {
-                this.chatService.patchOffer(1, offer.id!).subscribe(() => {
+            this.transactionService.postCart(this.user.id!,newCart,this.authService.getUserCookie()).subscribe((createdCart: Cart) => {
+              this.transactionService.getCart(this.user.id!,this.authService.getUserCookie())
+              this.transactionService.postProductCart(offer, createdCart.id!, this.product.id!,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+                this.chatService.patchOffer(1, offer.id!,this.authService.getUserCookie(),this.user.id!).subscribe(() => {
                   this.chatService.getOfferById(this.user.id!, this.chat.id!, this.authService.getUserCookie()).subscribe((offers: Offer[]) => {
                     this.offers = offers;
                     this.canChoose = true

@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.productService.getProducts().subscribe(() => {
       this.products = this.productService.productList
-      console.log(this.products)
     })
     this.categoryService.getCategories().subscribe(() => {
       this.categories = this.categoryService.categoryList

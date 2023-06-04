@@ -30,47 +30,21 @@ export class AuthService {
     })
     return this.http.get<User>(`${this.CONFIG_URL}/token/${token}`, { headers })
   }
-  parseCookie(cookie: string): string {
-    let temp = ""
-    let get = false
-    for (let x = 0; x < cookie.length; x++) {
-      if (get == true) {
-        temp += cookie[x]
-      }
-      if (cookie[x] == '|') {
-        get = true
-      }
-    }
-    return temp
-  }
+
   public getUserCookie(): string {
     const token = document.cookie
     const requ = "auth="
     let res = false
     let temp = ""
-
     for (let i = 0; i < token.length; i++) {
-      if (token[i] == ";" && res == true) {
-
-        return this.parseCookie(temp)
-      }
-      if (token[i] == requ[0]) {
-        let count = 0
-        for (let x = 0; x < requ.length; x++) {
-          if (requ[x] == token[i + x]) {
-            count++
-          }
-        }
-        if (count == requ.length) {
+        if (i == requ.length -1) {
           res = true
-          i += requ.length - 1
         }
-      }
       else if (res == true) {
         temp += token[i]
       }
     }
-    return this.parseCookie(temp)
+    return temp
   }
 
   public getUserByCookie(): boolean {

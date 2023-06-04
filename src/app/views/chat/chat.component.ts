@@ -53,7 +53,6 @@ export class ChatComponent implements OnInit {
                 this.messages.push(res);
                 if (x === this.chatList.length - 1) {
                   this.loaded = true
-                  console.log(res)
                 }
               })
             }

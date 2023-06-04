@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Offer } from 'src/app/models/chat.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class OfferComponent {
   @Input() emit: number | undefined
   @Input() productId: number | undefined
 
-  constructor(private readonly chatService: ChatService) {
+  constructor(private readonly chatService: ChatService,private readonly authService:AuthService) {
 
   }
 
@@ -31,7 +32,7 @@ export class OfferComponent {
         chat_id: this.chatId,
         product_id: this.productId!
       }
-      this.chatService.postOffer(offerReq).subscribe(() => {
+      this.chatService.postOffer(offerReq,this.authService.getUserCookie(),this.emit).subscribe(() => {
 
       })
     }

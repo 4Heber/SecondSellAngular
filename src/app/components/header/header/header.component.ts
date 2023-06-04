@@ -49,8 +49,6 @@ export class HeaderComponent implements OnInit {
 
   public showCategoriesDropdown() {
 
-    console.log(window.screen.width)
-
     var dropdownContent = document.getElementById('nav-dropdown-content');
     dropdownContent!.style.display = "flex";
     dropdownContent?.addEventListener('mouseout', () => {

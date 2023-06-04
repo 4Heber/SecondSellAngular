@@ -24,7 +24,6 @@ export class CategoryService {
       .pipe(
         map(response => {
           const categoryArray = response.categories;
-          console.log(categoryArray);
           this.categoryList = categoryArray;
         })
       );

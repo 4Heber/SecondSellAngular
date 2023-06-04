@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -15,15 +16,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.authservice.user.subscribe((us: User) => {
-      if (us.username && this.isloggin == false) {
-        this.router.navigate(['/'])
-      }
-      this.authService.getUsers().subscribe(() => {
-        if (this.authService.getUserByCookie()) {
-          this.router.navigate(['/'])
+ 
+    this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
+      catchError((error: { status: number; }) => {
+        if (error.status === 401) {
+
         }
+        return throwError(error);
       })
+    ).subscribe((res: User) => {
+      this.authService.user.next(res)
+      this.router.navigate(['home'])
     })
   }
 
@@ -48,7 +51,6 @@ export class LoginComponent implements OnInit {
 
     if (username.value != "" && password.value != "") {
       this.authService.loginUser(username.value, password.value).subscribe((res: any) => {
-        console.log(res)
         this.authService.user.next(res.user)
         this.authservice.setCookie(res.token)
       })
@@ -78,6 +80,7 @@ export class LoginComponent implements OnInit {
       this.authservice.postUser(user).subscribe((res: any) => {
         this.authService.setCookie(res.token)
         this.authservice.user.next(res.user)
+        this.router.navigate(['/home'])
 
       })
     }

@@ -22,12 +22,15 @@ export class TransactionService {
 
   }
 
-  public postProductCart(offer: Offer, cartId: number, prodcutID: number): Observable<ProductCart> {
-    return this.http.post<ProductCart>(`${this.CONFIG_URL}/productCart`, {
-      productId: prodcutID,
-      price: offer.price,
-      cartId: cartId
+  public postProductCart(offer: Offer, cartId: number, prodcutID: number,userId:number,token:string): Observable<ProductCart> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     })
+    return this.http.post<ProductCart>(`${this.CONFIG_URL}/user/${userId}/productCart`, {
+      product_id: prodcutID,
+      price: offer.price,
+      cart_id: cartId
+    },{headers})
   }
 
   public getCarts(): Observable<void> {
@@ -37,59 +40,62 @@ export class TransactionService {
       })))
   }
 
-  public getCart(userId: number): Observable<void> {
-    return this.http.get<Cart>(`${this.CONFIG_URL}/cart/?userId=${userId}&_sort=id&_order=desc&_limit=1`).pipe(map(((cart: any) => {
-      if (cart[0])
-        this.cart = cart[0]
+  public getCart(userId: number,token:string): Observable<void> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<Cart[]>(`${this.CONFIG_URL}/user/${userId}/cart`,{headers}).pipe(map(((cart:Cart[]) => {
+     this.cart = cart[0]
+ 
     })))
 
   }
-  public getProductCart(cartId: number, offer: Offer, prodcutID: number): Observable<void> {
-    return this.http.get<ProductCart>(`${this.CONFIG_URL}/productCart/?cartId=${cartId}&productId=${prodcutID}&_sort=id&_order=desc&_limit=1`)
-      .pipe(map(((productCart: any) => {
-        this.productCart = productCart[0]
-      })))
+  public getProductCart(cartId: number, offer: Offer, prodcutID: number,userid:number,token:string): Observable<ProductCart> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<ProductCart>(`${this.CONFIG_URL}/user/${userid}/productCart/${prodcutID}`,{headers})
+     
   }
 
-  public postCart(cart: Cart): Observable<Cart> {
-    return this.http.post<Cart>(`${this.CONFIG_URL}/cart`, cart)
+  public postCart(userId:number,cart: Cart,token:string): Observable<Cart> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+  
+    return this.http.post<Cart>(`${this.CONFIG_URL}/user/${userId}/cart`, {userid:userId},{headers})
   }
 
   public postOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(`${this.CONFIG_URL}/order`, order)
   }
 
-  public getProductsCart(cartId: number): Observable<void> {
-    return this.http.get<ProductCart[]>(`${this.CONFIG_URL}/productCart/?cartId=${cartId}`)
+  public getProductsCart(cartId: number,userId:number,token:string): Observable<void> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.get<ProductCart[]>(`${this.CONFIG_URL}/user/${userId}/productCart/${cartId}`,{headers})
       .pipe(map(((productCart: ProductCart[]) => {
         this.productCartList = productCart
       })))
   }
 
-  public patchProductCart(cartId: number, offer: Offer, productId: number): Observable<ProductCart> {
-    const url = `${this.CONFIG_URL}/productCart/?cartId=${cartId}&productId=${productId}`;
+  public patchProductCart(cartId: number, offer: Offer, productId: number,token:string,userId:number): Observable<ProductCart> {
+    const url = `${this.CONFIG_URL}/user/${userId}/productCart/${productId}`;
     const requestBody = {
-      productId: productId,
+      product_id: productId,
       price: offer.price
     };
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
 
-    return this.http.get<ProductCart[]>(url).pipe(
-      switchMap((product: ProductCart[]) => {
-
-        if (Array.isArray(product) && product.length > 0) {
-          product[0].price = offer.price;
-
-          return this.http.patch<ProductCart>(`${this.CONFIG_URL}/productCart/${product[0].id}`, requestBody);
-        }
-
-        return throwError('No se encontró ningún producto en el carrito.');
-      })
-    );
+          return this.http.patch<ProductCart>(url, requestBody,{headers});
+       
   }
 
   public patchChat(state: boolean, userId: number, prdouctId: number): Observable<Chat> {
     const url = `${this.CONFIG_URL}/chats/?emit=${userId}&productID=${prdouctId}`;
-    console.log(url)
     const requestBody = {
       closed: state
     };

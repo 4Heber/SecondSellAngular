@@ -26,6 +26,7 @@ export class HomeCategoryComponent implements OnInit {
   }
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.products = []
       this.loaded = false
       this.catId = params['id'];
       this.categoryService.getCategories().subscribe(() => {
@@ -37,13 +38,11 @@ export class HomeCategoryComponent implements OnInit {
             this.router.navigate(['/404'])
           }
           this.catSelected = temp!
-          this.products = []
-
+         
           this.productService.productList.forEach((producto) => {
             if (producto.category_id == this.catSelected.id) {
               this.products.push(producto);
             }
-
           });
 
           for (let i = 0; i < this.categories.length - this.pagination.categorySize; i++) {
@@ -60,6 +59,8 @@ export class HomeCategoryComponent implements OnInit {
 
           this.pagination.categoryDisplay = false
           this.loaded = true
+
+
         })
       })
     })

@@ -23,13 +23,19 @@ export class ChatService {
     return this.http.post<Chat>(`${this.CONFIG_URL}/user/${userId}/chats`, chat, { headers })
   }
 
-  public postOffer(offer: Offer): Observable<Offer> {
-    return this.http.post<Offer>(`${this.CONFIG_URL}/offers`, offer)
+  public postOffer(offer: Offer,token:string,userId:number): Observable<Offer> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.post<Offer>(`${this.CONFIG_URL}/user/${userId}/offers`, offer,{headers})
   }
 
-  public patchOffer(state: number, offerId: number): Observable<Message> {
+  public patchOffer(state: number, offerId: number,token:string,userId:number): Observable<Message> {
     const patchData: { state: number } = { state: state };
-    return this.http.patch<Message>(`${this.CONFIG_URL}/offers/${offerId}`, patchData);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.patch<Message>(`${this.CONFIG_URL}/user/${userId}/offers/${offerId}`, patchData, {headers});
 
   }
 
@@ -57,25 +63,14 @@ export class ChatService {
   }
 
 
-  public patchMsg(chatId: number, emit: number): Observable<Message> {
-    const url = `${this.CONFIG_URL}/messages/?chatId=${chatId}&emit=${emit}&_sort=id&_order=desc&_limit=1`;
-    const patchData: { seen: boolean } = { seen: true };
-
-    return this.http.get<Message[]>(url).pipe(
-      switchMap((response: Message[]) => {
-        if (response.length > 0) {
-          const message: Message = response[0];
-          if (message.seen == true) {
-            return []
-          }
-          const updatedMessage: Message = { ...message, ...patchData };
-
-          return this.http.patch<Message>(`${this.CONFIG_URL}/messages/${message.id!}`, updatedMessage);
-        } else {
-          throw new Error('No messages found.');
-        }
-      })
-    );
+  public patchMsg( emit: number,token:string,msg:Message): Observable<any> {
+    msg.seen = true
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+   return this.http.patch<Message>(`${this.CONFIG_URL}/user/${emit}/messages/${msg.id}`, msg,{headers});
+      
+     
   }
 
 
