@@ -1,0 +1,1 @@
+function toggleSearchbarContent(){var e=document.getElementById("dropdown-content"),t=document.getElementById("searchbar");e.style.display="flex",t.addEventListener("blur",()=>{setTimeout(()=>{e.style.display="none"},200)})}function filterFunction(){}
