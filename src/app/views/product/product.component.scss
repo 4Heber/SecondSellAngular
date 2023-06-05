@@ -78,33 +78,7 @@ $recent-card-height: 3;
       transition-duration: 500ms;
     }
 
-    .sold-info-sold,
-    .sold-info-active {
-      align-self: center;
-      grid-row-start: 1;
-      grid-column-start: 1;
-      grid-column-end: -1;
-      width: 35%;
-      height: 3rem;
-      border-radius: 30px;
-      align-items: center;
-      display: grid;
-      padding: 0.5rem;
-      justify-self: flex-start;
-      grid-template-columns: 0.1fr 0.1fr 0.1fr;
-      margin: 5%;
-      justify-content: space-around;
-      border: 1px solid black;
-      background-color: hsl(0, 0%, 100%, 0.8);
-    }
 
-    .sold-info-active {
-      color: green;
-    }
-
-    .sold-info-sold {
-      color: red
-    }
 
     .pagination-product {
       grid-row-start: 11;
@@ -352,6 +326,7 @@ $recent-card-height: 3;
   position: fixed;
   height: 100vh;
   width: 100%;
+  z-index: 1000;
   background-color: white;
   padding: 7%;
   font-family: Rubik, Verdana, Arial, sans-serif;
@@ -505,8 +480,6 @@ footer {
 }
 
 // PANNEL TO CHAT REDIRECTION
-
-
 .chat-redir {
   left: 0;
   height: 0;
@@ -553,4 +526,268 @@ footer {
     }
   }
 
+}
+
+.d {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .m-i {
+    display: none;
+  }
+
+  .d {
+    display: block;
+    padding: 5%;
+    padding-inline: 10%;
+
+    .product-image {
+      display: grid;
+      grid-template-columns: 60% 5% 35%;
+      width: 100%;
+      height: 40rem;
+
+      .product-info {
+        grid-column-start: 3;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 5%;
+        height: 100%;
+
+        .f-d {
+
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          div {
+            display: flex;
+            gap: 10px;
+            width: max-content;
+            align-items: center;
+          }
+
+          .arrow {
+            width: 35px;
+            height: 28px;
+          }
+
+          svg {
+            width: 28px;
+          }
+        }
+
+
+      }
+
+
+
+      .img-carr {
+        justify-content: space-between;
+        background-color: red;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        height: 100%;
+
+        img {
+          grid-column-start: 1;
+          grid-column-end: 5;
+          grid-row-start: 1;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .triangle {
+          grid-row-start: 1;
+          align-self: center;
+          background-color: hsl(0, 0%, 96%, 0.8);
+          padding: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 100%;
+          cursor: pointer;
+
+          &:hover {
+            background-color: hsl(0, 0%, 96%);
+          }
+        }
+      }
+
+      .profile-eng {
+        width: 100%;
+        height: 5rem;
+        border-radius: 5px;
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        padding: 5%;
+        justify-content: space-between;
+
+        .img-profile {
+          height: 4rem !important;
+          width: 4rem !important;
+          background-color: #191c1e;
+          border-radius: 100%;
+        }
+
+        .triangle {
+          width: 0;
+          height: 0;
+          border-radius: 5px;
+          border-left: 1rem solid transparent;
+          border-right: 1rem solid transparent;
+          border-bottom: 2rem solid black;
+          align-self: center;
+        }
+      }
+
+      .product-details {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+
+        .p-name {
+          align-self: center;
+          font-size: 1.5rem;
+
+        }
+
+        .p-tag {
+          padding: 0.4rem;
+          width: auto;
+          background-color: #191c1e;
+          border-radius: 5px;
+          text-align: center;
+          color: wheat;
+        }
+
+        .p-tag-price {
+          display: flex;
+          flex-direction: column;
+
+          .p-price {
+            font-size: 2rem;
+            font-weight: bold;
+          }
+        }
+
+
+
+
+      }
+
+      .p-desc-state {
+        margin-top: 1rem;
+
+        .t-introducer {
+          text-decoration: underline;
+          opacity: 70%;
+        }
+
+        .description {
+          margin-top: 1rem;
+          background-color: gray;
+          padding: 3%;
+          font-size: 0.9rem;
+
+        }
+
+        .p-state {
+          margin-top: 1rem;
+
+          .state {
+            margin-top: 1rem;
+            background-color: hsl(0, 0%, 50%, 0.7);
+            height: 3rem;
+            width: 100%;
+          }
+        }
+      }
+
+      .send-message {
+        margin-top: 4rem;
+        width: 100%;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background-color: gray;
+
+
+        svg {
+          width: 30px;
+        }
+      }
+    }
+
+    .carrousel-related {
+      margin-top: 2rem;
+      background-color: gray;
+      padding: 5%;
+
+      p {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+    }
+  }
+}
+
+
+.sold-info-sold,
+.sold-info-active {
+  align-self: center;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: -1;
+  width: 35%;
+  height: 3rem;
+  border-radius: 30px;
+  align-items: center;
+  display: grid;
+  padding: 0.5rem;
+  justify-self: flex-start;
+  grid-template-columns: 0.1fr 0.1fr 0.1fr;
+  margin: 5%;
+  justify-content: space-around;
+  border: 1px solid black;
+  background-color: hsl(0, 0%, 100%, 0.8);
+}
+
+.sold-info-active {
+  color: green;
+}
+
+.sold-info-sold {
+  color: red
+}
+
+.sold-info-sold-p,
+.sold-info-active-p {
+  border-radius: 30px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15%;
+  width: 9rem;
+  height: 3rem;
+  grid-row-start: 1;
+  grid-column-start: 1;
+  background-color: hsl(0, 0%, 100%, 0.8);
+  z-index: 100;
+}
+
+.sold-info-active-p {
+  color: green;
+}
+
+.sold-info-sold-p {
+  color: red
 }

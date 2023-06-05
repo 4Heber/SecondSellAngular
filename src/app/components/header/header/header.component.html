@@ -28,13 +28,16 @@
     </div>
 
     <!-- LOGIN/REGISTER BUTTONS / Display none if session active -->
-    <div class="registerLoginBttns">
+    <div *ngIf="!user?.username" class="registerLoginBttns">
       <div (click)="showMenu(true)" routerLink="/register" id="registerBttn">
         <p>Registrarse</p>
       </div>
       <div (click)="showMenu(true)" routerLink="/login" id="loginBttn">
         <p>Iniciar sesion</p>
       </div>
+    </div>
+    <div *ngIf="user?.username" class="registerLoginBttns">
+      <p style="color: white;">Welcome {{user!.username!}}</p>
     </div>
 
     <!-- SEARCH BAR INPUT -->
@@ -48,22 +51,22 @@
         <input type="text" placeholder="Buscar en todas las categorias" id="searchbar" onkeyup="filterFunction()">
       </div>
       <div id="dropdown-content">
-        <a href="#Ordenadores">Ordenadores</a>
-        <a href="#Portátiles">Portátiles</a>
-        <a href="#Smartphones">Smartphones</a>
-        <a href="#Tablets">Tablets</a>
-        <a href="#Ebooks">Ebooks</a>
-        <a href="#Componentes">Componentes</a>
-        <a href="#Gaming">Gaming</a>
-        <a href="#Oficina">Oficina</a>
-        <a href="#Redes">Redes</a>
-        <a href="#cables">Cables</a>
-        <a href="#Almacenamiento">Almacenamiento</a>
-        <a href="#Periféricos">Periféricos</a>
-        <a href="#Televisores">Televisores</a>
-        <a href="#Audio">Audio</a>
-        <a href="#Foto">Foto</a>
-        <a href="#Video">Video</a>
+        <a routerLink="/home/Ordenadores">Ordenadores</a>
+        <a routerLink="/home/Portátiles">Portátiles</a>
+        <a routerLink="/home/Smartphones">Smartphones</a>
+        <a routerLink="/home/Tablets">Tablets</a>
+        <a routerLink="/home/Ebooks">Ebooks</a>
+        <a routerLink="/home/Componentes">Componentes</a>
+        <a routerLink="/home/Gaming">Gaming</a>
+        <a routerLink="/home/Oficina">Oficina</a>
+        <a routerLink="/home/Redes">Redes</a>
+        <a routerLink="/home/cables">Cables</a>
+        <a routerLink="/home/Almacenamiento">Almacenamiento</a>
+        <a routerLink="/home/Periféricos">Periféricos</a>
+        <a routerLink="/home/Televisores">Televisores</a>
+        <a routerLink="/home/Audio">Audio</a>
+        <a routerLink="/home/Foto">Foto</a>
+        <a routerLink="/home/Video">Video</a>
       </div>
     </div>
   </div>
@@ -179,7 +182,7 @@
       </div>
       <div class="n-section-content">
         <!-- ORDENADORES -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/Ordenadores" class="n-url">
           <div class="n-url-name">
             <p>Ordenadores</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -192,7 +195,7 @@
           </div>
         </div>
         <!-- PORTÁTILES -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/Portátiles" class="n-url">
           <div class="n-url-name">
             <p>Portátiles</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -205,7 +208,7 @@
           </div>
         </div>
         <!-- SMARTPHONES -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/smartphones" class="n-url">
           <div class="n-url-name">
             <p>Smartphones</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -218,7 +221,7 @@
           </div>
         </div>
         <!-- TABLETS Y EBOOKS -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/tablets&ebooks" class="n-url">
           <div class="n-url-name">
             <p>Tablets y Ebooks</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -231,7 +234,7 @@
           </div>
         </div>
         <!-- COMPONENTES -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/componentes" class="n-url">
           <div class="n-url-name">
             <p>Componentes</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -244,7 +247,7 @@
           </div>
         </div>
         <!-- GAMING -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/gaming" class="n-url">
           <div class="n-url-name">
             <p>Gaming</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -257,7 +260,7 @@
           </div>
         </div>
         <!-- OFICINA -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/oficina" class="n-url">
           <div class="n-url-name">
             <p>Oficina</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -270,7 +273,7 @@
           </div>
         </div>
         <!-- REDES Y CABLES -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/redes&cables" class="n-url">
           <div class="n-url-name">
             <p>Redes y Cables</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -283,7 +286,7 @@
           </div>
         </div>
         <!-- ALMACENAMIENTO -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/almacenamiento" class="n-url">
           <div class="n-url-name">
             <p>Almacenamiento</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -296,7 +299,7 @@
           </div>
         </div>
         <!-- PERIFÉRICOS -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/prefiéricos" class="n-url">
           <div class="n-url-name">
             <p>Periféricos</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -309,7 +312,7 @@
           </div>
         </div>
         <!-- TELEVISORES -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/televisores" class="n-url">
           <div class="n-url-name">
             <p>Televisores</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -322,7 +325,7 @@
           </div>
         </div>
         <!-- AUDIO FOTO Y VIDEO -->
-        <div class="n-url">
+        <div (click)="showMenu(true)" routerLink="/home/audio&video" class="n-url">
           <div class="n-url-name">
             <p>Audio - Foto - Video</p>
             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">

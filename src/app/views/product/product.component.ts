@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { create } from 'domain';
 import { catchError, map, throwError } from 'rxjs';
+import { Category } from 'src/app/models/category.model';
 import { Chat, Message } from 'src/app/models/chat.model';
 
 import { Product } from 'src/app/models/product.model';
@@ -25,6 +26,7 @@ export class ProductComponent implements OnInit {
   public canSend = true
   public pagination = 0
   public loaded = false
+  public category: Category = {} as Category
   constructor(private chatService: ChatService, private router: Router, private route: ActivatedRoute, private productService: ProductService, private authService: AuthService, private categoryService: CategoryService) {
 
   }
@@ -33,9 +35,9 @@ export class ProductComponent implements OnInit {
     this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
       catchError((error: { status: number; }) => {
 
-       
-          this.router.navigate(['login'])
-        
+
+        this.router.navigate(['login'])
+
         return throwError(error);
       })
     ).subscribe((res: User) => {
@@ -45,26 +47,28 @@ export class ProductComponent implements OnInit {
         this.productService.getProductById(params['id']).pipe(
           map((product: Product) => {
             if (product.seller_id) {
-          
-              product.photo = JSON.parse(product.photo!);
-              this.product = product as Product;
+              this.categoryService.getCategories().subscribe(() => {
 
-              this.productService.getProducts().subscribe(()=> {
-                this.products = this.productService.productList.filter(element => element.category_id === product.category_id);
+                product.photo = JSON.parse(product.photo!);
+                this.product = product as Product;
+                this.category = this.categoryService.categoryList.find((ele: Category) => ele.id === this.product.category_id)!
+                this.productService.getProducts().subscribe(() => {
+                  this.products = this.productService.productList.filter(element => element.category_id === product.category_id);
 
-             
-              const imageP = <HTMLImageElement>document.getElementById("product-img")!
-              imageP.src = this.product.photo![this.pagination]
-              this.chatList = this.chatService.chatList
-              this.authService.getUser(product.seller_id).subscribe((us: User) => {
-                this.seller = us;
-                this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
-                  this.chatList = res
-                  this.loaded = true
 
-                });
-              });
-            })
+                  const imageP = <HTMLImageElement>document.getElementById("product-img")!
+                  imageP.src = this.product.photo![this.pagination]
+                  this.chatList = this.chatService.chatList
+                  this.authService.getUser(product.seller_id).subscribe((us: User) => {
+                    this.seller = us;
+                    this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
+                      this.chatList = res
+                      this.loaded = true
+
+                    });
+                  });
+                })
+              })
             } else {
               this.router.navigate(['404'])
             }
@@ -108,6 +112,19 @@ export class ProductComponent implements OnInit {
     document.getElementsByClassName(`known-pagination-${index}`)[0]!.classList.add('active-pagination')
     const imageP = <HTMLImageElement>document.getElementById("product-img")
     imageP.src = this.product.photo![this.pagination]
+
+  }
+  public modifyPagination(amount: number) {
+
+    let newPosition = this.pagination + amount;
+    if (newPosition == -1) {
+      return this.pagination = 2
+    }
+    const totalPages = 3
+    if (newPosition > totalPages - 1) {
+      return this.pagination = 0;
+    }
+    return this.pagination = newPosition
 
   }
   public sendMessage() {

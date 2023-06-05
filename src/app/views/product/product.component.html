@@ -1,168 +1,170 @@
-<section class="f-h">
-  <img class="arrow" routerLink="/products" src="https://gcdnb.pbrd.co/images/dzXDqXJA6Xki.png?o=1">
-  <div>
-    <svg *ngIf="product.active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path
-        d="M12.8 6.4c-.4.6-1.2.6-1.6 0-.9-1.3-2-1.9-3.5-1.9-2.3 0-4.2 2-4.2 4.5 0 .9.3 1.8.8 2.7.6.9 1.4 1.9 2.7 3.3l1.9 1.9c.3.2 1.1 1 1.2 1.2.4.4.7.6.8.8l.6.6c.2.2.6.2.9 0l.6-.6.8-.8c.2-.1 1-.9 1.2-1.2 1-1 1.7-1.6 1.9-1.9 1.3-1.3 2.2-2.3 2.7-3.3.6-1 .8-1.8.8-2.7 0-2.6-1.8-4.5-4.2-4.5-1.3-.1-2.5.6-3.4 1.9zm3.5-3.9c3.5 0 6.2 2.9 6.2 6.5 0 1.3-.4 2.5-1.1 3.7-.7 1.1-1.6 2.2-3 3.7l-1.9 1.9c-.3.2-1.1 1-1.2 1.2-.4.4-.7.6-.8.7l-.6.6c-1 1-2.7 1-3.7 0l-.6-.6-.8-.8c-.2-.1-1-.9-1.2-1.2-1-1-1.7-1.6-2-1.9-1.4-1.5-2.4-2.6-3-3.7-.7-1.1-1.1-2.3-1.1-3.6 0-3.6 2.7-6.5 6.2-6.5 1.7 0 3.2.6 4.3 1.8 1.2-1.2 2.6-1.8 4.3-1.8z">
-      </path>
-    </svg>
-    <svg (click)="copiarUrl()" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M17.707 8.297a1.005 1.005 0 0 1-1.422-.007l-3.287-3.287v9.995a1 1 0 1 1-2 0V5.003L7.711 8.29a1.006 1.006 0 0 1-1.422.007 1.006 1.006 0 0 1 .008-1.422l4.287-4.287a2 2 0 0 1 2.828 0L17.7 6.875c.395.395.398 1.032.007 1.422Z">
-      </path>
-      <path
-        d="M1.998 17.998a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4V12A1 1 0 0 0 20 12l-.002 6a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2v-6a1 1 0 1 0-2 0v5.998Z">
-      </path>
-    </svg>
-  </div>
-</section>
-<!--ITEM NAME-->
-<section>
-  <div class="product-image">
-    <img id="product-img" src="">
-    <div *ngIf="product.active" class="sold-info-active">
-      <i style="color:green" class="fa-solid fa-handshake-angle"></i>
-      <span>Disponible</span>
-    </div>
-    <div *ngIf="!product.active" class="sold-info-sold">
-      <i style="color:red" class="fa-solid fa-handshake-angle"></i>
-      <span>Vendido</span>
-    </div>
-    <div class="pagination-product">
-      <ng-container *ngFor="let photo of product.photo, let indexP = index">
-        <div *ngIf="indexP != 0 && photo != 'none'" [class]="'known-pagination-'+indexP" (click)="isActive(indexP)">
-        </div>
-        <div *ngIf="indexP == 0" [class]="'active-pagination known-pagination-'+indexP" (click)="isActive(indexP)">
-        </div>
-      </ng-container>
-    </div>
-  </div>
-  <div class=" product-price">
-    <span>{{product.name| uppercase}} </span>
-  </div>
-  <span>{{product.price}} €</span>
-</section>
-<!--END ITEM NAME-->
-<!--ITEM DESC-->
-<section>
-  <p class="descSub">Oferta de </p>
-  <div (click)="userRedirect(seller.id!)" class=" g-englober">
-    <div class="img-eng">
-      <img *ngIf="seller.photo != 'default'" [src]="seller.photo">
-      <img *ngIf="seller.photo == 'default'"
-        src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8PDw8PDw8VFRUVDxUPFRUPFRUPFRUVFRUWFhUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDisZFRkrKys3Ny0rKysrNysrNysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAMIBAwMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQcC/8QAFhABAQEAAAAAAAAAAAAAAAAAAAER/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDERFAQAAAAAAACigioIqooAioqCoAoCKogCiKACAACACgqKg5FRQAABQQAAAABBQBQgKACCCoIogCgCgAACgAiACgoIICKAAKmCgigKigCGKgKAgAACKAACCoIogqqAgACACgCooIoIAqIKIIAooCKiooCKgAAKIoAACoAqACCoIAAAAKigAAKgAAKAAgqKgAKAIAAAqAAAoigAAAAVKoCAKEFEQABFBQBUVA0AAAAUQBAVAAAFQAAAABBUBVAAEUAAAAAAAAAFBAADAAAARcFEFRAAAAAAAAEAAFQFUAAIAIoACAqoAAoIAqACKAAAAgoCACAAoAIAAAKACCiAqgAAAAAAAoiggCgAAqQQAFUwBEQVAABAAABQAQAAAFFEVFAAAAAAAAAVQRUQFQBagUABQRUQAFQAAAQAAABQAQVAVUUAAAAAVFBFEUUEQAAAAAAQBUAAAAAAAEAAUFRQARFEUUAAVFBFAEAUAAAAAEQQFAAAAABAAUAEBUUUAAAAAAABQAFQAAUQAAAQqRQEhQAUARYAJQAWEAABAAFIAotQEBYAJVACigEAUf/2Q=="
-        style="object-fit:none !important;width:1000px !important;background-color: black;">
-
-    </div>
-    <div class="content-pinf">
-      <div class="pinfo">
-        <p>{{seller.username}}</p>
-        <div class="seg">
-          <div class="prate">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
-              </path>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
-              </path>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
-              </path>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
-              </path>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
-              </path>
-            </svg>
-            <span class="valoration_sum">(1 valoración)</span>
-          </div>
-
-        </div>
-        <div style="opacity:0.7">Activo hace 5 minutos</div>
-
-      </div>
-    </div>
-    <svg class="showseller" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" clip-rule="evenodd"
-        d="M13.766 12.343a.493.493 0 0 0 0-.686L9.4 7.134a.96.96 0 0 1-.008-1.327.98.98 0 0 1 1.418-.007l4.64 4.832c.736.766.736 1.97 0 2.736L10.81 18.2a.98.98 0 0 1-1.418-.007.96.96 0 0 1 .008-1.327l4.366-4.523Z">
-      </path>
-    </svg>
-
-  </div>
-
-</section>
-<section>
-  <div class="state">
-    <p class="descSub">Estado : </p>
-    <span *ngIf="product.state == 'bad'" style="background-color: red;">BAD</span>
-    <span *ngIf="product.state != 'bad'">BAD</span>
-
-    <span *ngIf="product.state == 'mid'" style="background-color: yellow;">MID</span>
-    <span *ngIf="product.state != 'mid'">MID</span>
-
-    <span *ngIf="product.state == 'good'" style="background-color: green;">GOOD</span>
-    <span *ngIf="product.state != 'good'">GOOD</span>
-
-    <span *ngIf="product.state == 'new'" style="background-color: purple;">NEW</span>
-    <span *ngIf="product.state != 'new'">NEW</span>
-
-  </div>
-
-  <div>
-    <p class="descSub">Descripción</p>
-    <p class="pdesc">{{product.description}}</p>
-  </div>
-  <div class="timestamps">
-    <p>Publicado hace {{product.created_at | timedif}}</p>
-    <p>Actualizado hace {{product.updated_at |timedif}}</p>
-  </div>
-</section>
-<section>
-  <div class="titleSim">
-    <p class="descSub">Articulos similares</p>
-    <svg alt="test" title="trst" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">s<path
-        d="M8 13.3c2.9 0 5.3-2.4 5.3-5.3 0-1.4-.6-2.8-1.6-3.8S9.4 2.7 8 2.7C5.1 2.7 2.7 5.1 2.7 8s2.4 5.3 5.3 5.3zm0 1.4A6.7 6.7 0 0 1 8 1.3c1.8 0 3.5.7 4.7 2s2 2.9 2 4.7c0 3.7-3 6.7-6.7 6.7zm-.7-7.4c0-.3.3-.6.7-.6s.7.3.7.6v3.3c0 .4-.3.7-.7.7s-.7-.3-.7-.6V7.3zM8 6c.4 0 .7-.3.7-.7s-.3-.6-.7-.6-.7.3-.7.6.3.7.7.7z">
-      </path></svg>
-  </div>
-  <br>
-  <app-slider [products]="products | sliderFilter:product.id!"></app-slider>
-
-</section>
-
-<section>
-  <p class="descSub">¿Hay algo que debamos revisar?</p>
-  <div>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" fill="red" clip-rule="evenodd"
-        d="M8 2c-1.613 0-2.74.27-3.496.572a4.66 4.66 0 0 0-.856.44c-.061.042-.115.08-.16.115a1 1 0 0 0-.488.86v17.012a1 1 0 1 0 2 0v-4.45c.07-.034.151-.072.246-.11.495-.198 1.367-.429 2.754-.429 1.28 0 2.36.422 3.629.93l.055.022c1.22.488 2.623 1.05 4.316 1.05 1.164 0 2.076-.14 2.779-.333C20.427 17.228 21 15.631 21 14.352V5.934c0-.855-.602-1.452-1.083-1.755-.497-.314-1.209-.54-1.894-.382-.496.115-1.16.204-2.023.204-1.28 0-2.36-.421-3.629-.929l-.055-.022C11.096 2.562 9.693 2 8 2Zm0 12.009c-1.292 0-2.272.173-3 .397V4.54c.07-.034.151-.072.246-.11.495-.198 1.367-.429 2.754-.429 1.28 0 2.36.422 3.629.93l.055.022c1.22.488 2.623 1.05 4.316 1.05 1.002 0 1.817-.104 2.473-.256h-.001a.427.427 0 0 0 .085-.025c.207-.079.443.054.443.275v8.355c0 .845-.093 1.217-.75 1.397-.514.14-1.247.261-2.25.261-1.28 0-2.36-.421-3.629-.929l-.055-.022c-1.22-.488-2.623-1.05-4.316-1.05Z">
-      </path>
-    </svg>
-    <p>Informar sobre el anuncio</p>
-  </div>
-</section>
-
-<div style="cursor: pointer;" *ngIf="product.active" class="fixed-bar">
-  <div>
-    <div (click)="showMessageDirect()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path fill="white"
-          d="m20 18.9-.2 2.5c-.1 1.2-1.4 2-2.5 1.4l-2.2-1.1H15c-4.5 1.1-9.3-.8-11.6-4.9C.3 11.3 2.5 4.4 8.3 1.9 12.7 0 18 1.3 20.9 5.2c3.1 4.2 2.7 9.9-.9 13.7 0-.1 0 0 0 0zM9.1 3.7c-4.7 2.1-6.5 7.7-4 12.1 1.9 3.3 5.8 4.9 9.4 4 .5-.1 1-.1 1.5.1l1.8.9.1-2c0-.5.2-.9.5-1.3l.1-.1c2.9-2.9 3.3-7.6.7-11C17 3.3 12.7 2.1 9.1 3.7zM18.2 21zm-.7-7.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5S9 11.2 9 12s-.7 1.5-1.5 1.5z">
+<section class="m-i">
+  <section class="f-h">
+    <img class="arrow" routerLink="/products" src="https://gcdnb.pbrd.co/images/dzXDqXJA6Xki.png?o=1">
+    <div>
+      <svg *ngIf="product.active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M12.8 6.4c-.4.6-1.2.6-1.6 0-.9-1.3-2-1.9-3.5-1.9-2.3 0-4.2 2-4.2 4.5 0 .9.3 1.8.8 2.7.6.9 1.4 1.9 2.7 3.3l1.9 1.9c.3.2 1.1 1 1.2 1.2.4.4.7.6.8.8l.6.6c.2.2.6.2.9 0l.6-.6.8-.8c.2-.1 1-.9 1.2-1.2 1-1 1.7-1.6 1.9-1.9 1.3-1.3 2.2-2.3 2.7-3.3.6-1 .8-1.8.8-2.7 0-2.6-1.8-4.5-4.2-4.5-1.3-.1-2.5.6-3.4 1.9zm3.5-3.9c3.5 0 6.2 2.9 6.2 6.5 0 1.3-.4 2.5-1.1 3.7-.7 1.1-1.6 2.2-3 3.7l-1.9 1.9c-.3.2-1.1 1-1.2 1.2-.4.4-.7.6-.8.7l-.6.6c-1 1-2.7 1-3.7 0l-.6-.6-.8-.8c-.2-.1-1-.9-1.2-1.2-1-1-1.7-1.6-2-1.9-1.4-1.5-2.4-2.6-3-3.7-.7-1.1-1.1-2.3-1.1-3.6 0-3.6 2.7-6.5 6.2-6.5 1.7 0 3.2.6 4.3 1.8 1.2-1.2 2.6-1.8 4.3-1.8z">
         </path>
       </svg>
-      <p>Mensaje</p>
+      <svg (click)="copiarUrl()" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M17.707 8.297a1.005 1.005 0 0 1-1.422-.007l-3.287-3.287v9.995a1 1 0 1 1-2 0V5.003L7.711 8.29a1.006 1.006 0 0 1-1.422.007 1.006 1.006 0 0 1 .008-1.422l4.287-4.287a2 2 0 0 1 2.828 0L17.7 6.875c.395.395.398 1.032.007 1.422Z">
+        </path>
+        <path
+          d="M1.998 17.998a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4V12A1 1 0 0 0 20 12l-.002 6a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2v-6a1 1 0 1 0-2 0v5.998Z">
+        </path>
+      </svg>
+    </div>
+  </section>
+  <!--ITEM NAME-->
+  <section>
+    <div class="product-image">
+      <img id="product-img" src="">
+      <div *ngIf="product.active" class="sold-info-active">
+        <i style="color:green" class="fa-solid fa-handshake-angle"></i>
+        <span>Disponible</span>
+      </div>
+      <div *ngIf="!product.active" class="sold-info-sold">
+        <i style="color:red" class="fa-solid fa-handshake-angle"></i>
+        <span>Vendido</span>
+      </div>
+      <div class="pagination-product">
+        <ng-container *ngFor="let photo of product.photo, let indexP = index">
+          <div *ngIf="indexP != 0 && photo != 'none'" [class]="'known-pagination-'+indexP" (click)="isActive(indexP)">
+          </div>
+          <div *ngIf="indexP == 0" [class]="'active-pagination known-pagination-'+indexP" (click)="isActive(indexP)">
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class=" product-price">
+      <span>{{product.name| uppercase}} </span>
+    </div>
+    <span>{{product.price}} €</span>
+  </section>
+  <!--END ITEM NAME-->
+  <!--ITEM DESC-->
+  <section>
+    <p class="descSub">Oferta de </p>
+    <div (click)="userRedirect(seller.id!)" class=" g-englober">
+      <div class="img-eng">
+        <img *ngIf="seller.photo != 'default'" [src]="seller.photo">
+        <img *ngIf="seller.photo == 'default'"
+          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8PDw8PDw8VFRUVDxUPFRUPFRUPFRUVFRUWFhUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDisZFRkrKys3Ny0rKysrNysrNysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAMIBAwMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQcC/8QAFhABAQEAAAAAAAAAAAAAAAAAAAER/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDERFAQAAAAAAACigioIqooAioqCoAoCKogCiKACAACACgqKg5FRQAABQQAAAABBQBQgKACCCoIogCgCgAACgAiACgoIICKAAKmCgigKigCGKgKAgAACKAACCoIogqqAgACACgCooIoIAqIKIIAooCKiooCKgAAKIoAACoAqACCoIAAAAKigAAKgAAKAAgqKgAKAIAAAqAAAoigAAAAVKoCAKEFEQABFBQBUVA0AAAAUQBAVAAAFQAAAABBUBVAAEUAAAAAAAAAFBAADAAAARcFEFRAAAAAAAAEAAFQFUAAIAIoACAqoAAoIAqACKAAAAgoCACAAoAIAAAKACCiAqgAAAAAAAoiggCgAAqQQAFUwBEQVAABAAABQAQAAAFFEVFAAAAAAAAAVQRUQFQBagUABQRUQAFQAAAQAAABQAQVAVUUAAAAAVFBFEUUEQAAAAAAQBUAAAAAAAEAAUFRQARFEUUAAVFBFAEAUAAAAAEQQFAAAAABAAUAEBUUUAAAAAAABQAFQAAUQAAAQqRQEhQAUARYAJQAWEAABAAFIAotQEBYAJVACigEAUf/2Q=="
+          style="object-fit:none !important;width:1000px !important;background-color: black;">
+
+      </div>
+      <div class="content-pinf">
+        <div class="pinfo">
+          <p>{{seller.username}}</p>
+          <div class="seg">
+            <div class="prate">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+                </path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+                </path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+                </path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+                </path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path
+                  d="M7.8 20.8c-1 .5-2.2.1-2.7-.8-.2-.4-.3-.8-.2-1.3l.8-4.7-3.4-3.3c-.8-.8-.8-2 0-2.8.3-.3.7-.5 1.1-.6l4.7-.7 2.1-4.3c.5-1 1.7-1.4 2.7-.9.4.2.7.5.9.9l2.1 4.3 4.7.7c1.1.2 1.9 1.2 1.7 2.3-.1.4-.3.8-.6 1.1L18.3 14l.8 4.7c.2 1.1-.5 2.1-1.6 2.3-.4.1-.9 0-1.3-.2L12 18.6l-4.2 2.2z">
+                </path>
+              </svg>
+              <span class="valoration_sum">(1 valoración)</span>
+            </div>
+
+          </div>
+          <div style="opacity:0.7">Activo hace 5 minutos</div>
+
+        </div>
+      </div>
+      <svg class="showseller" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M13.766 12.343a.493.493 0 0 0 0-.686L9.4 7.134a.96.96 0 0 1-.008-1.327.98.98 0 0 1 1.418-.007l4.64 4.832c.736.766.736 1.97 0 2.736L10.81 18.2a.98.98 0 0 1-1.418-.007.96.96 0 0 1 .008-1.327l4.366-4.523Z">
+        </path>
+      </svg>
+
+    </div>
+
+  </section>
+  <section>
+    <div class="state">
+      <p class="descSub">Estado : </p>
+      <span *ngIf="product.state == 'bad'" style="background-color: red;">BAD</span>
+      <span *ngIf="product.state != 'bad'">BAD</span>
+
+      <span *ngIf="product.state == 'mid'" style="background-color: yellow;">MID</span>
+      <span *ngIf="product.state != 'mid'">MID</span>
+
+      <span *ngIf="product.state == 'good'" style="background-color: green;">GOOD</span>
+      <span *ngIf="product.state != 'good'">GOOD</span>
+
+      <span *ngIf="product.state == 'new'" style="background-color: purple;">NEW</span>
+      <span *ngIf="product.state != 'new'">NEW</span>
+
+    </div>
+
+    <div>
+      <p class="descSub">Descripción</p>
+      <p class="pdesc">{{product.description}}</p>
+    </div>
+    <div class="timestamps">
+      <p>Publicado hace {{product.created_at | timedif}}</p>
+      <p>Actualizado hace {{product.updated_at |timedif}}</p>
+    </div>
+  </section>
+  <section>
+    <div class="titleSim">
+      <p class="descSub">Articulos similares</p>
+      <svg alt="test" title="trst" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">s<path
+          d="M8 13.3c2.9 0 5.3-2.4 5.3-5.3 0-1.4-.6-2.8-1.6-3.8S9.4 2.7 8 2.7C5.1 2.7 2.7 5.1 2.7 8s2.4 5.3 5.3 5.3zm0 1.4A6.7 6.7 0 0 1 8 1.3c1.8 0 3.5.7 4.7 2s2 2.9 2 4.7c0 3.7-3 6.7-6.7 6.7zm-.7-7.4c0-.3.3-.6.7-.6s.7.3.7.6v3.3c0 .4-.3.7-.7.7s-.7-.3-.7-.6V7.3zM8 6c.4 0 .7-.3.7-.7s-.3-.6-.7-.6-.7.3-.7.6.3.7.7.7z">
+        </path></svg>
+    </div>
+    <br>
+    <app-slider [products]="products | sliderFilter:product.id!"></app-slider>
+
+  </section>
+
+  <section>
+    <p class="descSub">¿Hay algo que debamos revisar?</p>
+    <div>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" fill="red" clip-rule="evenodd"
+          d="M8 2c-1.613 0-2.74.27-3.496.572a4.66 4.66 0 0 0-.856.44c-.061.042-.115.08-.16.115a1 1 0 0 0-.488.86v17.012a1 1 0 1 0 2 0v-4.45c.07-.034.151-.072.246-.11.495-.198 1.367-.429 2.754-.429 1.28 0 2.36.422 3.629.93l.055.022c1.22.488 2.623 1.05 4.316 1.05 1.164 0 2.076-.14 2.779-.333C20.427 17.228 21 15.631 21 14.352V5.934c0-.855-.602-1.452-1.083-1.755-.497-.314-1.209-.54-1.894-.382-.496.115-1.16.204-2.023.204-1.28 0-2.36-.421-3.629-.929l-.055-.022C11.096 2.562 9.693 2 8 2Zm0 12.009c-1.292 0-2.272.173-3 .397V4.54c.07-.034.151-.072.246-.11.495-.198 1.367-.429 2.754-.429 1.28 0 2.36.422 3.629.93l.055.022c1.22.488 2.623 1.05 4.316 1.05 1.002 0 1.817-.104 2.473-.256h-.001a.427.427 0 0 0 .085-.025c.207-.079.443.054.443.275v8.355c0 .845-.093 1.217-.75 1.397-.514.14-1.247.261-2.25.261-1.28 0-2.36-.421-3.629-.929l-.055-.022c-1.22-.488-2.623-1.05-4.316-1.05Z">
+        </path>
+      </svg>
+      <p>Informar sobre el anuncio</p>
+    </div>
+  </section>
+
+  <div style="cursor: pointer;" *ngIf="product.active" class="fixed-bar">
+    <div>
+      <div (click)="showMessageDirect()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="white"
+            d="m20 18.9-.2 2.5c-.1 1.2-1.4 2-2.5 1.4l-2.2-1.1H15c-4.5 1.1-9.3-.8-11.6-4.9C.3 11.3 2.5 4.4 8.3 1.9 12.7 0 18 1.3 20.9 5.2c3.1 4.2 2.7 9.9-.9 13.7 0-.1 0 0 0 0zM9.1 3.7c-4.7 2.1-6.5 7.7-4 12.1 1.9 3.3 5.8 4.9 9.4 4 .5-.1 1-.1 1.5.1l1.8.9.1-2c0-.5.2-.9.5-1.3l.1-.1c2.9-2.9 3.3-7.6.7-11C17 3.3 12.7 2.1 9.1 3.7zM18.2 21zm-.7-7.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5S9 11.2 9 12s-.7 1.5-1.5 1.5z">
+          </path>
+        </svg>
+        <p>Mensaje</p>
+      </div>
     </div>
   </div>
-</div>
+</section>
 <section id="chat" class="chat displayed">
   <div class="chat-cont">
     <div class="chat-fl">
@@ -195,6 +197,97 @@
       <p routerLink="/chat" class="chat-aloc">
         Go to your chats</p>
     </div>
+  </div>
+</section>
+
+<section class="d">
+  <div class="product-image">
+    <div class="img-carr" *ngIf="loaded">
+
+      <img *ngIf="product.photo[pagination] != 'none'" [src]="product.photo[pagination]">
+      <div (click)="modifyPagination(-1)" class="triangle"
+        style="justify-self: center;transform:rotate(180deg);grid-column-start:1 ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+          <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
+        </svg>
+      </div>
+      <div (click)="modifyPagination(1)" class="triangle"
+        style="justify-self: center;transform:rotate(0deg);grid-column-start:4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+          <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
+        </svg>
+      </div>
+      <div *ngIf="product.active" class="sold-info-active-p">
+        <i style="color:green" class="fa-solid fa-handshake-angle"></i>
+        <span>Disponible</span>
+      </div>
+      <div *ngIf="!product.active" class="sold-info-sold-p">
+        <i style="color:red" class="fa-solid fa-handshake-angle"></i>
+        <span>Vendido</span>
+      </div>
+    </div>
+
+    <div class="product-info" style="background-color: blue;">
+      <section class="f-d">
+        <img class="arrow" routerLink="/products" src="https://gcdnb.pbrd.co/images/dzXDqXJA6Xki.png?o=1">
+        <div>
+          <svg *ngIf="product.active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+              d="M12.8 6.4c-.4.6-1.2.6-1.6 0-.9-1.3-2-1.9-3.5-1.9-2.3 0-4.2 2-4.2 4.5 0 .9.3 1.8.8 2.7.6.9 1.4 1.9 2.7 3.3l1.9 1.9c.3.2 1.1 1 1.2 1.2.4.4.7.6.8.8l.6.6c.2.2.6.2.9 0l.6-.6.8-.8c.2-.1 1-.9 1.2-1.2 1-1 1.7-1.6 1.9-1.9 1.3-1.3 2.2-2.3 2.7-3.3.6-1 .8-1.8.8-2.7 0-2.6-1.8-4.5-4.2-4.5-1.3-.1-2.5.6-3.4 1.9zm3.5-3.9c3.5 0 6.2 2.9 6.2 6.5 0 1.3-.4 2.5-1.1 3.7-.7 1.1-1.6 2.2-3 3.7l-1.9 1.9c-.3.2-1.1 1-1.2 1.2-.4.4-.7.6-.8.7l-.6.6c-1 1-2.7 1-3.7 0l-.6-.6-.8-.8c-.2-.1-1-.9-1.2-1.2-1-1-1.7-1.6-2-1.9-1.4-1.5-2.4-2.6-3-3.7-.7-1.1-1.1-2.3-1.1-3.6 0-3.6 2.7-6.5 6.2-6.5 1.7 0 3.2.6 4.3 1.8 1.2-1.2 2.6-1.8 4.3-1.8z">
+            </path>
+          </svg>
+          <svg (click)="copiarUrl()" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.707 8.297a1.005 1.005 0 0 1-1.422-.007l-3.287-3.287v9.995a1 1 0 1 1-2 0V5.003L7.711 8.29a1.006 1.006 0 0 1-1.422.007 1.006 1.006 0 0 1 .008-1.422l4.287-4.287a2 2 0 0 1 2.828 0L17.7 6.875c.395.395.398 1.032.007 1.422Z">
+            </path>
+            <path
+              d="M1.998 17.998a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4V12A1 1 0 0 0 20 12l-.002 6a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2v-6a1 1 0 1 0-2 0v5.998Z">
+            </path>
+          </svg>
+        </div>
+      </section>
+      <section class="profile-eng">
+        <div class="img-profile"></div>
+        <p>{{seller.username}}</p>
+        <div class="triangle" style="transform:rotate(90deg)"></div>
+      </section>
+      <section class="product-details">
+        <div class="p-name">
+          {{product.name |uppercase}}
+        </div>
+        <div class="p-tag-price">
+          <div class="p-price">
+            {{product.price}} €
+          </div>
+          <div class="p-tag">
+            #{{category.name}}
+          </div>
+        </div>
+      </section>
+      <section class="p-desc-state">
+        <div class="p-desc">
+          <p class="t-introducer">Descripción</p>
+          <div class="description">
+            {{product.description}} </div>
+        </div>
+        <div class="p-state">
+          <p class="t-introducer">Estado</p>
+          <div class="state"></div>
+        </div>
+      </section>
+      <div (click)="showMessageDirect()" class="send-message">
+        <svg _ngcontent-ygv-c54="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path _ngcontent-ygv-c54="" fill="white"
+            d="m20 18.9-.2 2.5c-.1 1.2-1.4 2-2.5 1.4l-2.2-1.1H15c-4.5 1.1-9.3-.8-11.6-4.9C.3 11.3 2.5 4.4 8.3 1.9 12.7 0 18 1.3 20.9 5.2c3.1 4.2 2.7 9.9-.9 13.7 0-.1 0 0 0 0zM9.1 3.7c-4.7 2.1-6.5 7.7-4 12.1 1.9 3.3 5.8 4.9 9.4 4 .5-.1 1-.1 1.5.1l1.8.9.1-2c0-.5.2-.9.5-1.3l.1-.1c2.9-2.9 3.3-7.6.7-11C17 3.3 12.7 2.1 9.1 3.7zM18.2 21zm-.7-7.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5S9 11.2 9 12s-.7 1.5-1.5 1.5z">
+          </path>
+        </svg>
+        Mensaje
+      </div>
+    </div>
+  </div>
+  <div class="carrousel-related">
+    <p>Articulos relacionados</p>
+    <app-slider [products]="products"></app-slider>
   </div>
 </section>
 <app-footer></app-footer>

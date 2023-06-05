@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
 import { Pagination } from 'src/app/models/pagination.model';
 import { Product } from 'src/app/models/product.model';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/products.service';
 
@@ -15,14 +18,23 @@ export class HomeComponent implements OnInit {
   public products: Product[] = []
   public categories: Category[] = []
   public pagination: Pagination = {} as Pagination
+  public user: User = {} as User
 
   private readonly categorySize = 9
   private categoryBlank: number[] = []
 
-  constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService) {
+  constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService, private authService: AuthService) {
 
   }
   ngOnInit() {
+    this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
+      catchError((error: { status: number; }) => {
+
+        return throwError(error);
+      })
+    ).subscribe((res: User) => {
+      this.user = res;
+    })
     this.productService.getProducts().subscribe(() => {
       this.products = this.productService.productList
     })
@@ -41,6 +53,7 @@ export class HomeComponent implements OnInit {
     this.pagination.categorySize = 9
 
     this.pagination.categoryDisplay = false
+
   }
   public showCategories(): void {
     const showCats = <HTMLInputElement>document.getElementById("inpt-show")!
