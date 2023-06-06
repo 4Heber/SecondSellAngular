@@ -17,6 +17,7 @@ section {
   gap: $card-width * 1.5;
   width: 100%;
 
+
   div {
     cursor: pointer;
     width: $card-width;
@@ -24,16 +25,25 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: ($card-height + calc($card-height / $carrousel-card-height) + calc($card-height / 12)) 20px 20px 15px;
+
     // background-color: var(--bg-light);
 
+
     div {
+      width: 100%;
+      border-style: solid;
+      border-color: hsla(0, 0%, 0%, 0.275);
+      border-width: 1px 0;
+
       div {
+        border: 0;
         grid-column-start: 1;
         grid-row-start: 1;
         width: $card-width * 2 - calc($card-width / 10);
         height: $card-height + calc($card-height / $carrousel-card-height);
         border-radius: 3px;
         overflow: hidden;
+
 
         img {
           object-fit: contain;
@@ -43,6 +53,7 @@ section {
       }
 
       span {
+
         &:nth-of-type(1) {
           grid-column-start: 1;
           grid-row-start: 2;

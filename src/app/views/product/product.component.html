@@ -352,7 +352,7 @@
   </div>
   <div class="carrousel-related">
     <p>Articulos relacionados</p>
-    <app-slider [products]="products"></app-slider>
+    <app-slider class="carr-related" [products]="products | sliderFilter:product.id!"></app-slider>
   </div>
 </section>
 <app-footer></app-footer>

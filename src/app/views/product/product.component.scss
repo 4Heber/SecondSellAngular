@@ -94,6 +94,14 @@ $recent-card-height: 3;
       height: 3rem;
       border-radius: 10px;
 
+      @media screen and (min-width: 450px) {
+        grid-row-start: 10
+      }
+
+      @media screen and (min-width: 750px) {
+        grid-row-start: 9
+      }
+
       .active-pagination {
         height: 1.5rem;
         width: 1.5rem;
@@ -410,16 +418,6 @@ $recent-card-height: 3;
   }
 }
 
-//FOOTER
-footer {
-  margin-top: 2rem;
-  border: 1px solid black;
-  font-size: 1.5rem;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  height: 20rem;
-}
 
 .spacer {
   width: 90%;
@@ -673,8 +671,12 @@ footer {
 
         .p-name {
           align-self: center;
-          font-size: 3rem;
 
+          @media screen and (min-width: 1500px) {
+            font-size: 3rem;
+          }
+
+          font-size: 2rem;
         }
 
         .p-tag {
@@ -716,7 +718,6 @@ footer {
           border-radius: 10px 2px;
           padding: 3%;
           font-size: 0.9rem;
-
         }
 
         .p-state {
@@ -757,13 +758,26 @@ footer {
     }
 
     .carrousel-related {
-      margin-top: 2rem;
-      background-color: gray;
+
       padding: 5%;
+      display: flex;
+      flex-direction: column;
 
       p {
+        align-self: center;
+        background-color: rgb(91, 149, 180, 0.4);
         font-size: 1.5rem;
         text-align: center;
+        width: max-content;
+        padding: 1rem;
+        border-radius: 10px;
+      }
+
+      .carr-related {
+        border: 1px solid hsl(0, 0%, 0%, 0.6);
+        border-radius: 5px;
+        margin-top: 1rem;
+        background-color: hsl(0, 0%, 50%, 0.2);
       }
     }
   }
