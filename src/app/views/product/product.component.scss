@@ -95,12 +95,12 @@ $recent-card-height: 3;
       border-radius: 10px;
 
       @media screen and (min-width: 450px) {
-        grid-row-start: 10
+        grid-row-start: 10;
+        grid-column-start: 1;
+        grid-column-end: -1;
       }
 
-      @media screen and (min-width: 750px) {
-        grid-row-start: 9
-      }
+
 
       .active-pagination {
         height: 1.5rem;
@@ -531,7 +531,7 @@ $recent-card-height: 3;
   display: none;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1250px) {
   .m-i {
     display: none;
   }
@@ -786,11 +786,11 @@ $recent-card-height: 3;
 
 .sold-info-sold,
 .sold-info-active {
-  align-self: center;
+  align-self: flex-start;
   grid-row-start: 1;
   grid-column-start: 1;
   grid-column-end: -1;
-  width: 35%;
+  width: 9rem;
   height: 3rem;
   border-radius: 30px;
   align-items: center;
@@ -798,7 +798,8 @@ $recent-card-height: 3;
   padding: 0.5rem;
   justify-self: flex-start;
   grid-template-columns: 0.1fr 0.1fr 0.1fr;
-  margin: 5%;
+  margin: 2%;
+  margin-right: calc(100% - 9rem);
   justify-content: space-around;
   border: 1px solid black;
   background-color: hsl(0, 0%, 100%, 0.8);
