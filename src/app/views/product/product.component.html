@@ -204,7 +204,8 @@
   <div class="product-image">
     <div class="img-carr" *ngIf="loaded">
 
-      <img *ngIf="product.photo[pagination] != 'none'" [src]="product.photo[pagination]">
+      <img id="p-img-d" class="trans-pag-d" *ngIf="product.photo[pagination] != 'none'"
+        [src]="product.photo[pagination]">
       <div (click)="modifyPagination(-1)" class="triangle"
         style="justify-self: center;transform:rotate(180deg);grid-column-start:1 ">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -227,16 +228,17 @@
       </div>
     </div>
 
-    <div class="product-info" style="background-color: blue;">
+    <div class="product-info" style="background-color:rgb(216, 226, 234)">
       <section class="f-d">
-        <img class="arrow" routerLink="/products" src="https://gcdnb.pbrd.co/images/dzXDqXJA6Xki.png?o=1">
+        <img class="arrow" style="cursor: pointer;" routerLink="/products"
+          src="https://gcdnb.pbrd.co/images/dzXDqXJA6Xki.png?o=1">
         <div>
-          <svg *ngIf="product.active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <svg style="cursor: pointer;" *ngIf="product.active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
               d="M12.8 6.4c-.4.6-1.2.6-1.6 0-.9-1.3-2-1.9-3.5-1.9-2.3 0-4.2 2-4.2 4.5 0 .9.3 1.8.8 2.7.6.9 1.4 1.9 2.7 3.3l1.9 1.9c.3.2 1.1 1 1.2 1.2.4.4.7.6.8.8l.6.6c.2.2.6.2.9 0l.6-.6.8-.8c.2-.1 1-.9 1.2-1.2 1-1 1.7-1.6 1.9-1.9 1.3-1.3 2.2-2.3 2.7-3.3.6-1 .8-1.8.8-2.7 0-2.6-1.8-4.5-4.2-4.5-1.3-.1-2.5.6-3.4 1.9zm3.5-3.9c3.5 0 6.2 2.9 6.2 6.5 0 1.3-.4 2.5-1.1 3.7-.7 1.1-1.6 2.2-3 3.7l-1.9 1.9c-.3.2-1.1 1-1.2 1.2-.4.4-.7.6-.8.7l-.6.6c-1 1-2.7 1-3.7 0l-.6-.6-.8-.8c-.2-.1-1-.9-1.2-1.2-1-1-1.7-1.6-2-1.9-1.4-1.5-2.4-2.6-3-3.7-.7-1.1-1.1-2.3-1.1-3.6 0-3.6 2.7-6.5 6.2-6.5 1.7 0 3.2.6 4.3 1.8 1.2-1.2 2.6-1.8 4.3-1.8z">
             </path>
           </svg>
-          <svg (click)="copiarUrl()" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg style="cursor: pointer;" (click)="copiarUrl()" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M17.707 8.297a1.005 1.005 0 0 1-1.422-.007l-3.287-3.287v9.995a1 1 0 1 1-2 0V5.003L7.711 8.29a1.006 1.006 0 0 1-1.422.007 1.006 1.006 0 0 1 .008-1.422l4.287-4.287a2 2 0 0 1 2.828 0L17.7 6.875c.395.395.398 1.032.007 1.422Z">
             </path>
@@ -246,7 +248,7 @@
           </svg>
         </div>
       </section>
-      <section class="profile-eng">
+      <section [routerLink]="'/user/'+seller.id" class="profile-eng">
         <div class="img-profile"></div>
         <p>{{seller.username}}</p>
         <div class="triangle" style="transform:rotate(90deg)"></div>
@@ -259,7 +261,7 @@
           <div class="p-price">
             {{product.price}} €
           </div>
-          <div class="p-tag">
+          <div [routerLink]="'/home/'+ category.name" class="p-tag">
             #{{category.name}}
           </div>
         </div>
@@ -272,10 +274,71 @@
         </div>
         <div class="p-state">
           <p class="t-introducer">Estado</p>
-          <div class="state"></div>
+          <div class="state">
+            <svg viewBox="0 0 24 24"
+              [ngStyle]="{ 'background-color': product.state === 'bad' ? 'hsl(0, 0%, 100%,0.4)' : 'transparent' }"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <title>BAD</title>
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M16 16C16 16 14.5 14 12 14C9.5 14 8 16 8 16M15 9H15.01M9 9H9.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15.5 9C15.5 9.27614 15.2761 9.5 15 9.5C14.7239 9.5 14.5 9.27614 14.5 9C14.5 8.72386 14.7239 8.5 15 8.5C15.2761 8.5 15.5 8.72386 15.5 9ZM9.5 9C9.5 9.27614 9.27614 9.5 9 9.5C8.72386 9.5 8.5 9.27614 8.5 9C8.5 8.72386 8.72386 8.5 9 8.5C9.27614 8.5 9.5 8.72386 9.5 9Z"
+                  [ngStyle]="{ 'stroke': product.state === 'bad' ? 'red' : 'black' }" stroke-width="0.9600000000000002"
+                  stroke-linecap="round" stroke-linejoin="round">
+                </path>
+              </g>
+            </svg>
+
+            <svg viewBox="0 0 24 24"
+              [ngStyle]="{ 'background-color': product.state === 'mid' ? 'hsl(0, 0%, 100%,0.4)' : 'transparent' }"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <title>MID</title>
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M8 15H16M15 9H15.01M9 9H9.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15.5 9C15.5 9.27614 15.2761 9.5 15 9.5C14.7239 9.5 14.5 9.27614 14.5 9C14.5 8.72386 14.7239 8.5 15 8.5C15.2761 8.5 15.5 8.72386 15.5 9ZM9.5 9C9.5 9.27614 9.27614 9.5 9 9.5C8.72386 9.5 8.5 9.27614 8.5 9C8.5 8.72386 8.72386 8.5 9 8.5C9.27614 8.5 9.5 8.72386 9.5 9Z"
+                  [ngStyle]="{ 'stroke': product.state === 'mid' ? 'yellow' : 'black' }"
+                  stroke-width="0.9600000000000002" stroke-linecap="round" stroke-linejoin="round">
+                </path>
+              </g>
+            </svg>
+
+            <svg viewBox="0 0 24 24"
+              [ngStyle]="{ 'background-color': product.state === 'good' ? 'hsl(0, 0%, 100%,0.4)' : 'transparent' }"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <title>GOOD</title>
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14M15 9H15.01M9 9H9.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15.5 9C15.5 9.27614 15.2761 9.5 15 9.5C14.7239 9.5 14.5 9.27614 14.5 9C14.5 8.72386 14.7239 8.5 15 8.5C15.2761 8.5 15.5 8.72386 15.5 9ZM9.5 9C9.5 9.27614 9.27614 9.5 9 9.5C8.72386 9.5 8.5 9.27614 8.5 9C8.5 8.72386 8.72386 8.5 9 8.5C9.27614 8.5 9.5 8.72386 9.5 9Z"
+                  [ngStyle]="{ 'stroke': product.state === 'good' ? 'green' : 'black' }"
+                  stroke-width="0.9600000000000002" stroke-linecap="round" stroke-linejoin="round"></path>
+              </g>
+            </svg>
+
+            <svg viewBox="0 0 24 24"
+              [ngStyle]="{ 'background-color': product.state === 'new' ? 'hsl(0, 0%, 100%,0.4)' : 'transparent' }"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <title>NEW</title>
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M15 9H15.01M9 9H9.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15.5 9C15.5 9.27614 15.2761 9.5 15 9.5C14.7239 9.5 14.5 9.27614 14.5 9C14.5 8.72386 14.7239 8.5 15 8.5C15.2761 8.5 15.5 8.72386 15.5 9ZM9.5 9C9.5 9.27614 9.27614 9.5 9 9.5C8.72386 9.5 8.5 9.27614 8.5 9C8.5 8.72386 8.72386 8.5 9 8.5C9.27614 8.5 9.5 8.72386 9.5 9ZM12 17.5C14.5005 17.5 16.5 15.667 16.5 14H7.5C7.5 15.667 9.4995 17.5 12 17.5Z"
+                  [ngStyle]="{ 'stroke': product.state === 'new' ? 'violet' : 'black' }"
+                  stroke-width="0.9600000000000002" stroke-linecap="round" stroke-linejoin="round">
+                </path>
+              </g>
+            </svg>
+
+
+          </div>
         </div>
       </section>
-      <div (click)="showMessageDirect()" class="send-message">
+      <div *ngIf="product.active" (click)="showMessageDirect()" class="send-message">
         <svg _ngcontent-ygv-c54="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path _ngcontent-ygv-c54="" fill="white"
             d="m20 18.9-.2 2.5c-.1 1.2-1.4 2-2.5 1.4l-2.2-1.1H15c-4.5 1.1-9.3-.8-11.6-4.9C.3 11.3 2.5 4.4 8.3 1.9 12.7 0 18 1.3 20.9 5.2c3.1 4.2 2.7 9.9-.9 13.7 0-.1 0 0 0 0zM9.1 3.7c-4.7 2.1-6.5 7.7-4 12.1 1.9 3.3 5.8 4.9 9.4 4 .5-.1 1-.1 1.5.1l1.8.9.1-2c0-.5.2-.9.5-1.3l.1-.1c2.9-2.9 3.3-7.6.7-11C17 3.3 12.7 2.1 9.1 3.7zM18.2 21zm-.7-7.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-5 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5S9 11.2 9 12s-.7 1.5-1.5 1.5z">
@@ -283,6 +346,8 @@
         </svg>
         Mensaje
       </div>
+      <img *ngIf="!product.active" style="margin-top:3rem;width: 200px;align-self: center;"
+        src="../../../assets/images/soldout.png">
     </div>
   </div>
   <div class="carrousel-related">

@@ -344,6 +344,7 @@ $recent-card-height: 3;
 
 
     svg {
+      cursor: pointer;
       width: 30px;
     }
   }
@@ -544,7 +545,7 @@ footer {
 
     .product-image {
       display: grid;
-      grid-template-columns: 60% 5% 35%;
+      grid-template-columns: 60% 2% 38%;
       width: 100%;
       height: 40rem;
 
@@ -587,10 +588,19 @@ footer {
 
       .img-carr {
         justify-content: space-between;
-        background-color: red;
+        background-color: white;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         height: 100%;
+        transition: all;
+        transition-duration: 1000ms;
+        overflow: hidden;
+        border-radius: 10px;
+        background-image: url('https://www.idsplus.net/wp-content/uploads/default-placeholder.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow-y: hidden;
 
         img {
           grid-column-start: 1;
@@ -619,7 +629,7 @@ footer {
       }
 
       .profile-eng {
-        width: 100%;
+        width: 90%;
         height: 5rem;
         border-radius: 5px;
         margin-top: 2rem;
@@ -627,6 +637,15 @@ footer {
         align-items: center;
         padding: 5%;
         justify-content: space-between;
+        background-color: hsl(0, 0%, 100%, 0.5);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all;
+        transition-duration: 200ms;
+
+        &:hover {
+          width: 100%;
+        }
 
         .img-profile {
           height: 4rem !important;
@@ -649,21 +668,23 @@ footer {
       .product-details {
         margin-top: 1rem;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
+        flex-wrap: wrap;
 
         .p-name {
           align-self: center;
-          font-size: 1.5rem;
+          font-size: 3rem;
 
         }
 
         .p-tag {
+          cursor: pointer;
           padding: 0.4rem;
           width: auto;
-          background-color: #191c1e;
+          background-color: hsl(204, 9%, 11%, 0.7);
           border-radius: 5px;
           text-align: center;
-          color: wheat;
+          color: white;
         }
 
         .p-tag-price {
@@ -691,7 +712,8 @@ footer {
 
         .description {
           margin-top: 1rem;
-          background-color: gray;
+          background-color: hsl(0, 0%, 50%, 0.4);
+          border-radius: 10px 2px;
           padding: 3%;
           font-size: 0.9rem;
 
@@ -702,9 +724,15 @@ footer {
 
           .state {
             margin-top: 1rem;
-            background-color: hsl(0, 0%, 50%, 0.7);
             height: 3rem;
             width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            svg {
+              width: 70px;
+              border-radius: 10px;
+            }
           }
         }
       }
@@ -717,7 +745,9 @@ footer {
         align-items: center;
         justify-content: center;
         gap: 10px;
-        background-color: gray;
+        background-color: rgba(151, 173, 191, 0.8);
+        border-radius: 10px;
+        cursor: pointer;
 
 
         svg {
@@ -790,4 +820,9 @@ footer {
 
 .sold-info-sold-p {
   color: red
+}
+
+.trans-pag-d {
+  transition: all;
+  transition-duration: 400ms;
 }

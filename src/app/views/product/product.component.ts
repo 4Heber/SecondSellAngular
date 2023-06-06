@@ -45,17 +45,18 @@ export class ProductComponent implements OnInit {
       this.authService.user.next(res);
       this.route.params.subscribe(params => {
         this.productService.getProductById(params['id']).pipe(
+          catchError((error: { status: number }) => {
+            this.router.navigate(['404']);
+            return throwError(error);
+          }),
           map((product: Product) => {
             if (product.seller_id) {
               this.categoryService.getCategories().subscribe(() => {
-
                 product.photo = JSON.parse(product.photo!);
                 this.product = product as Product;
                 this.category = this.categoryService.categoryList.find((ele: Category) => ele.id === this.product.category_id)!
                 this.productService.getProducts().subscribe(() => {
                   this.products = this.productService.productList.filter(element => element.category_id === product.category_id);
-
-
                   const imageP = <HTMLImageElement>document.getElementById("product-img")!
                   imageP.src = this.product.photo![this.pagination]
                   this.chatList = this.chatService.chatList
@@ -64,7 +65,6 @@ export class ProductComponent implements OnInit {
                     this.chatService.getUserChats(this.user.id!, this.authService.getUserCookie()).subscribe((res: any) => {
                       this.chatList = res
                       this.loaded = true
-
                     });
                   });
                 })
@@ -114,18 +114,78 @@ export class ProductComponent implements OnInit {
     imageP.src = this.product.photo![this.pagination]
 
   }
-  public modifyPagination(amount: number) {
+  public async modifyPagination(amount: number) {
 
+    let img = document.getElementById('p-img-d')!
+    img.classList.add('trans-pag-d')
+    img.style.transform = "translateX(0px)"
     let newPosition = this.pagination + amount;
+    if (amount >= 1) {
+      img.style.transform = "translateX(3000px)"
+    }
+    else {
+      img.style.transform = "translateX(-3000px)"
+    }
+    await this.sleep(500);
     if (newPosition == -1) {
-      return this.pagination = 2
+      img.classList.remove('trans-pag-d')
+      if (amount >= 1) {
+        img.style.transform = "translateX(-6000px)"
+      }
+      else {
+        img.style.transform = "translateX(6000px)"
+      }
+      await this.sleep(15);
+      img.classList.remove('trans-pag-d')
+      img.classList.add('trans-pag-d')
+      this.pagination = 2
+      img.style.transform = "translateX(0px)"
+      await this.sleep(500);
+      img.classList.remove('trans-pag-d')
+      img.style.transform = "translateX(0px)"
+      return
     }
     const totalPages = 3
     if (newPosition > totalPages - 1) {
-      return this.pagination = 0;
+      img.classList.remove('trans-pag-d')
+      if (amount >= 1) {
+        img.style.transform = "translateX(-6000px)"
+      }
+      else {
+        img.style.transform = "translateX(6000px)"
+      }
+      await this.sleep(15);
+      img.classList.remove('trans-pag-d')
+      img.classList.add('trans-pag-d')
+      this.pagination = 0
+      img.style.transform = "translateX(0px)"
+      await this.sleep(500);
+      img.classList.remove('trans-pag-d')
+      img.style.transform = "translateX(0px)"
+      return
     }
-    return this.pagination = newPosition
+    img.classList.remove('trans-pag-d')
+    img.style.transform = "translateX(0px)"
 
+    if (amount >= 1) {
+      img.style.transform = "translateX(-6000px)"
+    }
+    else {
+      img.style.transform = "translateX(6000px)"
+    }
+    await this.sleep(20);
+    img.classList.remove('trans-pag-d')
+    img.classList.add('trans-pag-d')
+    this.pagination = newPosition
+    img.style.transform = "translateX(0px)"
+    await this.sleep(500);
+    img.classList.remove('trans-pag-d')
+    img.style.transform = "translateX(0px)"
+    return
+
+  }
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
   public sendMessage() {
     if (!this.ensureUser()) {

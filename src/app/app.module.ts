@@ -86,7 +86,8 @@ import { NotFoundComponent } from 'src/app/views/404/404.component';
     MatAutocompleteModule,
     MatInputModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+
 
 
 
