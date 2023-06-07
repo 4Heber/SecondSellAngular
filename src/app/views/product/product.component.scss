@@ -64,6 +64,8 @@ $recent-card-height: 3;
     transition-duration: 500ms;
     overflow: hidden;
 
+
+
     img {
       grid-row-start: 1;
       grid-column-start: 1;
@@ -76,9 +78,16 @@ $recent-card-height: 3;
       object-position: center;
       transition: all;
       transition-duration: 500ms;
+
     }
 
+    @media screen and (min-width: 450px) {
+      height: 35rem;
 
+      img {
+        height: 35rem;
+      }
+    }
 
     .pagination-product {
       grid-row-start: 11;
@@ -524,7 +533,6 @@ $recent-card-height: 3;
       width:15 * 0.20+15rem
     }
   }
-
 }
 
 .d {
@@ -664,7 +672,7 @@ $recent-card-height: 3;
       }
 
       .product-details {
-        margin-top: 1rem;
+        margin-top: 2rem;
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
