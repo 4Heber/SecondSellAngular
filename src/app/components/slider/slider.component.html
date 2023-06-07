@@ -1,4 +1,4 @@
-<section>
+<section class="slide-mobile">
   <div *ngFor=" let product of products | pagination : 10  let index = index;">
     <div (click)="productRedirect(product!.id!)">
       <div>
@@ -14,5 +14,19 @@
   <div style="display: flex;width: 100%;height:max-content;font-size: 2rem;align-self: center; text-align: center;"
     *ngIf="products.length == 0">
     No se han encontrado resultados
+  </div>
+</section>
+<section class="slide-desktop">
+  <div class="desktop-element" *ngFor=" let product of products | pagination : 10  let index = index;">
+    <div (click)="productRedirect(product!.id!)">
+      <div>
+        <img [src]="product.photo![0]">
+      </div>
+      <span>{{product.name}}</span>
+      <span>{{product.description | desclen}}</span>
+      <span>Hace {{product.created_at |timedif}}</span>
+      <span>{{product.price}} €</span>
+      <span>🤍 0</span>
+    </div>
   </div>
 </section>

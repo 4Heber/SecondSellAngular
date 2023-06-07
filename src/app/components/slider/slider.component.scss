@@ -93,3 +93,29 @@ section {
     }
   }
 }
+
+.slide-desktop {
+  display: none;
+}
+
+.carousel-slide-0 {
+  transform: translateX(0);
+}
+
+.carousel-slide-1 {
+  transform: translateX(-100%);
+}
+
+.carousel-slide-2 {
+  transform: translateX(-200%);
+}
+
+@media screen and (min-width: 767px) {
+  .slide-desktop {
+    display: block;
+  }
+
+  .slide-mobile {
+    display: none;
+  }
+}

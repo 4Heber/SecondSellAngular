@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { ProductCart } from 'src/app/models/cart.model';
 import { Category } from 'src/app/models/category.model';
 import { Order } from 'src/app/models/order.model';
@@ -40,23 +40,43 @@ export class CartComponent implements OnInit {
       })
     ).subscribe((res: User) => {
       this.authService.user.next(res)
-      this.authService.getUsers().subscribe(()=>{
-      this.users =  this.authService.usuarios
-    
-      this.user = res
-      this.transactionService.getCart(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-        this.transactionService.getProductsCart(this.transactionService.cart.id!,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-          this.productsCart = this.transactionService.productCartList
-          this.productService.getProducts().subscribe(() => {
-            this.products = this.productService.productList.filter(product => {
-              return this.productsCart.some(cartItem => cartItem.product_id === product.id);
-            });
-            this.pr = this.countLog.transform(this.products)
+      this.authService.getUsers().subscribe(() => {
+        this.users = this.authService.usuarios
+
+        this.user = res
+        this.transactionService.getCart(this.user.id!, this.authService.getUserCookie()).subscribe(() => {
+          if (this.transactionService.cart.id! == undefined) {
+            this.pr = [0]
             this.loaded = true
+            return
+          }
+          this.transactionService.getProductsCart(this.transactionService.cart.id!, this.user.id!, this.authService.getUserCookie()).pipe(
+            catchError((error: any, caught: Observable<any>) => {
+              this.transactionService.productCartList = [];
+              return throwError(error);
+            })
+          ).subscribe(() => {
+            this.productsCart = this.transactionService.productCartList
+            if (this.productsCart.length != 0) {
+              this.productService.getProducts().subscribe(() => {
+                this.products = this.productService.productList.filter(product => {
+                  return this.productsCart.some(cartItem => cartItem.product_id === product.id);
+                });
+                this.pr = this.countLog.transform(this.products)
+                this.loaded = true
+
+              })
+            }
+            else {
+              this.pr = [0]
+              this.loaded = true
+
+            }
+
           })
         })
       })
-    })  })
+    })
   }
 
   public changeSelected(product: Product): void {
@@ -81,20 +101,20 @@ export class CartComponent implements OnInit {
         return throwError(error);
       })
     ).subscribe((user: User) => {
-      this.user =user
+      this.user = user
       if (this.user.coin! < this.selectedPrice[1] || this.user.coin == null) {
         alert(this.user.coin!)
         this.deleteSelected()
         return
-      }        
-      this.productService.patchProductCart(this.selectedProduct,this.authService.getUserCookie()).subscribe((res:any) => {
-      
+      }
+      this.productService.patchProductCart(this.selectedProduct, this.authService.getUserCookie()).subscribe((res: any) => {
 
-        this.transactionService.patchChat( this.user.id!, this.selectedProduct.id!,this.authService.getUserCookie()).subscribe(() => {
-          this.transactionService.patchUserCoins((this.user.coin! - this.selectedPrice[1]), this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+
+        this.transactionService.patchChat(this.user.id!, this.selectedProduct.id!, this.authService.getUserCookie()).subscribe(() => {
+          this.transactionService.patchUserCoins((this.user.coin! - this.selectedPrice[1]), this.user.id!, this.authService.getUserCookie()).subscribe(() => {
             this.authService.getUser(this.user.id!).subscribe(() => {
-              this.transactionService.getCart(this.user.id!,this.authService.getUserCookie()).subscribe(() => {
-                this.transactionService.getProductsCart(this.transactionService.cart.id!,this.user.id!,this.authService.getUserCookie()).subscribe(() => {
+              this.transactionService.getCart(this.user.id!, this.authService.getUserCookie()).subscribe(() => {
+                this.transactionService.getProductsCart(this.transactionService.cart.id!, this.user.id!, this.authService.getUserCookie()).subscribe(() => {
                   this.productsCart = this.transactionService.productCartList
                   this.productService.getProducts().subscribe(() => {
                     this.products = this.productService.productList.filter(product => {
@@ -107,7 +127,7 @@ export class CartComponent implements OnInit {
                       price: this.selectedPrice[1],
                       product_id: this.selectedProduct.id!
                     } as Order
-                   // this.transactionService.postOrder(order,this.authService.getUserCookie(),this.user.id!).subscribe(() => {
+                    // this.transactionService.postOrder(order,this.authService.getUserCookie(),this.user.id!).subscribe(() => {
 
                     //})
                     this.deleteSelected()
