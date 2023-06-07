@@ -344,8 +344,14 @@ $recent-card-height: 3;
   height: 100vh;
   width: 100%;
   z-index: 1000;
-  background-color: white;
-  padding: 7%;
+  background-color: #ffffff;
+  opacity: 1;
+  background: 
+      radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 80%, transparent 80%, transparent),
+      radial-gradient(circle, transparent 20%, #ffffff 20%, #ffffff 80%, transparent 80%, transparent) 25px 25px,
+      linear-gradient(#f3f3f3 2px, transparent 2px) 0 -1px, linear-gradient(90deg, #f3f3f3 2px, #ffffff 2px) -1px 0;
+  background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
+  padding: 2rem 1rem 0;
   font-family: Rubik, Verdana, Arial, sans-serif;
 
   .chat-cont {
@@ -355,10 +361,10 @@ $recent-card-height: 3;
 
   .chat-fl {
     width: 100%;
-    font-size: 24px;
+    font-size: 1.4rem;
     display: flex;
     justify-content: space-between;
-
+    user-select: none;
 
     svg {
       cursor: pointer;
@@ -367,23 +373,32 @@ $recent-card-height: 3;
   }
 
   .chat-n {
-    margin-top: 4rem;
+    margin-top: 2rem;
 
     p {
-      opacity: 50%;
+      background-color: var(--bg-light);
+      transform: translate(8px,12px);
+      letter-spacing: 1px;
+      color: var(--secondary-color);
+      padding: 0 4px;
+      width: min-content;
+      border-radius: 5px;
+      user-select: none;
     }
 
     div {
       margin-top: 0.2rem;
-      background-color: hsl(0, 0%, 50%, 0.1);
+      background-color: var(--bg-light);
       padding: 1rem;
-      font-size: 20px;
+      font-size: 1.2rem;
       width: 100%;
       height: 2.5rem;
-      border-radius: 10px;
+      border-radius: 4px;
+      border: 2px solid var(--secondary-color);
       display: flex;
       align-items: center;
-
+      user-select: none;
+      color: var(--text-dark);
     }
   }
 
@@ -391,7 +406,14 @@ $recent-card-height: 3;
     margin-top: 2rem;
 
     p {
-      opacity: 90%;
+      background-color: var(--bg-light);
+      transform: translate(8px,12px);
+      letter-spacing: 1px;
+      color: var(--secondary-color);
+      padding: 0 4px;
+      width: min-content;
+      border-radius: 5px;
+      user-select: none;
     }
 
     textarea {
@@ -399,6 +421,12 @@ $recent-card-height: 3;
       margin-top: 0.3rem;
       height: 20rem;
       width: 100%;
+      border: 2px solid var(--secondary-color);
+      border-radius: 4px;
+      resize: none;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      outline: none;
     }
 
 
@@ -413,16 +441,26 @@ $recent-card-height: 3;
     height: 3rem;
     display: flex;
     justify-content: center;
-    margin-bottom: 5%;
+    margin-bottom: 1rem;
 
     div {
-      border-radius: 10px;
-      background-color: hsl(0, 0%, 50%, 0.4);
+      border-radius: 4px;
+      border: 2px solid var(--secondary-color);
+      background-color: var(--secondary-color);
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 80%;
+      width: 90%;
       height: 3rem;
+      font-size: 1.2rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all ease-in 150ms;
+
+      &:hover{
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+      }
     }
   }
 }
@@ -445,7 +483,8 @@ $recent-card-height: 3;
   overflow: hidden;
   height: 4rem;
   width: 100%;
-  background-color: hsl(0, 0%, 96%, 0.7);
+  // background-color: hsl(0, 0%, 96%, 0.7);
+  backdrop-filter: blur(3px);
   text-align: center;
 
   div {
@@ -458,10 +497,10 @@ $recent-card-height: 3;
     div {
       width: 50%;
       height: 60%;
-      border-radius: 10px;
+      border-radius: 4px;
       display: flex;
       gap: 10px;
-      background-color: gray;
+      background-color: var(--secondary-color);
       align-items: center;
       color: white;
 
@@ -507,19 +546,24 @@ $recent-card-height: 3;
 
     .c-capsule {
       cursor: pointer;
-      background-color: #ffffffff;
+      background-color: var(--bg-light);
       height: 15rem;
       width: 15rem;
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      gap: 25px;
       align-items: center;
       justify-content: center;
       border-radius: 10px;
-      font-family: italic;
+      font-size: 1.1rem;
       transition: all;
       transition-duration: 300ms;
+      box-shadow: 0px 0px 28px 30px rgba($color: #000000, $alpha: 0.08);
 
+      svg{
+        width: 42px;
+        height: 42px;
+      }
     }
 
     .c-capsule:hover {
@@ -848,4 +892,51 @@ $recent-card-height: 3;
 .trans-pag-d {
   transition: all;
   transition-duration: 400ms;
+}
+
+/* ----MEDIA QUERIRES SECTION----
+
+BREAKPOINTS:
+  min-height: 768px
+  min-height: 1024px
+  min-height: 1440px
+*/
+@media screen and (min-width: 767px) {
+  .chat{
+    top: 2rem;
+    left: 5%;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    height: 85vh;
+    width: 90%;
+    border-radius: 6px;
+    padding: 2rem;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .chat{
+    top: 2rem;
+    left: 15%;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    height: 85vh;
+    width: 70%;
+    border-radius: 6px;
+    padding: 2rem;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .chat{
+    top: 4rem;
+    left: 30%;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    height: 85vh;
+    width: 40%;
+    border-radius: 6px;
+    padding: 3rem;
+  }
 }
