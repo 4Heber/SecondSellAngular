@@ -30,9 +30,8 @@ body {
   overflow-x: hidden;
 
   // background-color: var(--bg-surface);
-  .cdk-overlay-container {
+  .cdk-overlay-pane {
     position: fixed !important;
-    background-color: black;
     color: white;
     z-index: 1000;
     bottom: 0;

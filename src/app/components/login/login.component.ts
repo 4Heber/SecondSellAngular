@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
- 
+
     this.authService.getUserByToken(this.authService.getUserCookie()).pipe(
       catchError((error: { status: number; }) => {
         if (error.status === 401) {

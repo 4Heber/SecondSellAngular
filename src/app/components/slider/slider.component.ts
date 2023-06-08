@@ -8,9 +8,12 @@ import { Product } from 'src/app/models/product.model';
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements AfterViewInit {
+export class SliderComponent implements AfterViewInit,OnInit {
   @Input() products!: Product[]
-  private slideCount = 0
+  private slideCount = 1
+  private translateXValue = 0
+  private carouselInterval$:any
+  @Input() slideDef!:boolean
   constructor(private router: Router) { }
 
   public productRedirect(productId: number) {
@@ -18,12 +21,32 @@ export class SliderComponent implements AfterViewInit {
     this.router.navigate([proute])
 
   }
+  ngOnInit(): void {
+      this.translateXValue = 0
+      document.getElementById('slide-me-out')!.style.transform = `translateX(${this.translateXValue}%)`;
+      if(this.slideDef != undefined) {
+       const ele =  document.getElementById('slide-me-out')!
+       ele.classList.add('margined')
+      }
+  }
   ngAfterViewInit() {
-    const products = document.getElementsByClassName('desktop-element')
-    const carouselInterval$ = interval(3000).pipe(take(this.slideCount));
-    carouselInterval$.subscribe(() => {
-      console.log('interval entered')
+    if(this.slideDef != undefined) {
+    this.carouselInterval$ = interval(200).subscribe(() => {
+      this.translateXValue += 0.05;
+
+      document.getElementById('slide-me-out')!.style.transform = `translateX(${this.translateXValue}%)`;
+      if(this.translateXValue >= 100) {
+        this.translateXValue = 0
+      }
     });
   }
+  }
 
+  ngOnDestroy() {
+    if (this.carouselInterval$) {
+      this.carouselInterval$.unsubscribe();
+    }
+    this.translateXValue = 0
+
+  }
 }

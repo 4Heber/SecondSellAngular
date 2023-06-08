@@ -16,8 +16,9 @@
     No se han encontrado resultados
   </div>
 </section>
-<section class="slide-desktop">
-  <div class="desktop-element" *ngFor=" let product of products | pagination : 10  let index = index;">
+
+<section class="slide-desktop" id="slide-me-out">
+  <div class="desktop-element" *ngFor=" let product of products;  let index = index;">
     <div (click)="productRedirect(product!.id!)">
       <div>
         <img [src]="product.photo![0]">
@@ -29,4 +30,8 @@
       <span>🤍 0</span>
     </div>
   </div>
+  <div style="display: flex;width: 100%;height:max-content;font-size: 2rem;align-self: center; text-align: center;"
+  *ngIf="products.length == 0">
+  No se han encontrado resultados
+</div>
 </section>

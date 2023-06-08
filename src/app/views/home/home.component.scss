@@ -557,6 +557,8 @@ BREAKPOINTS:
   .f-h+section+section {
     margin-top: 2rem;
     padding: 0 1rem;
+    overflow-x: hidden;
+
 
     h2 {
       font-size: 1.2rem;
@@ -670,8 +672,10 @@ BREAKPOINTS:
 
   //THIRD PART SECTION / ARTICULOS POPULARES SLIDER
   .f-h+section+section {
+    margin-top: 8rem;
     h2 {
       font-size: 1.6rem;
+      margin-top: -2rem;
     }
   }
 
@@ -731,10 +735,12 @@ BREAKPOINTS:
   //THIRD PART SECTION / ARTICULOS POPULARES SLIDER
   .f-h+section+section {
     // 1300px section width
-    padding: 2rem 19rem;
+    padding: 2rem 2rem;
 
     h2 {
+      margin-left: 17rem;
       font-size: 1.6rem;
+      margin-top: -2.5rem;
     }
   }
 
