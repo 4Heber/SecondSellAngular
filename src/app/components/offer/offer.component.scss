@@ -10,27 +10,44 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 
 
   .e-cont {
-    padding: 1rem;
+    padding: 2.5rem 2rem;
     width: 80%;
-    height: 13rem;
-    background-color: gray;
+    background: radial-gradient(
+      circle at top left,
+      var(--secondary-color) -40%,
+      var(--bg-dark) 30%,
+      var(--bg-dark) 70%,
+      var(--primary-color) 160%
+    );
     display: flex;
     flex-direction: column;
     border-radius: 10px;
     justify-items: center;
     align-items: center;
 
+    svg{
+      color: var(--text-light);
+      width: 42px;
+      height: 42px;
+    }
+
     .cross {
       align-self: flex-end;
       justify-self: end;
-      width: 3rem;
-      height: 3rem;
-      border: 1px solid white;
+      width: 2rem;
+      height: 2rem;
       display: grid;
       grid-template-columns: 1fr;
+      cursor: pointer;
+      transition: all ease-in 150ms;
+
+      &:hover{
+        opacity: 0.8;
+      }
 
       .x,
       .y {
@@ -52,13 +69,48 @@
     }
 
     p {
-      color: white;
+      font-size: 1.2rem;
+      color: var(--text-light);
+      user-select: none;
+    }
+
+    #offer-price{
+      width: 100%;
+      border: 2px solid var(--text-light);
+      border-radius: 4px;
+      background-color: transparent;
+      color: var(--text-light);
+      appearance: text;
+      outline: none;
+      text-align: center;
+      padding: 8px 0;
+      font-size: 1.2rem;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+
+      &:focus{
+
+      }
     }
 
     .submit {
       height: 3rem;
       width: 100%;
       margin-top: 3rem;
+      padding: 8px 0;
+      background-color: var(--bg-light);
+      border-radius: 4px;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all ease-in 150ms;
+
+      &:hover{
+        opacity: 0.8;
+      }
+
     }
   }
 }
