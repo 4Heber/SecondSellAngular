@@ -257,7 +257,7 @@
     height: 2rem;
 
     &:focus{
-      outline: 1px solid var(--primary-color);
+      outline: 2px solid var(--primary-color);
     }
   }
   p{
@@ -381,4 +381,51 @@
 
 .offer-accept {
   background-color: greenyellow !important;
+}
+
+/* ----MEDIA QUERIRES SECTION----
+
+BREAKPOINTS:
+  min-height: 768px
+  min-height: 1024px
+  min-height: 1440px
+*/
+@media screen and (min-width: 767px) {
+  .content-engolber {
+    padding: 3rem 4rem;
+    height: 90vh;
+    overflow-y: none;
+
+    .live-chat{
+      padding: 2rem 2rem 5rem;
+    }
+
+    .direct-info{
+      .direct-profile+div{
+        width: 18%;
+        margin-left: 2%;
+      }
+    }
+    .sub-men{
+      width: 80%;
+      justify-content: center;
+      input{
+        width: 58%;
+        font-size: 1.2rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+@media screen and (min-width: 1024px) {
+  .content-engolber {
+    padding: 3rem 23%;
+    height: 90vh;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .content-engolber {
+    padding: 3rem 27%;
+    height: 90vh;
+  }
 }
