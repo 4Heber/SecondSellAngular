@@ -135,7 +135,8 @@
 
 
   .message-r {
-    background-color: hsl(0, 0%, 50%, 0.2);
+    background-color: #5e5e5e;
+    color: var(--text-light);
     width: max-content;
     padding: 0.5rem;
     padding-inline: 1rem;
@@ -287,7 +288,7 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  // background-color: gray;
+  background-color: rgba($color: #000000, $alpha: 0.6);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -297,12 +298,17 @@
   .content-gl {
     height: 14rem;
     width: 80%;
-    background-color: white;
+    background: radial-gradient(
+      circle at top left,
+      var(--secondary-color) -40%,
+      var(--bg-dark) 30%,
+      var(--bg-dark) 70%,
+      var(--primary-color) 160%
+    );
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 6px;
     padding: 1rem;
-    border: 1px solid red;
 
     .off-cross {
       display: flex;
@@ -310,12 +316,18 @@
       align-items: center;
 
       .cross {
-        align-self: end;
-        width: 3rem;
-        height: 3rem;
-        border: 1px solid black;
+        align-self: flex-end;
+        justify-self: end;
+        width: 2rem;
+        height: 2rem;
         display: grid;
         grid-template-columns: 1fr;
+        cursor: pointer;
+        transition: all ease-in 150ms;
+
+        &:hover{
+          opacity: 0.8;
+        }
 
         .x,
         .y {
@@ -324,7 +336,7 @@
           width: 5px;
           justify-self: center;
           grid-column-start: 1;
-          background-color: black;
+          background-color: rgb(255, 255, 255);
         }
 
         .y {
@@ -335,7 +347,11 @@
           transform: rotate(-45deg);
         }
       }
-
+      p{
+        font-size: 1.2rem;
+        color: var(--text-light);
+        user-select: none;
+      }
     }
 
     span {
@@ -354,11 +370,27 @@
       margin-bottom: 2rem;
 
       div {
+        display: flex;
+        align-items: center;
         background-color: black;
         color: white;
         padding: 1rem;
         border-radius: 10px;
+        cursor: pointer;
+        transition: all ease-in 150ms;
+
+        &:hover{
+          transform: scale(0.97);
+        }
+
+        svg{
+          width: 32px;
+          height: 32px;
+          color: var(--text-light);
+          margin-right: 1rem;
+        }
       }
+
     }
 
   }
@@ -413,6 +445,26 @@ BREAKPOINTS:
         width: 58%;
         font-size: 1.2rem;
         margin-right: 1rem;
+      }
+    }
+    .offer-select{
+      .content-gl {
+        width: 60%;
+        
+        .off-cross{
+          justify-content: space-between;
+        }
+
+        span {
+          font-weight: bold;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          font-size: 3rem;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          color: var(--text-light);
+        }
       }
     }
   }
