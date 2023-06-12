@@ -473,11 +473,23 @@ BREAKPOINTS:
   .content-engolber {
     padding: 3rem 23%;
     height: 90vh;
+
+    .offer-select{
+      .content-gl {
+        width: 40%;
+      }
+    }
   }
 }
 @media screen and (min-width: 1440px) {
   .content-engolber {
     padding: 3rem 27%;
     height: 90vh;
+
+    .offer-select{
+      .content-gl {
+        width: 30%;
+      }
+    }
   }
 }

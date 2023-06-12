@@ -1,58 +1,63 @@
-<section class="sect-1">
-  <div class="content-introducer">
-    <div class="title">Tu Cesta</div>
-    <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" clip-rule="evenodd"
-        d="M11.6667 1.45834H23.3334V10.2083H32.0834V33.5417H2.91669V10.2083H11.6667V1.45834ZM11.6667 13.125V17.5H14.5834V13.125H20.4167V17.5H23.3334V13.125H29.1667V30.625H5.83335V13.125H11.6667ZM20.4167 10.2083H14.5834V4.37501H20.4167V10.2083Z"
-        fill="#3E3E3E" />
-    </svg>
-  </div>
-</section>
-
-<section class="products-accepted">
-  <p *ngIf="pr[0] == 0 && loaded" style="text-align: center;width: 100%;font-weight: bold;">
-    No hay objetos en tu carrito
-  </p>
-  <ng-container *ngFor="let item of products">
-    <div *ngIf="item!.active" (click)="changeSelected(item)" class="product-container">
-      <ng-container *ngIf="item.seller_id | getuser:0:0:users as Seller">
-        <div class="product-img">
-          <img [src]="item.photo![0]">
-        </div>
-        <div>{{ Seller.username[0] | uppercase }}{{ Seller.username.substring(1).toLowerCase() }}</div>
-        <div>{{item.price}}</div>
-      </ng-container>
-    </div>
-  </ng-container>
-</section>
-
-
-<section class="buy-pannel" *ngIf="selectedProduct.photo">
-
-  <div class="buy-cont">
-    <div (click)="deleteSelected()" class="close-pannel">
-
-    </div>
-    <div class="seleted-image">
-      <img [src]="selectedProduct.photo[0]">
-    </div>
-    <div (click)="buy()" class="buy-btn">
-      <p>{{selectedPrice[1]}}</p>
-      <svg id="changeColor" fill="#DC7633" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        width="114" zoomAndPan="magnify" viewBox="0 0 375 374.9999" height="114" version="1.0">
-        <defs></defs>
-        <g></g>
-        <g id="inner-icon" transform="translate(85, 75)"> <svg xmlns="http://www.w3.org/2000/svg" width="199.8"
-            height="199.8" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16" id="IconChangeColor">
-            <path
-              d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"
-              id="mainIconPathAttribute" fill="white"></path>
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" id="mainIconPathAttribute"
-              fill="white"></path>
-            <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
-              id="mainIconPathAttribute" fill="white"></path>
-          </svg> </g>
+<section class="cart-container">
+  <section class="sect-1">
+    <div class="content-introducer">
+      <div class="title">Tu Cesta</div>
+      <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M11.6667 1.45834H23.3334V10.2083H32.0834V33.5417H2.91669V10.2083H11.6667V1.45834ZM11.6667 13.125V17.5H14.5834V13.125H20.4167V17.5H23.3334V13.125H29.1667V30.625H5.83335V13.125H11.6667ZM20.4167 10.2083H14.5834V4.37501H20.4167V10.2083Z"
+          fill="#3E3E3E" />
       </svg>
     </div>
-  </div>
+  </section>
+  
+  <section class="products-accepted">
+    <p *ngIf="pr[0] == 0 && loaded" style="text-align: center;width: 100%;font-weight: bold;">
+      No hay objetos en tu carrito
+    </p>
+    <ng-container *ngFor="let item of products">
+      <div *ngIf="item!.active" (click)="changeSelected(item)" class="product-container">
+        <ng-container *ngIf="item.seller_id | getuser:0:0:users as Seller">
+          <div class="product-img">
+            <img [src]="item.photo![0]">
+          </div>
+          <div class="product-user">{{ Seller.username[0] | uppercase }}{{ Seller.username.substring(1).toLowerCase() }}</div>
+          <div class="product-price">{{item.price}} €</div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </section>
+  
+  
+  <section class="buy-pannel" *ngIf="selectedProduct.photo">
+  
+    <div class="buy-cont">
+      <div (click)="deleteSelected()" class="close-pannel">
+        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <div class="seleted-image">
+        <img [src]="selectedProduct.photo[0]">
+      </div>
+      <div (click)="buy()" class="buy-btn">
+        <p>{{selectedPrice[1]}}</p>
+        <svg id="changeColor" fill="#DC7633" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="114" zoomAndPan="magnify" viewBox="0 0 375 374.9999" height="114" version="1.0">
+          <defs></defs>
+          <g></g>
+          <g id="inner-icon" transform="translate(85, 75)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="199.8"
+              height="199.8" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16" id="IconChangeColor">
+              <path
+                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"
+                id="mainIconPathAttribute" fill="white"></path>
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" id="mainIconPathAttribute"
+                fill="white"></path>
+              <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
+                id="mainIconPathAttribute" fill="white"></path>
+            </svg> </g>
+        </svg>
+      </div>
+    </div>
+  </section>
 </section>
