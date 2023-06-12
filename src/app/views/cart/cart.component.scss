@@ -117,7 +117,6 @@
       align-self: center;
       justify-self: center;
       width: 90%;
-      height: 30rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -174,6 +173,73 @@
         svg {
           width: 80px;
           path{ fill:var(--text-dark); }
+        }
+      }
+    }
+  }
+}
+
+/* ----MEDIA QUERIRES SECTION----
+
+BREAKPOINTS:
+  min-height: 768px
+  min-height: 1024px
+  min-height: 1440px
+*/
+@media screen and (min-width: 767px) {
+  .cart-container{
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    .sect-1,
+    .products-accepted{
+      width: 60%;
+    }
+    .buy-pannel{
+      .buy-cont{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        .seleted-image{
+          width: 60%;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1024px) {
+  .cart-container{
+    .sect-1,
+    .products-accepted{
+      width: 50%;
+    }
+  }
+}
+@media screen and (min-width: 1440px) {
+  .cart-container{
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    .sect-1,
+    .products-accepted{
+      width: 30%;
+    }
+    .sect-1{
+      padding: 4rem 1rem 1rem;
+    }
+    .buy-pannel{
+      .buy-cont{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        .seleted-image{
+          width: 60%;
         }
       }
     }
